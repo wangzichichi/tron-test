@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tron.tronscan.account.baseTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-08-28T05:05:07" hostname="bogon" time="1.436">
+  <properties/>
+  <testcase name="test" classname="tron.tronscan.account.baseTest" time="1.436"/>
+  <system-out><![CDATA[test
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
