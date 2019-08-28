@@ -133,10 +133,9 @@ public class tronscanApiList {
     return response;
   }
 
-    public static JSONArray parseGetResponseContent(HttpResponse response) {
+    public static JSONArray parseArrayResponseContent(HttpResponse response) {
       try {
         String result = EntityUtils.toString(response.getEntity());
-        System.out.println(result);
         StringEntity entity = new StringEntity(result, Charset.forName("UTF-8"));
         response.setEntity(entity);
         JSONArray obj = JSONArray.parseArray(result);
@@ -174,8 +173,7 @@ public class tronscanApiList {
     log.info("JSON content size are: " + responseContent.size());
     log.info("----------------------------Print JSON End-----------------------------");
   }
-  
-  
+
   
   /**
    * constructor.
