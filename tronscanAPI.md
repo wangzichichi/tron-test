@@ -359,7 +359,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/exchanges/listall
 @param: null;  
 @return: all the exchange pairs;  
 @TestOwner:王子赫;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 34
 **/api/exchange/transaction**  

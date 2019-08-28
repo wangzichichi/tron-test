@@ -71,6 +71,24 @@ public class tronscanApiList {
   /**
    * constructor.
    */
+  public static HttpResponse getContractEvents(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode
+          + "api/contract/events" + "?start=0&limit=20&start_timestamp=1548000000000&end_timestamp=1548056638507";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+
+  /**
+   * constructor.
+   */
   public static HttpResponse getExchangesList(String tronscanNode) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/exchanges/list?sort=-balance";
