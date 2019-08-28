@@ -71,6 +71,23 @@ public class tronscanApiList {
   /**
    * constructor.
    */
+  public static HttpResponse getExchangesList(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/exchanges/list?sort=-balance";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+
+  /**
+   * constructor.
+   */
   public static HttpResponse getWitnesses(String tronscanNode) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/witness";
@@ -241,6 +258,13 @@ public class tronscanApiList {
    */
   public static void disConnect() {
     httppost.releaseConnection();
+  }
+
+  /**
+   * constructor.
+   */
+  public static void disGetConnect() {
+    httpget.releaseConnection();
   }
 
 
