@@ -83,6 +83,23 @@ public class tronscanApiList {
     return response;
   }
 
+  /**
+   * constructor.
+   */
+  public static HttpResponse getExchangesListAll(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/exchanges/listall";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+
 
   /**
    * constructor.
@@ -195,6 +212,21 @@ public class tronscanApiList {
     log.info("JSON content size are: " + responseContent.size());
     log.info("----------------------------Print JSON End-----------------------------");
   }
+
+  /**
+   * constructor.
+   */
+  public static void printJsonArrayContent(JSONArray responseContent) {
+    log.info("----------------------------Print JSON Start---------------------------");
+    for (int i = 0; i < responseContent.size();i++) {
+      for (String str : responseContent.getJSONObject(i).keySet()) {
+        log.info(str + ":" + responseContent.get(i).toString());
+      }
+    }
+    log.info("JSON content size are: " + responseContent.size());
+    log.info("----------------------------Print JSON End-----------------------------");
+  }
+
 
   /**
    * constructor.

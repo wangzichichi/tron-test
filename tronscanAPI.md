@@ -350,7 +350,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/exchanges/list?sort=-balance
 @param sort: define the sequence of the records return;  
 @return: all the audited exchange pairs;  
 @TestOwner:王子赫;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 33
 **/api/exchanges/listall**  
