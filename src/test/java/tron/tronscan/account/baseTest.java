@@ -14,7 +14,7 @@ public class baseTest {
   WebBrowser webBrowser = new WebBrowser();
   public static WebDriver driver;
   public static By by;
-  @BeforeSuite
+  @BeforeSuite(enabled = false)
   public void start() throws Exception {
     try {
 
@@ -26,7 +26,7 @@ public class baseTest {
     }
   }
 
-  @Test
+  @Test(enabled = false)
   public void test() {
     System.out.println("test");
     Actions builder = new Actions(driver);
@@ -41,7 +41,7 @@ public class baseTest {
     //System.out.println(name);
   }
 
-  @AfterSuite
+  @AfterSuite(enabled = false)
   public void end() throws Exception {
     WebBrowser.tearDownBrowser();
   }
