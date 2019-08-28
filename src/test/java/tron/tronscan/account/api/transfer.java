@@ -1,25 +1,27 @@
 package tron.tronscan.account.api;
 
 import com.alibaba.fastjson.JSONObject;
+import java.util.HashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.utils.Configuration;
-import tron.common.utils.Utils;
 import tron.common.tronscanApiList;
+import tron.common.utils.Configuration;
+
 
 @Slf4j
-public class systemStatus {
+public class transfer {
 
   private final String foundationKey = Configuration.getByPath("testng.conf")
       .getString("foundationAccount.key1");
   private JSONObject responseContent;
   private JSONObject targetContent;
   private HttpResponse response;
-  private String tronScanNode = Configuration.getByPath("testng.conf").getStringList("tronscan.ip.list")
-      .get(0);
+  private String tronScanNode = Configuration.getByPath("testng.conf")
+      .getStringList("tronscan.ip.list").get(0);
+  private HashMap<String,String> testAccount;
 
   /**
    * constructor.
@@ -38,16 +40,29 @@ public class systemStatus {
 
     //database has block and confirmedBlock, confirmedBlock <= block
     targetContent = responseContent.getJSONObject("database");
-    log.info(targetContent.get("confirmedBlock").toString());
-    log.info(targetContent.get("block").toString());
-    Assert.assertTrue(Long.valueOf(targetContent.get("confirmedBlock").toString()) <= Long.valueOf(targetContent.get("block").toString()));
+    long databaseBlock = Long.valueOf(targetContent.get("block").toString());
+    long databaseConfirmedBlock = Long.valueOf(targetContent.get("confirmedBlock").toString());
+    Assert.assertTrue(databaseBlock >= databaseConfirmedBlock);
 
     //sync has one key:value,
     targetContent = responseContent.getJSONObject("sync");
-    Assert.assertTrue(Double.valueOf(targetContent.get("progress").toString()) >= 99);
-    log.info(targetContent.get("progress").toString());
-    //network should
+    Assert.assertTrue(Double.valueOf(targetContent.get("progress").toString()) >= 95);
 
+    //network type should be mainnet
+    targetContent = responseContent.getJSONObject("network");
+    Assert.assertTrue(targetContent.get("type").equals("mainnet"));
+
+    //full block is equal databaseBlock
+    targetContent = responseContent.getJSONObject("full");
+    long full = Long.valueOf(targetContent.get("block").toString());
+    log.info("full:" + full +  " , databaseBlock:" + databaseBlock);
+    Assert.assertEquals(full,databaseBlock);
+
+
+    //full block is equal databaseBlock
+    targetContent = responseContent.getJSONObject("solidity");
+    long solidity = Long.valueOf(targetContent.get("block").toString());
+    Assert.assertTrue(solidity == databaseConfirmedBlock);
   }
 
   /**
