@@ -154,19 +154,19 @@ public class tronscanApiList {
     return response;
   }
 
-    public static JSONArray parseGetResponseContent(HttpResponse response) {
-      try {
-        String result = EntityUtils.toString(response.getEntity());
-        System.out.println(result);
-        StringEntity entity = new StringEntity(result, Charset.forName("UTF-8"));
-        response.setEntity(entity);
-        JSONArray obj = JSONArray.parseArray(result);
-        return obj;
-      } catch (Exception e) {
-        e.printStackTrace();
-        return null;
-      }
+  public static JSONArray parseArrayResponseContent(HttpResponse response) {
+    try {
+      String result = EntityUtils.toString(response.getEntity());
+      System.out.println(result);
+      StringEntity entity = new StringEntity(result, Charset.forName("UTF-8"));
+      response.setEntity(entity);
+      JSONArray obj = JSONArray.parseArray(result);
+      return obj;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
     }
+  }
   /**
    * constructor.
    */
@@ -218,9 +218,9 @@ public class tronscanApiList {
     log.info("address:" + accountInfo.get("address") );
     return accountInfo;
   }
-  
-  
-  
+
+
+
   /**
    * constructor.
    */
