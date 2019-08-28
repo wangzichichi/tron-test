@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonObject;
 import com.sun.xml.internal.ws.message.StringHeader;
 import java.nio.charset.Charset;
+import java.util.Map;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -117,6 +118,23 @@ public class tronscanApiList {
     return response;
   }
 
+  /**
+   * constructor.
+   */
+  public static HttpResponse getAccount(String tronscanNode,Map<String, String> map) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/account/list";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl,map);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+
 
   /**
    * constructor.
@@ -152,12 +170,26 @@ public class tronscanApiList {
     return response;
   }
 
-
   public static HttpResponse createGetConnect(String url) {
+    return createConnect(url, null);
+  }
+
+
+  public static HttpResponse createGetConnect(String url,Map<String, String> requestBody) {
     try {
       httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,
           connectionTimeout);
       httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, soTimeout);
+      if (requestBody != null) {
+        StringBuffer stringBuffer = new StringBuffer(url);
+        stringBuffer.append("?");
+        for (Map.Entry<String, String> entry : requestBody.entrySet()) {
+          stringBuffer.append(entry.getKey()+"="+entry.getValue()+"&");
+          System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+        }
+        stringBuffer.deleteCharAt(stringBuffer.length()-1);
+        url = stringBuffer.toString();
+      }
 
       httpget = new HttpGet(url);
       httpget.setHeader("Content-type", "application/json; charset=utf-8");
