@@ -100,7 +100,21 @@ public class tronscanApiList {
     }
     return response;
   }
-
+  /**
+   * constructor.
+   */
+  public static HttpResponse getLastestBlock(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/block/latest";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
   /**
    * constructor.
    */
