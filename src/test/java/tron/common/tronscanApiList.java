@@ -2,14 +2,21 @@ package tron.common;
 
 import java.util.HashMap;
 import java.util.List;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonObject;
+import com.sun.xml.internal.ws.message.StringHeader;
 import java.nio.charset.Charset;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
@@ -22,6 +29,7 @@ public class tronscanApiList {
 
   static HttpClient httpClient;
   static HttpPost httppost;
+  static HttpGet httpget;
   static HttpResponse response;
   static Integer connectionTimeout = Configuration.getByPath("testng.conf")
       .getInt("defaultParameter.httpConnectionTimeout");
@@ -49,7 +57,24 @@ public class tronscanApiList {
   public static HttpResponse getSystemStatus(String tronscanNode) {
     try {
       String requestUrl = "http://" + tronscanNode + "/api/system/status";
+      System.out.println(requestUrl);
       response = createConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.
+   */
+  public static HttpResponse getWitnesses(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/witness";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
     } catch (Exception e) {
       e.printStackTrace();
       httppost.releaseConnection();
@@ -74,6 +99,7 @@ public class tronscanApiList {
       httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,
           connectionTimeout);
       httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, soTimeout);
+
       httppost = new HttpPost(url);
       httppost.setHeader("Content-type", "application/json; charset=utf-8");
       httppost.setHeader("Connection", "Close");
@@ -92,12 +118,45 @@ public class tronscanApiList {
     return response;
   }
 
+
+  public static HttpResponse createGetConnect(String url) {
+    try {
+      httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,
+          connectionTimeout);
+      httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, soTimeout);
+
+      httpget = new HttpGet(url);
+      httpget.setHeader("Content-type", "application/json; charset=utf-8");
+      httpget.setHeader("Connection", "Close");
+      response = httpClient.execute(httpget);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+    public static JSONArray parseGetResponseContent(HttpResponse response) {
+      try {
+        String result = EntityUtils.toString(response.getEntity());
+        System.out.println(result);
+        StringEntity entity = new StringEntity(result, Charset.forName("UTF-8"));
+        response.setEntity(entity);
+        JSONArray obj = JSONArray.parseArray(result);
+        return obj;
+      } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+      }
+    }
   /**
    * constructor.
    */
   public static JSONObject parseResponseContent(HttpResponse response) {
     try {
       String result = EntityUtils.toString(response.getEntity());
+      System.out.println(result);
       StringEntity entity = new StringEntity(result, Charset.forName("UTF-8"));
       response.setEntity(entity);
       JSONObject obj = JSONObject.parseObject(result);
