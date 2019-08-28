@@ -1,5 +1,7 @@
 package tron.common;
 
+import java.util.HashMap;
+import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonObject;
@@ -33,6 +35,8 @@ public class tronscanApiList {
       .getInt("defaultParameter.httpConnectionTimeout");
   static Integer soTimeout = Configuration.getByPath("testng.conf")
       .getInt("defaultParameter.httpSoTimeout");
+  static String blockChainNode = Configuration.getByPath("testng.conf")
+      .getStringList("blockChain.ip.list").get(0);
   static String transactionString;
   static String transactionSignString;
   static JSONObject responseContent;
@@ -173,6 +177,29 @@ public class tronscanApiList {
     }
     log.info("JSON content size are: " + responseContent.size());
     log.info("----------------------------Print JSON End-----------------------------");
+  }
+
+  /**
+   * constructor.
+   */
+  public static HashMap<String,String> generateAddress() {
+    try {
+      String requestUrl = "http://" + blockChainNode + "/wallet/generateaddress";
+      response = createConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    responseContent = parseResponseContent(response);
+    HashMap<String,String> accountInfo = new HashMap<>();
+    accountInfo.put("privateKey",responseContent.getString("privateKey"));
+    accountInfo.put("address",responseContent.getString("address"));
+    accountInfo.put("hexAddress",responseContent.getString("hexAddress"));
+    log.info("privateKey:" + accountInfo.get("privateKey") );
+    log.info("hexAddress:" + accountInfo.get("hexAddress") );
+    log.info("address:" + accountInfo.get("address") );
+    return accountInfo;
   }
   
   
