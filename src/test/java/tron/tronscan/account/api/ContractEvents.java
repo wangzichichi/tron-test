@@ -45,7 +45,8 @@ public class ContractEvents {
 
     //transferFromAddress
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
-    Assert.assertTrue(patternAddress.matcher(targetContent.getString("transferFromAddress")).matches());
+    Assert.assertTrue(patternAddress.matcher(targetContent
+        .getString("transferFromAddress")).matches());
 
     //data
     Assert.assertTrue(targetContent.containsKey("data"));
@@ -54,6 +55,24 @@ public class ContractEvents {
     Integer decimals = Integer.valueOf(targetContent.get("decimals").toString());
     Assert.assertTrue(decimals >= 0 && decimals <= 7);
 
+    //tokenName
+    Assert.assertTrue(!targetContent.get("tokenName").toString().isEmpty());
+
+    //transferToAddress
+    Assert.assertTrue(patternAddress.matcher(targetContent
+        .getString("transferToAddress")).matches());
+
+    //block
+    Assert.assertTrue(Integer.valueOf(targetContent.get("block").toString()) > 0);
+
+    //confirmed
+    Assert.assertTrue(Boolean.valueOf(targetContent.getString("confirmed")));
+
+    //transactionHash
+    Assert.assertTrue(!targetContent.get("transactionHash").toString().isEmpty());
+
+    //timestamp
+    Assert.assertTrue(!targetContent.get("timestamp").toString().isEmpty());
 
   }
 
