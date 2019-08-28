@@ -156,6 +156,7 @@ public class tronscanApiList {
         stringBuffer.deleteCharAt(stringBuffer.length()-1);
         url = stringBuffer.toString();
       }
+
       httpget = new HttpGet(url);
       httpget.setHeader("Content-type", "application/json; charset=utf-8");
       httpget.setHeader("Connection", "Close");
