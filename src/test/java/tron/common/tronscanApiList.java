@@ -153,7 +153,7 @@ public class tronscanApiList {
   }
 
   public static HttpResponse createGetConnect(String url) {
-    return createConnect(url, null);
+    return createGetConnect(url, null);
   }
 
 
