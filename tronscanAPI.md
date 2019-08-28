@@ -412,7 +412,7 @@ Desc: Broadcast a transaction to the blockchain
 Demo: curl -X Post  https://apilist.tronscan.org/api/broadcast  
 @param: transaction: signature generated hex;  
 @return: broadcast result;  
-@TestOwner:朱凯;
+@TestOwner:王子赫;
 @AutomationCase:false;
 
 # 39
@@ -426,7 +426,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/contract/events?address=TSbJ
 @param address: an account;   
 @return: TRC-20 transfers list; 
 @TestOwner:王子赫;
-@AutomationCase:false;  
+@AutomationCase:true;  
 
 # 40
 **/api/internal-transaction**   
@@ -465,5 +465,5 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/token_trc20/transfers?limit=
 @param start_timestamp: query date range;   
 @param end_timestamp: query date range;   
 @return: TRC20 token transfers list;   
-@TestOwner:王子赫;
+@TestOwner:朱凯;
 @AutomationCase:false;
