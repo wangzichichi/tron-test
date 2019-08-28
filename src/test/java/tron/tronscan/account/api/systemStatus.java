@@ -40,7 +40,7 @@ public class systemStatus {
     targetContent = responseContent.getJSONObject("database");
     log.info(targetContent.get("confirmedBlock").toString());
     log.info(targetContent.get("block").toString());
-    Assert.assertTrue(Long.valueOf(targetContent.get("confirmedBlock").toString()) <= Long.valueOf(targetContent.get("block").toString()));
+    Assert.assertTrue(Long.valueOf(targetContent.get("confirmedBlock").toString()) > Long.valueOf(targetContent.get("block").toString()));
 
     //sync has one key:value,
     targetContent = responseContent.getJSONObject("sync");
