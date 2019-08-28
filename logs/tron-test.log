@@ -1,0 +1,270 @@
+15:07:41.894 INFO [Configuration] user defined config file doesn't exists, use default config file in jar
+15:07:42.349 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection request: [route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 0 of 80; total allocated: 0 of 100]
+15:07:42.356 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection leased: [id: 0][route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 1 of 80; total allocated: 1 of 100]
+15:07:42.432 DEBUG [o.a.h.i.c.DefaultClientConnectionOperator] Connecting to apilist.tronscan.org:80
+15:07:42.739 DEBUG [o.a.h.c.p.RequestAddCookies] CookieSpec selected: default
+15:07:42.740 DEBUG [o.a.h.c.p.RequestAuthCache] Auth cache not set in the context
+15:07:42.740 DEBUG [o.a.h.c.p.RequestTargetAuthentication] Target auth state: UNCHALLENGED
+15:07:42.741 DEBUG [o.a.h.c.p.RequestProxyAuthentication] Proxy auth state: UNCHALLENGED
+15:07:42.741 DEBUG [o.a.h.i.c.DefaultHttpClient] Attempt 1 to execute request
+15:07:42.741 DEBUG [o.a.h.i.c.DefaultClientConnection] Sending request: POST /api/system/status HTTP/1.1
+15:07:42.741 DEBUG [o.a.h.wire]  >> "POST /api/system/status HTTP/1.1[\r][\n]"
+15:07:42.742 DEBUG [o.a.h.wire]  >> "Content-type: application/json; charset=utf-8[\r][\n]"
+15:07:42.742 DEBUG [o.a.h.wire]  >> "Connection: Close[\r][\n]"
+15:07:42.742 DEBUG [o.a.h.wire]  >> "Content-Length: 0[\r][\n]"
+15:07:42.742 DEBUG [o.a.h.wire]  >> "Host: apilist.tronscan.org[\r][\n]"
+15:07:42.742 DEBUG [o.a.h.wire]  >> "User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_171)[\r][\n]"
+15:07:42.742 DEBUG [o.a.h.wire]  >> "[\r][\n]"
+15:07:42.742 DEBUG [o.a.h.headers] >> POST /api/system/status HTTP/1.1
+15:07:42.742 DEBUG [o.a.h.headers] >> Content-type: application/json; charset=utf-8
+15:07:42.743 DEBUG [o.a.h.headers] >> Connection: Close
+15:07:42.743 DEBUG [o.a.h.headers] >> Content-Length: 0
+15:07:42.743 DEBUG [o.a.h.headers] >> Host: apilist.tronscan.org
+15:07:42.743 DEBUG [o.a.h.headers] >> User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_171)
+15:07:43.951 DEBUG [o.a.h.wire]  << "HTTP/1.1 200 OK[\r][\n]"
+15:07:43.953 DEBUG [o.a.h.wire]  << "Server: nginx/1.14.2[\r][\n]"
+15:07:43.953 DEBUG [o.a.h.wire]  << "Date: Wed, 28 Aug 2019 07:07:43 GMT[\r][\n]"
+15:07:43.953 DEBUG [o.a.h.wire]  << "Content-Length: 181[\r][\n]"
+15:07:43.953 DEBUG [o.a.h.wire]  << "Connection: close[\r][\n]"
+15:07:43.954 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Origin: *[\r][\n]"
+15:07:43.954 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Headers: DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization[\r][\n]"
+15:07:43.954 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS[\r][\n]"
+15:07:43.954 DEBUG [o.a.h.wire]  << "[\r][\n]"
+15:07:43.955 DEBUG [o.a.h.i.c.DefaultClientConnection] Receiving response: HTTP/1.1 200 OK
+15:07:43.956 DEBUG [o.a.h.headers] << HTTP/1.1 200 OK
+15:07:43.956 DEBUG [o.a.h.headers] << Server: nginx/1.14.2
+15:07:43.956 DEBUG [o.a.h.headers] << Date: Wed, 28 Aug 2019 07:07:43 GMT
+15:07:43.956 DEBUG [o.a.h.headers] << Content-Length: 181
+15:07:43.956 DEBUG [o.a.h.headers] << Connection: close
+15:07:43.956 DEBUG [o.a.h.headers] << Access-Control-Allow-Origin: *
+15:07:43.956 DEBUG [o.a.h.headers] << Access-Control-Allow-Headers: DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization
+15:07:43.956 DEBUG [o.a.h.headers] << Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+15:07:43.964 INFO [t.t.a.a.systemStatus] code is 200
+15:07:43.967 DEBUG [o.a.h.wire]  << "{"database":{"block":12244774,"confirmedBlock":12244756},"sync":{"progress":99.99989383223455},"network":{"type":"mainnet"},"full":{"block":12244774},"solidity":{"block":12244756}}[\n]"
+15:07:43.968 DEBUG [o.a.h.i.c.DefaultClientConnection] Connection 0.0.0.0:63666<->18.216.178.128:80 closed
+15:07:43.968 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection released: [id: 0][route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 0 of 80; total allocated: 0 of 100]
+15:07:44.030 INFO [t.c.tronscanApiList] ----------------------------Print JSON Start---------------------------
+15:07:44.043 INFO [t.c.tronscanApiList] database:{"block":12244774,"confirmedBlock":12244756}
+15:07:44.043 INFO [t.c.tronscanApiList] sync:{"progress":99.99989383223455}
+15:07:44.043 INFO [t.c.tronscanApiList] network:{"type":"mainnet"}
+15:07:44.043 INFO [t.c.tronscanApiList] full:{"block":12244774}
+15:07:44.043 INFO [t.c.tronscanApiList] solidity:{"block":12244756}
+15:07:44.043 INFO [t.c.tronscanApiList] JSON content size are: 5
+15:07:44.043 INFO [t.c.tronscanApiList] ----------------------------Print JSON End-----------------------------
+15:14:09.562 INFO [Configuration] user defined config file doesn't exists, use default config file in jar
+15:14:10.003 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection request: [route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 0 of 80; total allocated: 0 of 100]
+15:14:10.011 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection leased: [id: 0][route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 1 of 80; total allocated: 1 of 100]
+15:14:10.082 DEBUG [o.a.h.i.c.DefaultClientConnectionOperator] Connecting to apilist.tronscan.org:80
+15:14:10.356 DEBUG [o.a.h.c.p.RequestAddCookies] CookieSpec selected: default
+15:14:10.357 DEBUG [o.a.h.c.p.RequestAuthCache] Auth cache not set in the context
+15:14:10.357 DEBUG [o.a.h.c.p.RequestTargetAuthentication] Target auth state: UNCHALLENGED
+15:14:10.357 DEBUG [o.a.h.c.p.RequestProxyAuthentication] Proxy auth state: UNCHALLENGED
+15:14:10.358 DEBUG [o.a.h.i.c.DefaultHttpClient] Attempt 1 to execute request
+15:14:10.358 DEBUG [o.a.h.i.c.DefaultClientConnection] Sending request: POST /api/system/status HTTP/1.1
+15:14:10.358 DEBUG [o.a.h.wire]  >> "POST /api/system/status HTTP/1.1[\r][\n]"
+15:14:10.359 DEBUG [o.a.h.wire]  >> "Content-type: application/json; charset=utf-8[\r][\n]"
+15:14:10.359 DEBUG [o.a.h.wire]  >> "Connection: Close[\r][\n]"
+15:14:10.359 DEBUG [o.a.h.wire]  >> "Content-Length: 0[\r][\n]"
+15:14:10.359 DEBUG [o.a.h.wire]  >> "Host: apilist.tronscan.org[\r][\n]"
+15:14:10.359 DEBUG [o.a.h.wire]  >> "User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_171)[\r][\n]"
+15:14:10.359 DEBUG [o.a.h.wire]  >> "[\r][\n]"
+15:14:10.359 DEBUG [o.a.h.headers] >> POST /api/system/status HTTP/1.1
+15:14:10.359 DEBUG [o.a.h.headers] >> Content-type: application/json; charset=utf-8
+15:14:10.359 DEBUG [o.a.h.headers] >> Connection: Close
+15:14:10.359 DEBUG [o.a.h.headers] >> Content-Length: 0
+15:14:10.359 DEBUG [o.a.h.headers] >> Host: apilist.tronscan.org
+15:14:10.359 DEBUG [o.a.h.headers] >> User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_171)
+15:14:11.615 DEBUG [o.a.h.wire]  << "HTTP/1.1 200 OK[\r][\n]"
+15:14:11.619 DEBUG [o.a.h.wire]  << "Server: nginx/1.14.2[\r][\n]"
+15:14:11.619 DEBUG [o.a.h.wire]  << "Date: Wed, 28 Aug 2019 07:14:11 GMT[\r][\n]"
+15:14:11.619 DEBUG [o.a.h.wire]  << "Content-Length: 181[\r][\n]"
+15:14:11.619 DEBUG [o.a.h.wire]  << "Connection: close[\r][\n]"
+15:14:11.620 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Origin: *[\r][\n]"
+15:14:11.620 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Headers: DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization[\r][\n]"
+15:14:11.620 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS[\r][\n]"
+15:14:11.620 DEBUG [o.a.h.wire]  << "[\r][\n]"
+15:14:11.621 DEBUG [o.a.h.i.c.DefaultClientConnection] Receiving response: HTTP/1.1 200 OK
+15:14:11.621 DEBUG [o.a.h.headers] << HTTP/1.1 200 OK
+15:14:11.621 DEBUG [o.a.h.headers] << Server: nginx/1.14.2
+15:14:11.621 DEBUG [o.a.h.headers] << Date: Wed, 28 Aug 2019 07:14:11 GMT
+15:14:11.621 DEBUG [o.a.h.headers] << Content-Length: 181
+15:14:11.621 DEBUG [o.a.h.headers] << Connection: close
+15:14:11.621 DEBUG [o.a.h.headers] << Access-Control-Allow-Origin: *
+15:14:11.621 DEBUG [o.a.h.headers] << Access-Control-Allow-Headers: DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization
+15:14:11.621 DEBUG [o.a.h.headers] << Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+15:14:11.630 INFO [t.t.a.a.systemStatus] code is 200
+15:14:11.633 DEBUG [o.a.h.wire]  << "{"database":{"block":12244903,"confirmedBlock":12244885},"sync":{"progress":99.99989383335303},"network":{"type":"mainnet"},"full":{"block":12244903},"solidity":{"block":12244885}}[\n]"
+15:14:11.634 DEBUG [o.a.h.i.c.DefaultClientConnection] Connection 0.0.0.0:65260<->18.216.178.128:80 closed
+15:14:11.634 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection released: [id: 0][route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 0 of 80; total allocated: 0 of 100]
+15:14:11.699 INFO [t.c.tronscanApiList] ----------------------------Print JSON Start---------------------------
+15:14:11.712 INFO [t.c.tronscanApiList] database:{"block":12244903,"confirmedBlock":12244885}
+15:14:11.712 INFO [t.c.tronscanApiList] sync:{"progress":99.99989383335303}
+15:14:11.712 INFO [t.c.tronscanApiList] network:{"type":"mainnet"}
+15:14:11.712 INFO [t.c.tronscanApiList] full:{"block":12244903}
+15:14:11.712 INFO [t.c.tronscanApiList] solidity:{"block":12244885}
+15:14:11.713 INFO [t.c.tronscanApiList] JSON content size are: 5
+15:14:11.713 INFO [t.c.tronscanApiList] ----------------------------Print JSON End-----------------------------
+15:14:40.724 INFO [Configuration] user defined config file doesn't exists, use default config file in jar
+15:14:41.160 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection request: [route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 0 of 80; total allocated: 0 of 100]
+15:14:41.167 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection leased: [id: 0][route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 1 of 80; total allocated: 1 of 100]
+15:14:41.172 DEBUG [o.a.h.i.c.DefaultClientConnectionOperator] Connecting to apilist.tronscan.org:80
+15:14:41.445 DEBUG [o.a.h.c.p.RequestAddCookies] CookieSpec selected: default
+15:14:41.446 DEBUG [o.a.h.c.p.RequestAuthCache] Auth cache not set in the context
+15:14:41.446 DEBUG [o.a.h.c.p.RequestTargetAuthentication] Target auth state: UNCHALLENGED
+15:14:41.446 DEBUG [o.a.h.c.p.RequestProxyAuthentication] Proxy auth state: UNCHALLENGED
+15:14:41.446 DEBUG [o.a.h.i.c.DefaultHttpClient] Attempt 1 to execute request
+15:14:41.447 DEBUG [o.a.h.i.c.DefaultClientConnection] Sending request: POST /api/system/status HTTP/1.1
+15:14:41.447 DEBUG [o.a.h.wire]  >> "POST /api/system/status HTTP/1.1[\r][\n]"
+15:14:41.448 DEBUG [o.a.h.wire]  >> "Content-type: application/json; charset=utf-8[\r][\n]"
+15:14:41.448 DEBUG [o.a.h.wire]  >> "Connection: Close[\r][\n]"
+15:14:41.448 DEBUG [o.a.h.wire]  >> "Content-Length: 0[\r][\n]"
+15:14:41.448 DEBUG [o.a.h.wire]  >> "Host: apilist.tronscan.org[\r][\n]"
+15:14:41.448 DEBUG [o.a.h.wire]  >> "User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_171)[\r][\n]"
+15:14:41.448 DEBUG [o.a.h.wire]  >> "[\r][\n]"
+15:14:41.448 DEBUG [o.a.h.headers] >> POST /api/system/status HTTP/1.1
+15:14:41.448 DEBUG [o.a.h.headers] >> Content-type: application/json; charset=utf-8
+15:14:41.448 DEBUG [o.a.h.headers] >> Connection: Close
+15:14:41.448 DEBUG [o.a.h.headers] >> Content-Length: 0
+15:14:41.448 DEBUG [o.a.h.headers] >> Host: apilist.tronscan.org
+15:14:41.448 DEBUG [o.a.h.headers] >> User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_171)
+15:14:43.056 DEBUG [o.a.h.wire]  << "HTTP/1.1 200 OK[\r][\n]"
+15:14:43.059 DEBUG [o.a.h.wire]  << "Server: nginx/1.14.2[\r][\n]"
+15:14:43.059 DEBUG [o.a.h.wire]  << "Date: Wed, 28 Aug 2019 07:14:42 GMT[\r][\n]"
+15:14:43.059 DEBUG [o.a.h.wire]  << "Content-Length: 181[\r][\n]"
+15:14:43.060 DEBUG [o.a.h.wire]  << "Connection: close[\r][\n]"
+15:14:43.060 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Origin: *[\r][\n]"
+15:14:43.060 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Headers: DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization[\r][\n]"
+15:14:43.060 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS[\r][\n]"
+15:14:43.060 DEBUG [o.a.h.wire]  << "[\r][\n]"
+15:14:43.061 DEBUG [o.a.h.i.c.DefaultClientConnection] Receiving response: HTTP/1.1 200 OK
+15:14:43.061 DEBUG [o.a.h.headers] << HTTP/1.1 200 OK
+15:14:43.061 DEBUG [o.a.h.headers] << Server: nginx/1.14.2
+15:14:43.061 DEBUG [o.a.h.headers] << Date: Wed, 28 Aug 2019 07:14:42 GMT
+15:14:43.061 DEBUG [o.a.h.headers] << Content-Length: 181
+15:14:43.061 DEBUG [o.a.h.headers] << Connection: close
+15:14:43.061 DEBUG [o.a.h.headers] << Access-Control-Allow-Origin: *
+15:14:43.061 DEBUG [o.a.h.headers] << Access-Control-Allow-Headers: DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization
+15:14:43.061 DEBUG [o.a.h.headers] << Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+15:14:43.069 INFO [t.t.a.a.systemStatus] code is 200
+15:14:43.072 DEBUG [o.a.h.wire]  << "{"database":{"block":12244913,"confirmedBlock":12244895},"sync":{"progress":99.99990200010237},"network":{"type":"mainnet"},"full":{"block":12244913},"solidity":{"block":12244895}}[\n]"
+15:14:43.073 DEBUG [o.a.h.i.c.DefaultClientConnection] Connection 0.0.0.0:65393<->18.216.178.128:80 closed
+15:14:43.073 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection released: [id: 0][route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 0 of 80; total allocated: 0 of 100]
+15:14:43.135 INFO [t.c.tronscanApiList] ----------------------------Print JSON Start---------------------------
+15:14:43.147 INFO [t.c.tronscanApiList] database:{"block":12244913,"confirmedBlock":12244895}
+15:14:43.147 INFO [t.c.tronscanApiList] sync:{"progress":99.99990200010237}
+15:14:43.148 INFO [t.c.tronscanApiList] network:{"type":"mainnet"}
+15:14:43.148 INFO [t.c.tronscanApiList] full:{"block":12244913}
+15:14:43.148 INFO [t.c.tronscanApiList] solidity:{"block":12244895}
+15:14:43.148 INFO [t.c.tronscanApiList] JSON content size are: 5
+15:14:43.148 INFO [t.c.tronscanApiList] ----------------------------Print JSON End-----------------------------
+15:14:43.148 INFO [t.t.a.a.systemStatus] 12244895
+15:14:43.148 INFO [t.t.a.a.systemStatus] 12244913
+15:42:57.824 INFO [Configuration] user defined config file doesn't exists, use default config file in jar
+15:42:58.329 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection request: [route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 0 of 80; total allocated: 0 of 100]
+15:42:58.338 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection leased: [id: 0][route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 1 of 80; total allocated: 1 of 100]
+15:42:58.413 DEBUG [o.a.h.i.c.DefaultClientConnectionOperator] Connecting to apilist.tronscan.org:80
+15:42:58.685 DEBUG [o.a.h.c.p.RequestAddCookies] CookieSpec selected: default
+15:42:58.687 DEBUG [o.a.h.c.p.RequestAuthCache] Auth cache not set in the context
+15:42:58.687 DEBUG [o.a.h.c.p.RequestTargetAuthentication] Target auth state: UNCHALLENGED
+15:42:58.687 DEBUG [o.a.h.c.p.RequestProxyAuthentication] Proxy auth state: UNCHALLENGED
+15:42:58.687 DEBUG [o.a.h.i.c.DefaultHttpClient] Attempt 1 to execute request
+15:42:58.687 DEBUG [o.a.h.i.c.DefaultClientConnection] Sending request: POST /api/system/status HTTP/1.1
+15:42:58.688 DEBUG [o.a.h.wire]  >> "POST /api/system/status HTTP/1.1[\r][\n]"
+15:42:58.689 DEBUG [o.a.h.wire]  >> "Content-type: application/json; charset=utf-8[\r][\n]"
+15:42:58.689 DEBUG [o.a.h.wire]  >> "Connection: Close[\r][\n]"
+15:42:58.689 DEBUG [o.a.h.wire]  >> "Content-Length: 0[\r][\n]"
+15:42:58.689 DEBUG [o.a.h.wire]  >> "Host: apilist.tronscan.org[\r][\n]"
+15:42:58.689 DEBUG [o.a.h.wire]  >> "User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_171)[\r][\n]"
+15:42:58.689 DEBUG [o.a.h.wire]  >> "[\r][\n]"
+15:42:58.689 DEBUG [o.a.h.headers] >> POST /api/system/status HTTP/1.1
+15:42:58.689 DEBUG [o.a.h.headers] >> Content-type: application/json; charset=utf-8
+15:42:58.689 DEBUG [o.a.h.headers] >> Connection: Close
+15:42:58.689 DEBUG [o.a.h.headers] >> Content-Length: 0
+15:42:58.689 DEBUG [o.a.h.headers] >> Host: apilist.tronscan.org
+15:42:58.689 DEBUG [o.a.h.headers] >> User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_171)
+15:42:59.895 DEBUG [o.a.h.wire]  << "HTTP/1.1 200 OK[\r][\n]"
+15:42:59.897 DEBUG [o.a.h.wire]  << "Server: nginx/1.14.2[\r][\n]"
+15:42:59.897 DEBUG [o.a.h.wire]  << "Date: Wed, 28 Aug 2019 07:42:59 GMT[\r][\n]"
+15:42:59.897 DEBUG [o.a.h.wire]  << "Content-Length: 180[\r][\n]"
+15:42:59.898 DEBUG [o.a.h.wire]  << "Connection: close[\r][\n]"
+15:42:59.898 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Origin: *[\r][\n]"
+15:42:59.898 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Headers: DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization[\r][\n]"
+15:42:59.898 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS[\r][\n]"
+15:42:59.898 DEBUG [o.a.h.wire]  << "[\r][\n]"
+15:42:59.898 DEBUG [o.a.h.i.c.DefaultClientConnection] Receiving response: HTTP/1.1 200 OK
+15:42:59.898 DEBUG [o.a.h.headers] << HTTP/1.1 200 OK
+15:42:59.898 DEBUG [o.a.h.headers] << Server: nginx/1.14.2
+15:42:59.898 DEBUG [o.a.h.headers] << Date: Wed, 28 Aug 2019 07:42:59 GMT
+15:42:59.898 DEBUG [o.a.h.headers] << Content-Length: 180
+15:42:59.898 DEBUG [o.a.h.headers] << Connection: close
+15:42:59.898 DEBUG [o.a.h.headers] << Access-Control-Allow-Origin: *
+15:42:59.898 DEBUG [o.a.h.headers] << Access-Control-Allow-Headers: DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization
+15:42:59.899 DEBUG [o.a.h.headers] << Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+15:42:59.905 INFO [t.t.a.a.systemStatus] code is 200
+15:42:59.909 DEBUG [o.a.h.wire]  << "{"database":{"block":12245479,"confirmedBlock":12245461},"sync":{"progress":99.9999101709172},"network":{"type":"mainnet"},"full":{"block":12245479},"solidity":{"block":12245461}}[\n]"
+15:42:59.910 DEBUG [o.a.h.i.c.DefaultClientConnection] Connection 0.0.0.0:56047<->18.216.178.128:80 closed
+15:42:59.910 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection released: [id: 0][route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 0 of 80; total allocated: 0 of 100]
+15:42:59.982 INFO [t.c.tronscanApiList] ----------------------------Print JSON Start---------------------------
+15:42:59.996 INFO [t.c.tronscanApiList] database:{"block":12245479,"confirmedBlock":12245461}
+15:42:59.996 INFO [t.c.tronscanApiList] sync:{"progress":99.9999101709172}
+15:42:59.996 INFO [t.c.tronscanApiList] network:{"type":"mainnet"}
+15:42:59.996 INFO [t.c.tronscanApiList] full:{"block":12245479}
+15:42:59.997 INFO [t.c.tronscanApiList] solidity:{"block":12245461}
+15:42:59.997 INFO [t.c.tronscanApiList] JSON content size are: 5
+15:42:59.997 INFO [t.c.tronscanApiList] ----------------------------Print JSON End-----------------------------
+15:44:16.097 INFO [Configuration] user defined config file doesn't exists, use default config file in jar
+15:44:16.772 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection request: [route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 0 of 80; total allocated: 0 of 100]
+15:44:16.789 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection leased: [id: 0][route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 1 of 80; total allocated: 1 of 100]
+15:44:16.800 DEBUG [o.a.h.i.c.DefaultClientConnectionOperator] Connecting to apilist.tronscan.org:80
+15:44:17.108 DEBUG [o.a.h.c.p.RequestAddCookies] CookieSpec selected: default
+15:44:17.111 DEBUG [o.a.h.c.p.RequestAuthCache] Auth cache not set in the context
+15:44:17.112 DEBUG [o.a.h.c.p.RequestTargetAuthentication] Target auth state: UNCHALLENGED
+15:44:17.114 DEBUG [o.a.h.c.p.RequestProxyAuthentication] Proxy auth state: UNCHALLENGED
+15:44:17.114 DEBUG [o.a.h.i.c.DefaultHttpClient] Attempt 1 to execute request
+15:44:17.114 DEBUG [o.a.h.i.c.DefaultClientConnection] Sending request: POST /api/system/status HTTP/1.1
+15:44:17.115 DEBUG [o.a.h.wire]  >> "POST /api/system/status HTTP/1.1[\r][\n]"
+15:44:17.116 DEBUG [o.a.h.wire]  >> "Content-type: application/json; charset=utf-8[\r][\n]"
+15:44:17.116 DEBUG [o.a.h.wire]  >> "Connection: Close[\r][\n]"
+15:44:17.116 DEBUG [o.a.h.wire]  >> "Content-Length: 0[\r][\n]"
+15:44:17.117 DEBUG [o.a.h.wire]  >> "Host: apilist.tronscan.org[\r][\n]"
+15:44:17.117 DEBUG [o.a.h.wire]  >> "User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_171)[\r][\n]"
+15:44:17.117 DEBUG [o.a.h.wire]  >> "[\r][\n]"
+15:44:17.118 DEBUG [o.a.h.headers] >> POST /api/system/status HTTP/1.1
+15:44:17.118 DEBUG [o.a.h.headers] >> Content-type: application/json; charset=utf-8
+15:44:17.118 DEBUG [o.a.h.headers] >> Connection: Close
+15:44:17.118 DEBUG [o.a.h.headers] >> Content-Length: 0
+15:44:17.118 DEBUG [o.a.h.headers] >> Host: apilist.tronscan.org
+15:44:17.118 DEBUG [o.a.h.headers] >> User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_171)
+15:44:18.448 DEBUG [o.a.h.wire]  << "HTTP/1.1 200 OK[\r][\n]"
+15:44:18.451 DEBUG [o.a.h.wire]  << "Server: nginx/1.14.2[\r][\n]"
+15:44:18.452 DEBUG [o.a.h.wire]  << "Date: Wed, 28 Aug 2019 07:44:18 GMT[\r][\n]"
+15:44:18.452 DEBUG [o.a.h.wire]  << "Content-Length: 181[\r][\n]"
+15:44:18.452 DEBUG [o.a.h.wire]  << "Connection: close[\r][\n]"
+15:44:18.452 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Origin: *[\r][\n]"
+15:44:18.452 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Headers: DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization[\r][\n]"
+15:44:18.452 DEBUG [o.a.h.wire]  << "Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS[\r][\n]"
+15:44:18.452 DEBUG [o.a.h.wire]  << "[\r][\n]"
+15:44:18.454 DEBUG [o.a.h.i.c.DefaultClientConnection] Receiving response: HTTP/1.1 200 OK
+15:44:18.454 DEBUG [o.a.h.headers] << HTTP/1.1 200 OK
+15:44:18.454 DEBUG [o.a.h.headers] << Server: nginx/1.14.2
+15:44:18.455 DEBUG [o.a.h.headers] << Date: Wed, 28 Aug 2019 07:44:18 GMT
+15:44:18.455 DEBUG [o.a.h.headers] << Content-Length: 181
+15:44:18.455 DEBUG [o.a.h.headers] << Connection: close
+15:44:18.455 DEBUG [o.a.h.headers] << Access-Control-Allow-Origin: *
+15:44:18.455 DEBUG [o.a.h.headers] << Access-Control-Allow-Headers: DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization
+15:44:18.455 DEBUG [o.a.h.headers] << Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+15:44:18.463 INFO [t.t.a.a.systemStatus] code is 200
+15:44:18.466 DEBUG [o.a.h.wire]  << "{"database":{"block":12245505,"confirmedBlock":12245487},"sync":{"progress":99.99991833737576},"network":{"type":"mainnet"},"full":{"block":12245505},"solidity":{"block":12245487}}[\n]"
+15:44:18.467 DEBUG [o.a.h.i.c.DefaultClientConnection] Connection 0.0.0.0:56374<->18.216.178.128:80 closed
+15:44:18.468 DEBUG [o.a.h.i.c.PoolingClientConnectionManager] Connection released: [id: 0][route: {}->http://apilist.tronscan.org:80][total kept alive: 0; route allocated: 0 of 80; total allocated: 0 of 100]
+15:44:18.534 INFO [t.c.tronscanApiList] ----------------------------Print JSON Start---------------------------
+15:44:18.547 INFO [t.c.tronscanApiList] database:{"block":12245505,"confirmedBlock":12245487}
+15:44:18.547 INFO [t.c.tronscanApiList] sync:{"progress":99.99991833737576}
+15:44:18.547 INFO [t.c.tronscanApiList] network:{"type":"mainnet"}
+15:44:18.547 INFO [t.c.tronscanApiList] full:{"block":12245505}
+15:44:18.547 INFO [t.c.tronscanApiList] solidity:{"block":12245487}
+15:44:18.548 INFO [t.c.tronscanApiList] JSON content size are: 5
+15:44:18.548 INFO [t.c.tronscanApiList] ----------------------------Print JSON End-----------------------------
+15:44:18.548 INFO [t.t.a.a.systemStatus] 12245487
+15:44:18.548 INFO [t.t.a.a.systemStatus] 12245505
+15:44:18.548 INFO [t.t.a.a.systemStatus] 99.99991833737576
