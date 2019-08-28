@@ -35,7 +35,8 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/account?address=TWd4WrZ9wn84
 @param address: an account;  
 @return: an account detail info;  
 @TestOwner:姜红;
-@AutomationCase:false;
+@AutomationCase: false;
+@AutomationCase: false;  
 
 # 5
 **/api/block**  
