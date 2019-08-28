@@ -104,11 +104,10 @@ public class tronscanApiList {
   /**
    * constructor.
    */
-  public static HttpResponse getAccount(String tronscanNode,Map<String, String> map) {
+  public static HttpResponse getAccount(String tronscanNode,Map<String, String> Params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/account/list";
-      System.out.println(requestUrl);
-      response = createGetConnect(requestUrl,map);
+      response = createGetConnect(requestUrl,Params);
     } catch (Exception e) {
       e.printStackTrace();
       httppost.releaseConnection();
@@ -158,22 +157,21 @@ public class tronscanApiList {
   }
 
 
-  public static HttpResponse createGetConnect(String url,Map<String, String> requestBody) {
+  public static HttpResponse createGetConnect(String url,Map<String, String> Params) {
     try {
       httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,
           connectionTimeout);
       httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, soTimeout);
-      if (requestBody != null) {
+      if (Params != null) {
         StringBuffer stringBuffer = new StringBuffer(url);
         stringBuffer.append("?");
-        for (Map.Entry<String, String> entry : requestBody.entrySet()) {
+        for (Map.Entry<String, String> entry : Params.entrySet()) {
           stringBuffer.append(entry.getKey()+"="+entry.getValue()+"&");
-          System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
         }
         stringBuffer.deleteCharAt(stringBuffer.length()-1);
         url = stringBuffer.toString();
       }
-
+      System.out.println(url);
       httpget = new HttpGet(url);
       httpget.setHeader("Content-type", "application/json; charset=utf-8");
       httpget.setHeader("Connection", "Close");
