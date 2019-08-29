@@ -13,7 +13,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import tron.common.utils.Configuration;
 import tron.common.utils.Utils;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 
 @Slf4j
 public class FundsInfo {
@@ -32,11 +32,11 @@ public class FundsInfo {
   @Test(enabled = true, description = "List the transactions related to a specified account")
   public void test01FundsInfo() {
     //Get response
-    response = tronscanApiList.getFundsInfo(tronScanNode);
+    response = TronscanApiList.getFundsInfo(tronScanNode);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
     Assert.assertTrue(responseContent.containsKey("genesisBlockIssue"));
     Assert.assertTrue(responseContent.containsKey("totalBlockPay"));
     Assert.assertTrue(responseContent.containsKey("totalNodePay"));
@@ -55,7 +55,7 @@ public class FundsInfo {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-//    tronscanApiList.disConnect();
+//    TronscanApiList.disConnect();
   }
 
 }
