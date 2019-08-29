@@ -1,9 +1,7 @@
 package tron.tronscan.account.api;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonArray;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
@@ -11,13 +9,12 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import org.testng.mustache.Value;
 import tron.common.tronscanApiList;
 import tron.common.utils.Configuration;
 
 
 @Slf4j
-public class ExchangeList {
+public class ExchangeListAll {
 
   private final String foundationKey = Configuration.getByPath("testng.conf")
       .getString("foundationAccount.key1");
@@ -31,20 +28,16 @@ public class ExchangeList {
   /**
    * constructor.
    */
-  @Test(enabled = true, description = "Get exchange list")
-  public void getExchangeList() {
+  @Test(enabled = true, description = "Get exchange list all")
+  public void getExchangeListAll() {
     //Get response
-    response = tronscanApiList.getExchangesList(tronScanNode);
+    response = tronscanApiList.getExchangesListAll(tronScanNode);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    JSONArray responseContent = tronscanApiList.parseArrayResponseContent(response);
+    //tronscanApiList.printJsonArrayContent(responseContent);
 
-    //Two object, "total" and "Data"
-    Assert.assertTrue(responseContent.size() >= 2);
-    Integer total = Integer.valueOf(responseContent.get("total").toString());
-    JSONArray exchangeArray = responseContent.getJSONArray("Data");
-    Assert.assertTrue(exchangeArray.size() == total);
+    JSONArray exchangeArray = responseContent;
 
     //first_token_id
     targetContent = exchangeArray.getJSONObject(0);
@@ -81,15 +74,13 @@ public class ExchangeList {
 
     //Price
     Double price = Double.valueOf(targetContent.get("price").toString());
-    Assert.assertTrue(price > 0);
+    Assert.assertTrue(price >= 0);
 
     //first_owner_address
-    Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
-    Assert.assertTrue(patternAddress.matcher(targetContent
-        .getString("first_owner_address")).matches());
+    Assert.assertTrue(targetContent.containsKey("first_owner_address"));
 
     //creator_address
-    Assert.assertTrue(patternAddress.matcher(targetContent.getString("creator_address")).matches());
+    Assert.assertTrue(targetContent.containsKey("creator_address"));
 
     //svolume
     Assert.assertTrue(!targetContent.get("svolume").toString().isEmpty());

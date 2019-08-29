@@ -40,15 +40,15 @@ public class ContractsCode {
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = tronscanApiList.parseResponseContent(response);
     tronscanApiList.printJsonContent(responseContent);
-    JSONObject responseObject = responseContent.getJSONObject("status");
-    Assert.assertTrue(responseObject.containsKey("code"));
-    Assert.assertTrue(responseObject.containsKey("message"));
+    targetContent = responseContent.getJSONObject("status");
+    Assert.assertTrue(targetContent.containsKey("code"));
+    Assert.assertTrue(targetContent.containsKey("message"));
 
-    responseObject = responseContent.getJSONObject("data");
-    Assert.assertEquals(address,responseObject.getString("address"));
-    Assert.assertTrue(responseObject.containsKey("name"));
-    Assert.assertTrue(responseObject.containsKey("byteCode"));
-    Assert.assertTrue(responseObject.containsKey("abi"));
+    targetContent = responseContent.getJSONObject("data");
+    Assert.assertEquals(address,targetContent.getString("address"));
+    Assert.assertTrue(targetContent.containsKey("name"));
+    Assert.assertTrue(targetContent.containsKey("byteCode"));
+    Assert.assertTrue(targetContent.containsKey("abi"));
 
   }
 
