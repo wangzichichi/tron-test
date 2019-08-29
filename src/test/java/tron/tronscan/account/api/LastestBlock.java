@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import tron.common.tronscanApiList;
 import tron.common.utils.Configuration;
@@ -38,8 +39,8 @@ public class LastestBlock {
     responseContent = tronscanApiList.parseResponseContent(response);
     tronscanApiList.printJsonContent(responseContent);
 
-    //System status has 5 key:value
-    Assert.assertTrue(responseContent.size() >= 0);
+    //the lastest block
+    Assert.assertTrue(responseContent.size() >= 10);
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
     Assert.assertTrue(patternAddress.matcher(responseContent.getString("witnessAddress")).matches());
 
@@ -52,11 +53,20 @@ public class LastestBlock {
     Assert.assertTrue(responseContent.getLong("nrOfTrx") > 0);
     //timestamp
     Assert.assertFalse(responseContent.get("timestamp").toString().isEmpty());
+    //confirmed true or false
     Assert.assertTrue(responseContent.containsKey("confirmed"));
     Assert.assertTrue(responseContent.getLong("witnessId") >= 0);
     Assert.assertTrue(responseContent.getLong("size") > 0);
     Assert.assertTrue(responseContent.getLong("number") > 100);
 
 
+  }
+
+  /**
+   * constructor.
+   */
+  @AfterClass
+  public void shutdown() throws InterruptedException {
+    tronscanApiList.disGetConnect();
   }
 }
