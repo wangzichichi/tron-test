@@ -31,7 +31,7 @@ public class Token_Trx20 {
   /**
    * constructor.
    */
-  @Test(enabled = true, description = "List all the witnesses in the blockchain")
+  @Test(enabled = true, description = "List all the trc20 tokens in the blockchain")
   public void getTokentrc20() {
     //Get response
     Map<String, String> Params = new HashMap<>();
