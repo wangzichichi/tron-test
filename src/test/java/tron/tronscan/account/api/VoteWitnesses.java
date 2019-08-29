@@ -8,7 +8,7 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 @Slf4j
@@ -29,11 +29,11 @@ public class VoteWitnesses {
   @Test(enabled = true, description = "List all the votes info of the witnesses")
   public void test01getVoteWitnesses() {
     //Get response
-    response = tronscanApiList.getVoteWitnesses(tronScanNode);
+    response = TronscanApiList.getVoteWitnesses(tronScanNode);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
 
     //Three key,total/totalVotes/fastestRise/data
     Assert.assertEquals(responseContent.size(),4);
@@ -78,7 +78,7 @@ public class VoteWitnesses {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    tronscanApiList.disGetConnect();
+    TronscanApiList.disGetConnect();
   }
 
 }

@@ -107,7 +107,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/transaction?sort=-timestamp&
 
 # 10
 **/api/contracts/transaction**(only display the latest 10,000 data records in the query time range)
-Desc: List the transactions related to an smart contract(only display the latest 10,000 data records in the query time range)  Demo: curl -X Get  https://apilist.tronscan.org/api/contracts/transaction?sort=-timestamp&count=true&limit=20&start=0&contract=TGfbkJww3x5cb9u4ekLtZ9hXvJo48nUSi4  
+Desc: List the transactions related to an smart contract(only display the latest 10,000 data records in the query time range)  Demo: curl -X Get  https://apilist.tronscan.org/api/contracts/transaction?sort=-timestamp&count=true&limit=20&start=0&contract=TWfbypo79cDaXidFBdkDNuVJNAXzPdTmcx  
 @param sort: define the sequence of the records return;  
 @param limit: page size for pagination;  
 @param start: query index for pagination;  
@@ -117,7 +117,7 @@ Desc: List the transactions related to an smart contract(only display the latest
 @param contract: contract address;  
 @return: transactions list;  
 @TestOwner:王子赫;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 11
 **/api/transaction-info**  

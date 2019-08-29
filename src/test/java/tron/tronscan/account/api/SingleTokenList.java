@@ -2,13 +2,12 @@ package tron.tronscan.account.api;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 @Slf4j
@@ -29,11 +28,11 @@ public class SingleTokenList {
   @Test(enabled = true, description = "List a single trc10 token's detail")
   public void test01getSingleTokenList() {
     //Get response
-    response = tronscanApiList.getSingleTokenList(tronScanNode);
+    response = TronscanApiList.getSingleTokenList(tronScanNode);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
 
     //Three key, "total","totalAll","data"
     Assert.assertTrue(responseContent.size() == 3);
@@ -90,7 +89,7 @@ public class SingleTokenList {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    tronscanApiList.disGetConnect();
+    TronscanApiList.disGetConnect();
   }
 
 }

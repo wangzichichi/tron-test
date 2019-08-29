@@ -3,13 +3,12 @@ package tron.tronscan.account.api;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
-import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 
@@ -31,11 +30,11 @@ public class Chainparameters {
   @Test(enabled = true, description = "Get chainparameters list")
   public void getchainparameters() {
     //Get response
-    response = tronscanApiList.getChainparameters(tronScanNode);
+    response = TronscanApiList.getChainparameters(tronScanNode);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
 
     JSONArray chainParameters = responseContent.getJSONArray("tronParameters");
     log.info(chainParameters.size() + "");
@@ -52,7 +51,7 @@ public class Chainparameters {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    tronscanApiList.disGetConnect();
+    TronscanApiList.disGetConnect();
   }
 
 
