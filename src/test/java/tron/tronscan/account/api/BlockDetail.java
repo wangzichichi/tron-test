@@ -2,7 +2,6 @@ package tron.tronscan.account.api;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -11,9 +10,8 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.utils.Configuration;
-import tron.common.utils.Utils;
 import tron.common.TronscanApiList;
+import tron.common.utils.Configuration;
 
 @Slf4j
 public class BlockDetail {
@@ -24,18 +22,20 @@ public class BlockDetail {
   private JSONArray responseArrayContent;
   private JSONObject targetContent;
   private HttpResponse response;
-  private String tronScanNode = Configuration.getByPath("testng.conf").getStringList("tronscan.ip.list")
+  private String tronScanNode = Configuration.getByPath("testng.conf")
+      .getStringList("tronscan.ip.list")
       .get(0);
+
   /**
-   * constructor.
+   * constructor
    */
   @Test(enabled = true, description = "Get a single block's detail")
   public void test01getBlockDetail() {
     //Get response
-    Map<String, String> Params = new HashMap<>();
+    Map<String, String> params = new HashMap<>();
     String blockNumber = "111112";
-    Params.put("number",blockNumber);
-    response = TronscanApiList.getBlockDetail(tronScanNode,Params);
+    params.put("number", blockNumber);
+    response = TronscanApiList.getBlockDetail(tronScanNode, params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
@@ -54,36 +54,40 @@ public class BlockDetail {
     Assert.assertTrue(responseObject.containsKey("confirmed"));
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("witnessAddress")).matches());
-    Assert.assertEquals(blockNumber,responseObject.getString("number"));
+    Assert.assertEquals(blockNumber, responseObject.getString("number"));
   }
 
   @Test(enabled = true, description = "List the blocks in the blockchain")
   public void test02getBlocksList() {
     //Get response
-    Map<String, String> Params = new HashMap<>();
-    Params.put("sort","-number");
-    Params.put("limit","20");
-    Params.put("count","true");
-    Params.put("start","20");
-    Params.put("start_timestamp","1551715200000");
-    Params.put("end_timestamp","1551772172616");
-    response = TronscanApiList.getBlockDetail(tronScanNode,Params);
+    int limit = 11;
+    Map<String, String> params = new HashMap<>();
+    params.put("sort", "-number");
+    params.put("limit", String.valueOf(limit));
+    params.put("count", "true");
+    params.put("start", "20");
+    params.put("start_timestamp", "1551715200000");
+    params.put("end_timestamp", "1551772172616");
+    response = TronscanApiList.getBlockDetail(tronScanNode, params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
     Assert.assertTrue(responseContent.containsKey("total"));
     Assert.assertTrue(responseContent.containsKey("rangeTotal"));
+
+    //data object
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
+    Assert.assertEquals(limit, responseObject.size());
     Assert.assertTrue(responseObject.containsKey("hash"));
     Assert.assertTrue(responseObject.containsKey("size"));
-    Assert.assertTrue(responseObject.containsKey("timestamp"));
+    Assert.assertTrue(!responseObject.getString("timestamp").isEmpty());
     Assert.assertTrue(responseObject.containsKey("txTrieRoot"));
-    Assert.assertTrue(responseObject.containsKey("parentHash"));
+    Assert.assertTrue(!responseObject.getString("parentHash").isEmpty());
     Assert.assertTrue(responseObject.containsKey("witnessId"));
     Assert.assertTrue(responseObject.containsKey("nrOfTrx"));
-    Assert.assertTrue(responseObject.containsKey("confirmed"));
+    Assert.assertTrue(Boolean.valueOf(responseObject.getString("confirmed")));
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("witnessAddress")).matches());
   }
@@ -93,7 +97,7 @@ public class BlockDetail {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-//    TronscanApiList.disConnect();
+    TronscanApiList.disGetConnect();
   }
 
 }

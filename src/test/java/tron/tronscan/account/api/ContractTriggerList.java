@@ -14,7 +14,7 @@ import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 @Slf4j
-public class AccountsList {
+public class ContractTriggerList {
 
   private final String foundationKey = Configuration.getByPath("testng.conf")
       .getString("foundationAccount.key1");
@@ -29,29 +29,40 @@ public class AccountsList {
   /**
    * constructor.
    */
-  @Test(enabled = true, description = "List account")
-  public void test01getAccount() {
+  @Test(enabled = true, description = " List all the triggers of the contracts in the blockchain")
+  public void test01getContractTrigger() {
     //Get response
-    int limit = 3;
+    int limit = 20;
     Map<String, String> params = new HashMap<>();
-    params.put("sort", "-balance");
+    params.put("sort", "-timestamp");
+    params.put("count", "true");
     params.put("limit", String.valueOf(limit));
     params.put("start", "0");
-    response = TronscanApiList.getAccount(tronScanNode, params);
+    params.put("start_timestamp", "1548000000000");
+    params.put("end_timestamp", "1548060167540");
+    response = TronscanApiList.getContractTrigger(tronScanNode, params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
-    TronscanApiList.printJsonContent(responseContent);
-    //data object
+
+    //object data
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
-    Assert.assertEquals(limit,responseObject.size());
+    Assert.assertTrue(responseArrayContent.size() == 20);
+    Assert.assertTrue(Integer.valueOf(responseObject.getString("block")) > 0);
+    Assert.assertTrue(responseObject.containsKey("callData"));
+    Assert.assertTrue(responseObject.containsKey("callValue"));
+    Assert.assertTrue(responseObject.containsKey("contractType"));
+    Assert.assertTrue(responseObject.containsKey("token"));
+    Assert.assertTrue(Boolean.valueOf(responseObject.getString("confirmed")));
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
-    Assert.assertTrue(patternAddress.matcher(responseObject.getString("address")).matches());
-    Assert.assertTrue(responseObject.containsKey("balance"));
-    Assert.assertTrue(responseObject.containsKey("power"));
-    Assert.assertTrue(responseContent.containsKey("total"));
-    Assert.assertTrue(responseContent.containsKey("rangeTotal"));
+    Assert
+        .assertTrue(patternAddress.matcher(responseObject.getString("contractAddress")).matches());
+    Assert.assertTrue(patternAddress.matcher(responseObject.getString("ownerAddress")).matches());
+    Assert.assertTrue(!responseObject.getString("hash").isEmpty());
+    Assert.assertTrue(!responseObject.getString("timestamp").isEmpty());
+    Assert.assertTrue(!responseObject.getString("result").isEmpty());
+
   }
 
   /**
@@ -59,7 +70,7 @@ public class AccountsList {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    TronscanApiList.disConnect();
+    TronscanApiList.disGetConnect();
   }
 
 }

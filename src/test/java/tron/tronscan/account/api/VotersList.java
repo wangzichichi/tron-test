@@ -14,7 +14,7 @@ import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 @Slf4j
-public class AccountsList {
+public class VotersList {
 
   private final String foundationKey = Configuration.getByPath("testng.conf")
       .getString("foundationAccount.key1");
@@ -23,35 +23,43 @@ public class AccountsList {
   private JSONObject targetContent;
   private HttpResponse response;
   private String tronScanNode = Configuration.getByPath("testng.conf")
-      .getStringList("tronscan.ip.list")
-      .get(0);
+      .getStringList("tronscan.ip.list").get(0);
 
   /**
    * constructor.
    */
-  @Test(enabled = true, description = "List account")
-  public void test01getAccount() {
+  @Test(enabled = true, description = " List all the trc10 tokens in the blockchain")
+  public void test01getTokensList() {
     //Get response
-    int limit = 3;
     Map<String, String> params = new HashMap<>();
-    params.put("sort", "-balance");
+    int limit = 20;
+    String address = "TGzz8gjYiYRqpfmDwnLxfgPuLVNmpCswVp";
+    params.put("sort", "-votes");
     params.put("limit", String.valueOf(limit));
     params.put("start", "0");
-    response = TronscanApiList.getAccount(tronScanNode, params);
+    params.put("candidate", address);
+    response = TronscanApiList.getVotersList(tronScanNode, params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
-    //data object
-    responseArrayContent = responseContent.getJSONArray("data");
-    JSONObject responseObject = responseArrayContent.getJSONObject(0);
-    Assert.assertEquals(limit,responseObject.size());
-    Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
-    Assert.assertTrue(patternAddress.matcher(responseObject.getString("address")).matches());
-    Assert.assertTrue(responseObject.containsKey("balance"));
-    Assert.assertTrue(responseObject.containsKey("power"));
+
     Assert.assertTrue(responseContent.containsKey("total"));
-    Assert.assertTrue(responseContent.containsKey("rangeTotal"));
+    Assert.assertTrue(responseContent.containsKey("totalVotes"));
+
+    //object data
+    responseArrayContent = responseContent.getJSONArray("data");
+    Assert.assertEquals(limit, responseArrayContent.size());
+    targetContent = responseArrayContent.getJSONObject(0);
+    Assert.assertTrue(targetContent.containsKey("timestamp"));
+    Assert.assertTrue(targetContent.containsKey("candidateUrl"));
+    Assert.assertTrue(targetContent.containsKey("candidateName"));
+    Assert.assertTrue(targetContent.containsKey("voterAvailableVotes"));
+    Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+    Assert.assertTrue(patternAddress.matcher(targetContent.getString("voterAddress")).matches());
+    Assert
+        .assertTrue(patternAddress.matcher(targetContent.getString("candidateAddress")).matches());
+    Assert.assertTrue(Long.valueOf(targetContent.getString("votes")) > 0);
   }
 
   /**
@@ -59,7 +67,7 @@ public class AccountsList {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    TronscanApiList.disConnect();
+    TronscanApiList.disGetConnect();
   }
 
 }

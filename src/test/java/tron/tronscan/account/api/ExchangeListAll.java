@@ -35,7 +35,6 @@ public class ExchangeListAll {
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     JSONArray responseContent = TronscanApiList.parseArrayResponseContent(response);
     //TronscanApiList.printJsonArrayContent(responseContent);
-
     JSONArray exchangeArray = responseContent;
 
     //first_token_id

@@ -1,6 +1,5 @@
 package tron.tronscan.account.api;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +12,7 @@ import tron.common.utils.Configuration;
 
 
 @Slf4j
-public class Chainparameters {
-
+public class Broadcast {
 
   private final String foundationKey = Configuration.getByPath("testng.conf")
       .getString("foundationAccount.key1");
@@ -23,28 +21,28 @@ public class Chainparameters {
   private HttpResponse response;
   private String tronScanNode = Configuration.getByPath("testng.conf")
       .getStringList("tronscan.ip.list").get(0);
-  private HashMap<String, String> testAccount;
+  private HashMap<String,String> testAccount;
+  private String transactionHex = Configuration.getByPath("testng.conf")
+      .getString("defaultParameter.transactionHex");
 
   /**
    * constructor.
    */
-  @Test(enabled = true, description = "Get chainparameters list")
-  public void getchainparameters() {
+  @Test(enabled = true, description = "Broadcast transaction hex")
+  public void test01BroadcastTransactionHex() {
     //Get response
-    response = TronscanApiList.getChainparameters(tronScanNode);
+    response = TronscanApiList.broadcast(tronScanNode,transactionHex);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
 
-    JSONArray chainParameters = responseContent.getJSONArray("tronParameters");
-    log.info(chainParameters.size() + "");
-    Assert.assertTrue(chainParameters.size() >= 28);
+    //key 4
+    Assert.assertTrue(responseContent.containsKey("code"));
+    Assert.assertTrue(responseContent.containsKey("success"));
+    Assert.assertTrue(responseContent.containsKey("message"));
+    Assert.assertTrue(responseContent.containsKey("transaction"));
 
-    //getMaintenanceTimeInterval
-    targetContent = chainParameters.getJSONObject(0);
-    Assert.assertTrue(targetContent.get("key").equals("getMaintenanceTimeInterval"));
-    Assert.assertTrue(!targetContent.get("value").toString().isEmpty());
   }
 
   /**
@@ -52,8 +50,7 @@ public class Chainparameters {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    TronscanApiList.disGetConnect();
+    TronscanApiList.disConnect();
   }
-
 
 }

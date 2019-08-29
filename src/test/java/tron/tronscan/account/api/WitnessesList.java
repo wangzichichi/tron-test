@@ -8,8 +8,8 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.utils.Configuration;
 import tron.common.TronscanApiList;
+import tron.common.utils.Configuration;
 
 @Slf4j
 public class WitnessesList {
@@ -20,7 +20,8 @@ public class WitnessesList {
   private JSONArray responseArrayContent;
   private JSONObject targetContent;
   private HttpResponse response;
-  private String tronScanNode = Configuration.getByPath("testng.conf").getStringList("tronscan.ip.list")
+  private String tronScanNode = Configuration.getByPath("testng.conf")
+      .getStringList("tronscan.ip.list")
       .get(0);
 
   /**
@@ -42,7 +43,8 @@ public class WitnessesList {
     Assert.assertTrue(responseObject.containsKey("missedTotal"));
     Assert.assertTrue(responseObject.containsKey("producedTotal"));
     Assert.assertFalse(responseObject.getString("url").isEmpty());
-    Assert.assertTrue(responseObject.getLong("latestBlockNumber") < responseObject.getLong("latestSlotNumber"));
+    Assert.assertTrue(
+        responseObject.getLong("latestBlockNumber") < responseObject.getLong("latestSlotNumber"));
     Assert.assertTrue(responseObject.getLong("votes") > 0);
     Assert.assertTrue(responseObject.getLong("producePercentage") < 100);
     Assert.assertTrue(responseObject.getLong("votesPercentage") > 0);
@@ -53,7 +55,7 @@ public class WitnessesList {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-//    TronscanApiList.disConnect();
+    TronscanApiList.disGetConnect();
   }
 
 }
