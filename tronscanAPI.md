@@ -140,7 +140,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/transfer?sort=-timestamp&cou
 @param end_timestamp: query date range;  
 @return: all the transfers list;  
 @TestOwner:王子赫;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 13
 **/api/transfer**  
