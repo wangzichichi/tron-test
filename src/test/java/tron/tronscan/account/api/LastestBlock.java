@@ -50,7 +50,8 @@ public class LastestBlock {
     Assert.assertTrue(patternHash.matcher(responseContent.getString("hash")).matches());
     //nrOfTrx greater 0
     Assert.assertTrue(responseContent.getLong("nrOfTrx") > 0);
-    Assert.assertTrue(responseContent.containsKey("timestamp"));
+    //timestamp
+    Assert.assertFalse(responseContent.get("timestamp").toString().isEmpty());
     Assert.assertTrue(responseContent.containsKey("confirmed"));
     Assert.assertTrue(responseContent.getLong("witnessId") >= 0);
     Assert.assertTrue(responseContent.getLong("size") > 0);
