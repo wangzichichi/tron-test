@@ -202,6 +202,22 @@ public class TronscanApiList {
   /**
    * constructor.
    */
+  public static HttpResponse getDonatorsList(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/listdonators";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.
+   */
   public static HttpResponse getSingleTokenList(String tronscanNode) {
     try {
       String requestUrl = "http://" + tronscanNode + "/api/token?id=1001761&showAll=1";
