@@ -277,7 +277,7 @@ Desc: List all the witnesses in the blockchain
 Demo: curl -X Get  https://apilist.tronscan.org/api/witness  
 @param: null;  
 @return: all the witnesses in the blockchain;  
-@TestOwner:王子赫;
+@TestOwner:朱凯;
 @AutomationCase:false;
 
 
@@ -288,7 +288,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/vote/witness
 @param: null;  
 @return: all the votes info of the witnesses;  
 @TestOwner:王子赫;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 27
 **/api/vote**  
