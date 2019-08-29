@@ -45,10 +45,11 @@ public class Token_Trx20 {
     TronscanApiList.printJsonContent(responseContent);
     //three object, "total" and "Data"
     Assert.assertTrue(responseContent.size() >= 3);
-    Integer total = Integer.valueOf(responseContent.get("total").toString());
+    Long total = Long.valueOf(responseContent.get("total").toString());
+    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
     JSONArray exchangeArray = responseContent.getJSONArray("trc20_tokens");
-    Assert.assertTrue(total > 0);
-    Assert.assertTrue(responseContent.containsKey("rangeTotal"));
+    Assert.assertTrue(rangeTotal >= total);
+    //Assert.assertTrue(responseContent.containsKey("rangeTotal"));
 
     targetContent = exchangeArray.getJSONObject(0);
     //icon_url
