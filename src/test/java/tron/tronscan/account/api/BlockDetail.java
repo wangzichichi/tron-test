@@ -60,7 +60,7 @@ public class BlockDetail {
   @Test(enabled = true, description = "List the blocks in the blockchain")
   public void test02getBlocksList() {
     //Get response
-    int limit = 20;
+    int limit = 11;
     Map<String, String> params = new HashMap<>();
     params.put("sort", "-number");
     params.put("limit", String.valueOf(limit));
@@ -79,7 +79,7 @@ public class BlockDetail {
     //data object
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
-    Assert.assertEquals(limit,responseObject.size());
+    Assert.assertEquals(limit, responseObject.size());
     Assert.assertTrue(responseObject.containsKey("hash"));
     Assert.assertTrue(responseObject.containsKey("size"));
     Assert.assertTrue(!responseObject.getString("timestamp").isEmpty());
