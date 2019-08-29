@@ -15,7 +15,7 @@ import tron.common.utils.Configuration;
 /**
  * ${params}
  *
- * @Author:tron
+ * @Author:jh
  * @Date:2019-08-29 15:22
  */
 public class ProposalList {
@@ -81,7 +81,7 @@ public class ProposalList {
     //votesPercentage
     Assert.assertTrue(Double.valueOf(proposalContent.get("votesPercentage").toString()) >= 0);
     //latestBlockNumber
-    Assert.assertTrue(Integer.valueOf(proposalContent.get("latestBlockNumber").toString()) >= 0);
+    Assert.assertTrue(Double.valueOf(proposalContent.get("latestBlockNumber").toString()) >= 0);
     //expirationTime
     Assert.assertTrue(targetContent.containsKey("expirationTime"));
     //approvals

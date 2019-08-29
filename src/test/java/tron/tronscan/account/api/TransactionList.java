@@ -62,14 +62,56 @@ public class TransactionList {
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("owner_address")).matches());
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("to_address")).matches());
   }
+  /**
+   * constructor.
+   */
+  @Test(enabled = true, description = "List a single the exchange pair's transaction records ")
+  public void getTransactionTest(){
+    Map<String, String> Params = new HashMap<>();
+    Params.put("sort","-timestamp");
+    Params.put("limit","20");
+    Params.put("count","true");
+    Params.put("start","0");
+    response = TronscanApiList.getTransactionTest(tronScanNode,Params);
 
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    //three object, "total" and "Data","rangeTotal"
+    Assert.assertTrue(responseContent.size() >= 3);
+    Long total = Long.valueOf(responseContent.get("total").toString());
+    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
+    JSONArray exchangeArray = responseContent.getJSONArray("data");
+    Assert.assertTrue(rangeTotal >= total);
+
+    targetContent = exchangeArray.getJSONObject(0);
+    //exchangeID
+    Assert.assertTrue(Integer.valueOf(targetContent.get("exchangeID").toString()) >= 1);
+    //blockID
+    Assert.assertTrue(Long.valueOf(targetContent.get("blockID").toString()) >= 1);
+    //blockID
+    Assert.assertTrue(Long.valueOf(targetContent.get("tokenID").toString()) >= 10000);
+    //createTime
+    Assert.assertTrue(targetContent.containsKey("createTime"));
+    //hash
+    Pattern patternHash = Pattern.compile("^[a-z0-9]{64}");
+    Assert.assertTrue(patternHash.matcher(targetContent.getString("trx_hash")).matches());
+    //quant
+    Assert.assertTrue(targetContent.containsKey("quant"));
+    //address
+    Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+    Assert.assertTrue(patternAddress.matcher(targetContent.getString("creatorAddress")).matches());
+    //confirmed
+    Assert.assertTrue(Boolean.valueOf(targetContent.getString("confirmed")));
+
+  }
 
   /**
    * constructor.
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-//    TronscanApiList.disConnect();
+    TronscanApiList.disGetConnect();
   }
 
 }

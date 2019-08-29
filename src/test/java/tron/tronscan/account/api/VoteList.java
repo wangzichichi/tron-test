@@ -3,7 +3,7 @@ package tron.tronscan.account.api;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
-import java.util.regex.Pattern;
+import java.util.Map;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
@@ -15,10 +15,9 @@ import tron.common.utils.Configuration;
  * ${params}
  *
  * @Author:jh
- * @Date:2019-08-29 11:26
+ * @Date:2019-08-29 20:16
  */
-public class NodeMap {
-
+public class VoteList {
   private final String foundationKey = Configuration.getByPath("testng.conf")
       .getString("foundationAccount.key1");
   private JSONObject responseContent;
@@ -27,37 +26,30 @@ public class NodeMap {
   private String tronScanNode = Configuration.getByPath("testng.conf")
       .getStringList("tronscan.ip.list").get(0);
 
+
   /**
    * constructor.
    */
-  @Test(enabled = true, description = "List all the nodes in the blockchain")
-  public void getNodeMap() {
-    response = TronscanApiList.getNodeMap(tronScanNode);
-    //log.info("code is " + response.getStatusLine().getStatusCode());
+  @Test(enabled = true, description = "List all the votes info made by a specified voter  ")
+  public void getInternalTransaction() {
+    //
+    String voter = "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9";
+    Map<String, String> Params = new HashMap<>();
+    Params.put("sort","-votes");
+    Params.put("limit","20");
+    Params.put("start","0");
+    Params.put("voter",voter);
+    //Three object "total" ,"data","totalVotes"
+    response = TronscanApiList.getVoteTest(tronScanNode,Params);
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
-
-
-    //three object, "total" and "Data"
-    Assert.assertTrue(responseContent.size() >= 3);
-    Integer total = Integer.valueOf(responseContent.get("total").toString());
-    JSONArray exchangeArray = responseContent.getJSONArray("data");
-    Assert.assertTrue(exchangeArray.size() == total);
-    Assert.assertTrue(Double.valueOf(responseContent.get("code").toString()) >= 0);
-    //country
-    targetContent = exchangeArray.getJSONObject(0);
-    Assert.assertTrue(targetContent.containsKey("country"));
-    //lng and lat Contain double
-    Assert.assertTrue(Double.valueOf(targetContent.get("lng").toString())> -1000);
-    Assert.assertTrue(Double.valueOf(targetContent.get("lat").toString())> 0);
-
-    Assert.assertTrue(targetContent.containsKey("ip"));
-
-
-
+    //
+    Long total = Long.valueOf(responseContent.get("total").toString());
+    Long rangeTotal = Long.valueOf(responseContent.get("totalVotes").toString());
+    Assert.assertTrue(rangeTotal >= total);
+    Assert.assertTrue(responseContent.containsKey("data"));
   }
-
   /**
    * constructor.
    */
