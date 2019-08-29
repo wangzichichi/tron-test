@@ -154,6 +154,24 @@ public class tronscanApiList {
   /**
    * constructor.
    */
+  public static HttpResponse getVoteWitnesses(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/vote/witness";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+
+
+  /**
+   * constructor.
+   */
   public static HttpResponse getAccount(String tronscanNode,Map<String, String> Params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/account/list";
