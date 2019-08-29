@@ -27,7 +27,7 @@ public class BlockDetail {
       .get(0);
 
   /**
-   * constructor.
+   * constructor
    */
   @Test(enabled = true, description = "Get a single block's detail")
   public void test01getBlockDetail() {
