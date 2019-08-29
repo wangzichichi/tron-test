@@ -15,6 +15,7 @@ import tron.common.utils.Configuration;
 @Slf4j
 public class Chainparameters {
 
+
   private final String foundationKey = Configuration.getByPath("testng.conf")
       .getString("foundationAccount.key1");
   private JSONObject responseContent;
@@ -22,7 +23,7 @@ public class Chainparameters {
   private HttpResponse response;
   private String tronScanNode = Configuration.getByPath("testng.conf")
       .getStringList("tronscan.ip.list").get(0);
-  private HashMap<String,String> testAccount;
+  private HashMap<String, String> testAccount;
 
   /**
    * constructor.

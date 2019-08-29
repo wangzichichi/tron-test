@@ -22,25 +22,30 @@ public class AccountsList {
   private JSONArray responseArrayContent;
   private JSONObject targetContent;
   private HttpResponse response;
-  private String tronScanNode = Configuration.getByPath("testng.conf").getStringList("tronscan.ip.list")
+  private String tronScanNode = Configuration.getByPath("testng.conf")
+      .getStringList("tronscan.ip.list")
       .get(0);
+
   /**
    * constructor.
    */
-  @Test(enabled = true, description = "List all the witnesses in the blockchain")
-  public void test01getWitnesses() {
+  @Test(enabled = true, description = "List account")
+  public void test01getAccount() {
     //Get response
-    Map<String, String> Params = new HashMap<>();
-    Params.put("sort","-balance");
-    Params.put("limit","20");
-    Params.put("start","0");
-    response = TronscanApiList.getAccount(tronScanNode,Params);
+    int limit = 3;
+    Map<String, String> params = new HashMap<>();
+    params.put("sort", "-balance");
+    params.put("limit", String.valueOf(limit));
+    params.put("start", "0");
+    response = TronscanApiList.getAccount(tronScanNode, params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
+    //data object
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
+    Assert.assertEquals(limit,responseObject.size());
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("address")).matches());
     Assert.assertTrue(responseObject.containsKey("balance"));
@@ -54,7 +59,7 @@ public class AccountsList {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-//    TronscanApiList.disConnect();
+    TronscanApiList.disConnect();
   }
 
 }

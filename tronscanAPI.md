@@ -26,7 +26,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/account/list?sort=-balance&l
 @param start: query index for pagination;  
 @return: accounts list;  
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 4
 **/api/account**  
@@ -50,7 +50,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/block?sort=-number&limit=20&
 @param end_timestamp: query date range;  
 @return: blocks list;  
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 6
 **/api/block**  
@@ -74,7 +74,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/block?number=5987471
 @param number: block number;  
 @return: a block detail info;  
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 8
 **/api/transaction**  
@@ -103,7 +103,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/transaction?sort=-timestamp&
 @param address: an account;  
 @return: transactions list;
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 10
 **/api/contracts/transaction**(only display the latest 10,000 data records in the query time range)
@@ -156,7 +156,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/transfer?sort=-timestamp&cou
 @param address: transfers related address;  
 @return: transfers list related to an specified account;  
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 14
 **/api/nodemap**  
@@ -193,7 +193,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/funds
 @param: null;  
 @return: TRX number overview info;  
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 18
 **/api/contracts**  
@@ -222,7 +222,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/contracts/code?contract=TEEX
 @param contract: contract address;  
 @return: a single contract's abi & byteCode;  
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 21
 **/api/contracts/trigger**  
