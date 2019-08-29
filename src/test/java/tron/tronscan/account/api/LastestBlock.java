@@ -30,7 +30,7 @@ public class LastestBlock {
   /**
    * constructor.
    */
-  @Test(enabled = true, description = "Get system status")
+  @Test(enabled = true, description = "Get the lastest block")
   public void getLastestBlockTest() {
     response = tronscanApiList.getLastestBlock(tronScanNode);
     //log.info("code is " + response.getStatusLine().getStatusCode());
@@ -39,6 +39,23 @@ public class LastestBlock {
     tronscanApiList.printJsonContent(responseContent);
 
     //System status has 5 key:value
-    Assert.assertTrue(responseContent.size() >= 5);
+    Assert.assertTrue(responseContent.size() >= 0);
+    Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+    Assert.assertTrue(patternAddress.matcher(responseContent.getString("witnessAddress")).matches());
+
+    Assert.assertTrue(responseContent.containsKey("txTrieRoot"));
+    //parentHash and hash  64 place
+    Pattern patternHash = Pattern.compile("^0000000000[a-z0-9]{54}");
+    Assert.assertTrue(patternHash.matcher(responseContent.getString("parentHash")).matches());
+    Assert.assertTrue(patternHash.matcher(responseContent.getString("hash")).matches());
+    //nrOfTrx greater 0
+    Assert.assertTrue(responseContent.getLong("nrOfTrx") > 0);
+    Assert.assertTrue(responseContent.containsKey("timestamp"));
+    Assert.assertTrue(responseContent.containsKey("confirmed"));
+    Assert.assertTrue(responseContent.getLong("witnessId") >= 0);
+    Assert.assertTrue(responseContent.getLong("size") > 0);
+    Assert.assertTrue(responseContent.getLong("number") > 100);
+
+
   }
 }
