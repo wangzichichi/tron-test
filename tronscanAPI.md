@@ -269,7 +269,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/token?id=1001761&showAll=1
 @param showAll: if equals 1, audited and Unaudited tokens can both be returned;  
 @return: a single trc10 token's detail;  
 @TestOwner:王子赫;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 25
 **/api/witness**  
@@ -278,7 +278,6 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/witness
 @param: null;  
 @return: all the witnesses in the blockchain;  
 @TestOwner:朱凯;
-<<<<<<< HEAD
 @AutomationCase:true;
 
 
