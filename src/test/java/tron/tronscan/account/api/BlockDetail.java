@@ -35,8 +35,8 @@ public class BlockDetail {
     //Get response
     Map<String, String> params = new HashMap<>();
     String blockNumber = "111112";
-    Params.put("number",blockNumber);
-    response = TronscanApiList.getBlockDetail(tronScanNode,Params);
+    params.put("number",blockNumber);
+    response = TronscanApiList.getBlockDetail(tronScanNode,params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);

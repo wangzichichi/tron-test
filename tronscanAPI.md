@@ -204,7 +204,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/contracts?count=true&limit=2
 @param count: total number of records;  
 @return: contracts list;  
 @TestOwner:王子赫;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 19
 **/api/contract**  
@@ -414,7 +414,7 @@ Demo: curl -X Post  https://apilist.tronscan.org/api/broadcast
 @param: transaction: signature generated hex;  
 @return: broadcast result;  
 @TestOwner:王子赫;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 39
 **/api/contract/events**   
