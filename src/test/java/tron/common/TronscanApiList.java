@@ -129,7 +129,6 @@ public class TronscanApiList {
   }
 
 
-
   /**
    * constructor.
    */
@@ -251,6 +250,7 @@ public class TronscanApiList {
   /**
    * constructor.
    */
+
   public static HttpResponse getAccount(String tronscanNode,Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/account/list";
@@ -480,7 +480,6 @@ public class TronscanApiList {
   }
 
 
-
   /**
    * constructor.
    */
@@ -494,9 +493,5 @@ public class TronscanApiList {
   public static void disGetConnect() {
     httpget.releaseConnection();
   }
-
-
-
-
 
 }
