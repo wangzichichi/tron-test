@@ -9,7 +9,7 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 /**
@@ -38,11 +38,11 @@ public class Token_Trx20 {
 //    Params.put("sort","-balance");
     Params.put("limit","20");
     Params.put("start","0");
-    response = tronscanApiList.getTokentrc20(tronScanNode,Params);
+    response = TronscanApiList.getTokentrc20(tronScanNode,Params);
 
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
     //three object, "total" and "Data"
     Assert.assertTrue(responseContent.size() >= 3);
     Integer total = Integer.valueOf(responseContent.get("total").toString());
@@ -98,6 +98,6 @@ public class Token_Trx20 {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    tronscanApiList.disGetConnect();
+    TronscanApiList.disGetConnect();
   }
 }

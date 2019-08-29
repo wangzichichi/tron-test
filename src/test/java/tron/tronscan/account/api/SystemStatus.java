@@ -7,7 +7,7 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 
@@ -29,11 +29,11 @@ public class SystemStatus {
   @Test(enabled = true, description = "Get system status")
   public void getSystemStatus() {
     //Get response
-    response = tronscanApiList.getSystemStatus(tronScanNode);
+    response = TronscanApiList.getSystemStatus(tronScanNode);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
 
     //System status has 5 key:value
     Assert.assertTrue(responseContent.size() >= 5);
@@ -64,7 +64,7 @@ public class SystemStatus {
     long solidity = Long.valueOf(targetContent.get("block").toString());
     Assert.assertTrue(solidity == databaseConfirmedBlock);
 
-    testAccount = tronscanApiList.generateAddress();
+    testAccount = TronscanApiList.generateAddress();
     log.info("privateKey:" + testAccount.get("privateKey") );
     log.info("hexAddress:" + testAccount.get("hexAddress") );
     log.info("address:" + testAccount.get("address") );
@@ -79,7 +79,7 @@ public class SystemStatus {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    tronscanApiList.disConnect();
+    TronscanApiList.disConnect();
   }
 
 }

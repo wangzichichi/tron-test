@@ -1,6 +1,5 @@
 package tron.tronscan.account.api;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
 import java.util.regex.Pattern;
@@ -8,7 +7,7 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 /**
@@ -33,11 +32,11 @@ public class LastestBlock {
    */
   @Test(enabled = true, description = "Get the lastest block")
   public void getLastestBlockTest() {
-    response = tronscanApiList.getLastestBlock(tronScanNode);
+    response = TronscanApiList.getLastestBlock(tronScanNode);
     //log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
 
     //the lastest block
     Assert.assertTrue(responseContent.size() >= 10);
@@ -54,8 +53,8 @@ public class LastestBlock {
     //timestamp
     Assert.assertFalse(responseContent.get("timestamp").toString().isEmpty());
     //confirmed true or false
-    Assert.assertTrue(Boolean.valueOf(targetContent.getString("confirmed")));
-    //Assert.assertTrue(responseContent.containsKey("confirmed"));
+    //Assert.assertTrue(Boolean.valueOf(targetContent.getString("confirmed")));
+    Assert.assertTrue(responseContent.containsKey("confirmed"));
     Assert.assertTrue(responseContent.getLong("witnessId") >= 0);
     Assert.assertTrue(responseContent.getLong("size") > 0);
     Assert.assertTrue(responseContent.getLong("number") > 100);
@@ -68,6 +67,6 @@ public class LastestBlock {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    tronscanApiList.disGetConnect();
+    TronscanApiList.disGetConnect();
   }
 }
