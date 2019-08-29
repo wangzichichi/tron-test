@@ -9,7 +9,7 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 @Slf4j
@@ -34,11 +34,11 @@ public class ContractsCode {
     String address = "TEEXEWrkMFKapSMJ6mErg39ELFKDqEs6w3";
     Map<String, String> params = new HashMap<>();
     params.put("contract", address);
-    response = tronscanApiList.getContractCode(tronScanNode, params);
+    response = TronscanApiList.getContractCode(tronScanNode, params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
 
     //status object
     targetContent = responseContent.getJSONObject("status");
@@ -60,7 +60,7 @@ public class ContractsCode {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    tronscanApiList.disConnect();
+    TronscanApiList.disConnect();
   }
 
 }

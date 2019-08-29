@@ -20,7 +20,7 @@ import tron.common.utils.Configuration;
 
 
 @Slf4j
-public class tronscanApiList {
+public class TronscanApiList {
 
   static HttpClient httpClient;
   static HttpPost httppost;

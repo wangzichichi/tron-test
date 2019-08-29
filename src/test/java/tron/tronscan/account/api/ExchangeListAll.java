@@ -3,13 +3,12 @@ package tron.tronscan.account.api;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
-import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 
@@ -31,10 +30,10 @@ public class ExchangeListAll {
   @Test(enabled = true, description = "Get exchange list all")
   public void getExchangeListAll() {
     //Get response
-    response = tronscanApiList.getExchangesListAll(tronScanNode);
+    response = TronscanApiList.getExchangesListAll(tronScanNode);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    JSONArray responseContent = tronscanApiList.parseArrayResponseContent(response);
+    JSONArray responseContent = TronscanApiList.parseArrayResponseContent(response);
     //tronscanApiList.printJsonArrayContent(responseContent);
 
     JSONArray exchangeArray = responseContent;
@@ -104,7 +103,7 @@ public class ExchangeListAll {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    tronscanApiList.disGetConnect();
+    TronscanApiList.disGetConnect();
   }
 
 

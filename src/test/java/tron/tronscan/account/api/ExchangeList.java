@@ -1,9 +1,7 @@
 package tron.tronscan.account.api;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonArray;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +9,7 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import org.testng.mustache.Value;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 
@@ -34,11 +31,11 @@ public class ExchangeList {
   @Test(enabled = true, description = "Get exchange list")
   public void getExchangeList() {
     //Get response
-    response = tronscanApiList.getExchangesList(tronScanNode);
+    response = TronscanApiList.getExchangesList(tronScanNode);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
 
     //Two object, "total" and "Data"
     Assert.assertTrue(responseContent.size() >= 2);
@@ -113,7 +110,7 @@ public class ExchangeList {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    tronscanApiList.disGetConnect();
+    TronscanApiList.disGetConnect();
   }
 
 

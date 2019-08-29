@@ -10,7 +10,7 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 @Slf4j
@@ -35,11 +35,11 @@ public class BlockDetail {
     Map<String, String> params = new HashMap<>();
     String blockNumber = "111112";
     params.put("number", blockNumber);
-    response = tronscanApiList.getBlockDetail(tronScanNode, params);
+    response = TronscanApiList.getBlockDetail(tronScanNode, params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
     Assert.assertTrue(responseContent.containsKey("total"));
     Assert.assertTrue(responseContent.containsKey("rangeTotal"));
     responseArrayContent = responseContent.getJSONArray("data");
@@ -67,11 +67,11 @@ public class BlockDetail {
     params.put("start", "20");
     params.put("start_timestamp", "1551715200000");
     params.put("end_timestamp", "1551772172616");
-    response = tronscanApiList.getBlockDetail(tronScanNode, params);
+    response = TronscanApiList.getBlockDetail(tronScanNode, params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
     Assert.assertTrue(responseContent.containsKey("total"));
     Assert.assertTrue(responseContent.containsKey("rangeTotal"));
 
@@ -95,7 +95,7 @@ public class BlockDetail {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    tronscanApiList.disGetConnect();
+    TronscanApiList.disGetConnect();
   }
 
 }

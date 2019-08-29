@@ -8,7 +8,7 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 @Slf4j
@@ -30,10 +30,10 @@ public class WitnessesList {
   @Test(enabled = true, description = "List all the witnesses in the blockchain")
   public void test01getWitnesses() {
     //Get response
-    response = tronscanApiList.getWitnesses(tronScanNode);
+    response = TronscanApiList.getWitnesses(tronScanNode);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseArrayContent = tronscanApiList.parseArrayResponseContent(response);
+    responseArrayContent = TronscanApiList.parseArrayResponseContent(response);
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
     Assert.assertTrue(responseArrayContent.size() >= 27);
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
@@ -55,7 +55,7 @@ public class WitnessesList {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    tronscanApiList.disConnect();
+    TronscanApiList.disConnect();
   }
 
 }

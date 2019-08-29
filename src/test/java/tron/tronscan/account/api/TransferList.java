@@ -10,7 +10,7 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 @Slf4j
@@ -40,11 +40,11 @@ public class TransferList {
     params.put("start", "0");
     params.put("token", "_");
     params.put("address", address);
-    response = tronscanApiList.getTransferList(tronScanNode, params);
+    response = TronscanApiList.getTransferList(tronScanNode, params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
     Assert.assertTrue(responseContent.containsKey("total"));
 
     //data object
@@ -68,7 +68,7 @@ public class TransferList {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    tronscanApiList.disConnect();
+    TronscanApiList.disConnect();
   }
 
 }
