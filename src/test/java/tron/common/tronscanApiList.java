@@ -85,6 +85,21 @@ public class tronscanApiList {
     return response;
   }
 
+  /**
+   * constructor.
+   */
+  public static HttpResponse getChainparameters(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/chainparameters";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
 
   /**
    * constructor.
@@ -135,6 +150,24 @@ public class tronscanApiList {
     }
     return response;
   }
+
+  /**
+   * constructor.
+   */
+  public static HttpResponse getVoteWitnesses(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/vote/witness";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+
 
   /**
    * constructor.
