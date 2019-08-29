@@ -218,6 +218,23 @@ public class TronscanApiList {
   /**
    * constructor.
    */
+  public static HttpResponse getContractsList(String tronscanNode,Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/contracts";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl,params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+
+  /**
+   * constructor.
+   */
   public static HttpResponse getSingleTokenList(String tronscanNode) {
     try {
       String requestUrl = "http://" + tronscanNode + "/api/token?id=1001761&showAll=1";
