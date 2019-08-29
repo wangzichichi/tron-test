@@ -29,12 +29,13 @@ public class AccountsList {
   /**
    * constructor.
    */
-  @Test(enabled = true, description = "List all the witnesses in the blockchain")
-  public void test01getWitnesses() {
+  @Test(enabled = true, description = "List account")
+  public void test01getAccount() {
     //Get response
+    int limit = 3;
     Map<String, String> params = new HashMap<>();
     params.put("sort", "-balance");
-    params.put("limit", "20");
+    params.put("limit", String.valueOf(limit));
     params.put("start", "0");
     response = TronscanApiList.getAccount(tronScanNode, params);
     log.info("code is " + response.getStatusLine().getStatusCode());
@@ -45,6 +46,7 @@ public class AccountsList {
     //data object
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
+    Assert.assertEquals(limit,responseObject.size());
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("address")).matches());
     Assert.assertTrue(responseObject.containsKey("balance"));

@@ -60,9 +60,10 @@ public class BlockDetail {
   @Test(enabled = true, description = "List the blocks in the blockchain")
   public void test02getBlocksList() {
     //Get response
+    int limit = 20;
     Map<String, String> params = new HashMap<>();
     params.put("sort", "-number");
-    params.put("limit", "20");
+    params.put("limit", String.valueOf(limit));
     params.put("count", "true");
     params.put("start", "20");
     params.put("start_timestamp", "1551715200000");
@@ -78,14 +79,15 @@ public class BlockDetail {
     //data object
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
+    Assert.assertEquals(limit,responseObject.size());
     Assert.assertTrue(responseObject.containsKey("hash"));
     Assert.assertTrue(responseObject.containsKey("size"));
-    Assert.assertTrue(responseObject.containsKey("timestamp"));
+    Assert.assertTrue(!responseObject.getString("timestamp").isEmpty());
     Assert.assertTrue(responseObject.containsKey("txTrieRoot"));
-    Assert.assertTrue(responseObject.containsKey("parentHash"));
+    Assert.assertTrue(!responseObject.getString("parentHash").isEmpty());
     Assert.assertTrue(responseObject.containsKey("witnessId"));
     Assert.assertTrue(responseObject.containsKey("nrOfTrx"));
-    Assert.assertTrue(responseObject.containsKey("confirmed"));
+    Assert.assertTrue(Boolean.valueOf(responseObject.getString("confirmed")));
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("witnessAddress")).matches());
   }
