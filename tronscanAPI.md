@@ -165,7 +165,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/nodemap
 @param: null;  
 @return: all the nodes;  
 @TestOwner:姜红;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 15
 **/api/listdonators**  
@@ -246,7 +246,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/token_trc20?limit=20&start=0
 @param start: query index for pagination;  
 @return: trc20 tokens list;  
 @TestOwner:姜红;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 23
 **/api/token**  
@@ -332,7 +332,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/proposal?sort=-number&limit=
 @param start: query index for pagination;  
 @return: all the proposals;  
 @TestOwner:姜红;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 31
 **/api/proposal**  
