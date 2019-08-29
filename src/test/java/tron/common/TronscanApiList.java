@@ -65,6 +65,24 @@ public class TronscanApiList {
   /**
    * constructor.
    */
+  public static HttpResponse broadcast(String tronscanNode,String transactionHex) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "/api/broadcast";
+      JsonObject userBaseObj2 = new JsonObject();
+      userBaseObj2.addProperty("transaction", transactionHex);
+      response = createConnect(requestUrl, userBaseObj2);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+
+  /**
+   * constructor.
+   */
   public static HttpResponse getContractEvents(String tronscanNode) {
     try {
       String requestUrl = "http://" + tronscanNode
