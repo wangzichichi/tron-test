@@ -2,18 +2,13 @@ package tron.tronscan.account.api;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonObject;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.utils.Configuration;
-import tron.common.utils.Utils;
 import tron.common.tronscanApiList;
+import tron.common.utils.Configuration;
 
 @Slf4j
 public class FundsInfo {
@@ -24,8 +19,10 @@ public class FundsInfo {
   private JSONArray responseArrayContent;
   private JSONObject targetContent;
   private HttpResponse response;
-  private String tronScanNode = Configuration.getByPath("testng.conf").getStringList("tronscan.ip.list")
+  private String tronScanNode = Configuration.getByPath("testng.conf")
+      .getStringList("tronscan.ip.list")
       .get(0);
+
   /**
    * constructor.
    */
@@ -55,7 +52,7 @@ public class FundsInfo {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-//    tronscanApiList.disConnect();
+    tronscanApiList.disConnect();
   }
 
 }

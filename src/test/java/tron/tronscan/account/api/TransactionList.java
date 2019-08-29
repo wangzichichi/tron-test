@@ -2,7 +2,6 @@ package tron.tronscan.account.api;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -11,9 +10,8 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.utils.Configuration;
-import tron.common.utils.Utils;
 import tron.common.tronscanApiList;
+import tron.common.utils.Configuration;
 
 @Slf4j
 public class TransactionList {
@@ -24,27 +22,31 @@ public class TransactionList {
   private JSONArray responseArrayContent;
   private JSONObject targetContent;
   private HttpResponse response;
-  private String tronScanNode = Configuration.getByPath("testng.conf").getStringList("tronscan.ip.list")
+  private String tronScanNode = Configuration.getByPath("testng.conf")
+      .getStringList("tronscan.ip.list")
       .get(0);
+
   /**
    * constructor.
    */
   @Test(enabled = true, description = "List the transactions related to a specified account")
   public void test01getBlockDetail() {
     //Get response
-    Map<String, String> Params = new HashMap<>();
-    Params.put("sort","-number");
-    Params.put("limit","20");
-    Params.put("count","true");
-    Params.put("start","0");
-    Params.put("address","TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9");
-    response = tronscanApiList.getTransactionList(tronScanNode,Params);
+    Map<String, String> params = new HashMap<>();
+    params.put("sort", "-number");
+    params.put("limit", "20");
+    params.put("count", "true");
+    params.put("start", "0");
+    params.put("address", "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9");
+    response = tronscanApiList.getTransactionList(tronScanNode, params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = tronscanApiList.parseResponseContent(response);
     tronscanApiList.printJsonContent(responseContent);
     Assert.assertTrue(responseContent.containsKey("total"));
     Assert.assertTrue(responseContent.containsKey("rangeTotal"));
+
+    //data object
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
     Assert.assertTrue(responseObject.containsKey("hash"));
@@ -56,6 +58,7 @@ public class TransactionList {
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("ownerAddress")).matches());
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("toAddress")).matches());
 
+    //contractdata object
     responseObject = responseObject.getJSONObject("contractData");
     Assert.assertTrue(responseObject.containsKey("amount"));
     Assert.assertTrue(responseObject.containsKey("asset_name"));
@@ -69,7 +72,7 @@ public class TransactionList {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-//    tronscanApiList.disConnect();
+    tronscanApiList.disConnect();
   }
 
 }

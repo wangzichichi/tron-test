@@ -3,7 +3,6 @@ package tron.tronscan.account.api;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
-import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
@@ -16,6 +15,7 @@ import tron.common.utils.Configuration;
 @Slf4j
 public class Chainparameters {
 
+
   private final String foundationKey = Configuration.getByPath("testng.conf")
       .getString("foundationAccount.key1");
   private JSONObject responseContent;
@@ -23,7 +23,7 @@ public class Chainparameters {
   private HttpResponse response;
   private String tronScanNode = Configuration.getByPath("testng.conf")
       .getStringList("tronscan.ip.list").get(0);
-  private HashMap<String,String> testAccount;
+  private HashMap<String, String> testAccount;
 
   /**
    * constructor.

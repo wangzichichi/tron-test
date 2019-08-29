@@ -2,16 +2,14 @@ package tron.tronscan.account.api;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonObject;
 import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.utils.Configuration;
-import tron.common.utils.Utils;
 import tron.common.tronscanApiList;
+import tron.common.utils.Configuration;
 
 @Slf4j
 public class WitnessesList {
@@ -22,7 +20,8 @@ public class WitnessesList {
   private JSONArray responseArrayContent;
   private JSONObject targetContent;
   private HttpResponse response;
-  private String tronScanNode = Configuration.getByPath("testng.conf").getStringList("tronscan.ip.list")
+  private String tronScanNode = Configuration.getByPath("testng.conf")
+      .getStringList("tronscan.ip.list")
       .get(0);
 
   /**
@@ -44,7 +43,8 @@ public class WitnessesList {
     Assert.assertTrue(responseObject.containsKey("missedTotal"));
     Assert.assertTrue(responseObject.containsKey("producedTotal"));
     Assert.assertFalse(responseObject.getString("url").isEmpty());
-    Assert.assertTrue(responseObject.getLong("latestBlockNumber") < responseObject.getLong("latestSlotNumber"));
+    Assert.assertTrue(
+        responseObject.getLong("latestBlockNumber") < responseObject.getLong("latestSlotNumber"));
     Assert.assertTrue(responseObject.getLong("votes") > 0);
     Assert.assertTrue(responseObject.getLong("producePercentage") < 100);
     Assert.assertTrue(responseObject.getLong("votesPercentage") > 0);
@@ -55,7 +55,7 @@ public class WitnessesList {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-//    tronscanApiList.disConnect();
+    tronscanApiList.disConnect();
   }
 
 }

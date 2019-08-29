@@ -2,7 +2,6 @@ package tron.tronscan.account.api;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -11,9 +10,8 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.utils.Configuration;
-import tron.common.utils.Utils;
 import tron.common.tronscanApiList;
+import tron.common.utils.Configuration;
 
 @Slf4j
 public class AccountsList {
@@ -24,23 +22,27 @@ public class AccountsList {
   private JSONArray responseArrayContent;
   private JSONObject targetContent;
   private HttpResponse response;
-  private String tronScanNode = Configuration.getByPath("testng.conf").getStringList("tronscan.ip.list")
+  private String tronScanNode = Configuration.getByPath("testng.conf")
+      .getStringList("tronscan.ip.list")
       .get(0);
+
   /**
    * constructor.
    */
   @Test(enabled = true, description = "List all the witnesses in the blockchain")
   public void test01getWitnesses() {
     //Get response
-    Map<String, String> Params = new HashMap<>();
-    Params.put("sort","-balance");
-    Params.put("limit","20");
-    Params.put("start","0");
-    response = tronscanApiList.getAccount(tronScanNode,Params);
+    Map<String, String> params = new HashMap<>();
+    params.put("sort", "-balance");
+    params.put("limit", "20");
+    params.put("start", "0");
+    response = tronscanApiList.getAccount(tronScanNode, params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = tronscanApiList.parseResponseContent(response);
     tronscanApiList.printJsonContent(responseContent);
+
+    //data object
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
@@ -56,7 +58,7 @@ public class AccountsList {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-//    tronscanApiList.disConnect();
+    tronscanApiList.disConnect();
   }
 
 }
