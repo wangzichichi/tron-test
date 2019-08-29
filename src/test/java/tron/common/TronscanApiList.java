@@ -337,6 +337,19 @@ public class TronscanApiList {
       httppost.releaseConnection();
       return null;
     }
+
+    return response;
+  }
+
+  public static HttpResponse getContractTrigger(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/contracts/trigger";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
     return response;
   }
 
