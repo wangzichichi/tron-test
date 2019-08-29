@@ -117,7 +117,7 @@ Desc: List the transactions related to an smart contract(only display the latest
 @param contract: contract address;  
 @return: transactions list;  
 @TestOwner:王子赫;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 11
 **/api/transaction-info**  
