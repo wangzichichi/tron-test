@@ -1,13 +1,12 @@
 package tron.tronscan.account.api;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.Test;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 /**
@@ -32,11 +31,11 @@ public class LastestBlock {
    */
   @Test(enabled = true, description = "Get the lastest block")
   public void getLastestBlockTest() {
-    response = tronscanApiList.getLastestBlock(tronScanNode);
+    response = TronscanApiList.getLastestBlock(tronScanNode);
     //log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
 
     //System status has 5 key:value
     Assert.assertTrue(responseContent.size() >= 0);

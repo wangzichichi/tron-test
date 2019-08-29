@@ -9,7 +9,7 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
 
@@ -31,11 +31,11 @@ public class ContractEvents {
   @Test(enabled = true, description = "Get contract events")
   public void getContractEvents() {
     //Get response
-    response = tronscanApiList.getContractEvents(tronScanNode);
+    response = TronscanApiList.getContractEvents(tronScanNode);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
 
     JSONArray contractEventArray = responseContent.getJSONArray("data");
 
@@ -81,7 +81,7 @@ public class ContractEvents {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    tronscanApiList.disGetConnect();
+    TronscanApiList.disGetConnect();
   }
 
 
