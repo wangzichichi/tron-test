@@ -174,7 +174,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/listdonators
 @param: null;  
 @return: all the donators;  
 @TestOwner:王子赫;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 16
 **/api/fund**  
