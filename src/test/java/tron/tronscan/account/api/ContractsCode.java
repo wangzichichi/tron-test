@@ -13,7 +13,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import tron.common.utils.Configuration;
 import tron.common.utils.Utils;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 
 @Slf4j
 public class ContractsCode {
@@ -35,11 +35,11 @@ public class ContractsCode {
     String address = "TEEXEWrkMFKapSMJ6mErg39ELFKDqEs6w3";
     Map<String, String> Params = new HashMap<>();
     Params.put("contract",address);
-    response = tronscanApiList.getContractCode(tronScanNode,Params);
+    response = TronscanApiList.getContractCode(tronScanNode,Params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
     JSONObject responseObject = responseContent.getJSONObject("status");
     Assert.assertTrue(responseObject.containsKey("code"));
     Assert.assertTrue(responseObject.containsKey("message"));
@@ -58,7 +58,7 @@ public class ContractsCode {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-//    tronscanApiList.disConnect();
+//    TronscanApiList.disConnect();
   }
 
 }

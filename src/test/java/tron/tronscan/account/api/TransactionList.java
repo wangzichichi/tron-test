@@ -13,7 +13,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import tron.common.utils.Configuration;
 import tron.common.utils.Utils;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 
 @Slf4j
 public class TransactionList {
@@ -38,11 +38,11 @@ public class TransactionList {
     Params.put("count","true");
     Params.put("start","0");
     Params.put("address","TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9");
-    response = tronscanApiList.getTransactionList(tronScanNode,Params);
+    response = TronscanApiList.getTransactionList(tronScanNode,Params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
     Assert.assertTrue(responseContent.containsKey("total"));
     Assert.assertTrue(responseContent.containsKey("rangeTotal"));
     responseArrayContent = responseContent.getJSONArray("data");
@@ -69,7 +69,7 @@ public class TransactionList {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-//    tronscanApiList.disConnect();
+//    TronscanApiList.disConnect();
   }
 
 }

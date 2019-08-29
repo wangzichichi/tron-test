@@ -13,7 +13,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import tron.common.utils.Configuration;
 import tron.common.utils.Utils;
-import tron.common.tronscanApiList;
+import tron.common.TronscanApiList;
 
 @Slf4j
 public class BlockDetail {
@@ -35,11 +35,11 @@ public class BlockDetail {
     Map<String, String> Params = new HashMap<>();
     String blockNumber = "111112";
     Params.put("number",blockNumber);
-    response = tronscanApiList.getBlockDetail(tronScanNode,Params);
+    response = TronscanApiList.getBlockDetail(tronScanNode,Params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
     Assert.assertTrue(responseContent.containsKey("total"));
     Assert.assertTrue(responseContent.containsKey("rangeTotal"));
     responseArrayContent = responseContent.getJSONArray("data");
@@ -67,11 +67,11 @@ public class BlockDetail {
     Params.put("start","20");
     Params.put("start_timestamp","1551715200000");
     Params.put("end_timestamp","1551772172616");
-    response = tronscanApiList.getBlockDetail(tronScanNode,Params);
+    response = TronscanApiList.getBlockDetail(tronScanNode,Params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = tronscanApiList.parseResponseContent(response);
-    tronscanApiList.printJsonContent(responseContent);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
     Assert.assertTrue(responseContent.containsKey("total"));
     Assert.assertTrue(responseContent.containsKey("rangeTotal"));
     responseArrayContent = responseContent.getJSONArray("data");
@@ -93,7 +93,7 @@ public class BlockDetail {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-//    tronscanApiList.disConnect();
+//    TronscanApiList.disConnect();
   }
 
 }
