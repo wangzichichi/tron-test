@@ -218,6 +218,23 @@ public class TronscanApiList {
   /**
    * constructor.
    */
+  public static HttpResponse getTransactionInfo(String tronscanNode,String hash) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/transaction-info?hash=" + hash;
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+
+  /**
+   * constructor.
+   */
   public static HttpResponse getAccount(String tronscanNode,Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/account/list";
