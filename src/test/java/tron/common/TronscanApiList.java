@@ -65,7 +65,7 @@ public class TronscanApiList {
   /**
    * constructor.
    */
-  public static HttpResponse broadcast(String tronscanNode,String transactionHex) {
+  public static HttpResponse broadcast(String tronscanNode, String transactionHex) {
     try {
       String requestUrl = "http://" + tronscanNode + "/api/broadcast";
       JsonObject userBaseObj2 = new JsonObject();
@@ -362,6 +362,32 @@ public class TronscanApiList {
   public static HttpResponse getContractTrigger(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/contracts/trigger";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+
+    return response;
+  }
+
+  public static HttpResponse getTokensList(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/token";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+
+    return response;
+  }
+
+  public static HttpResponse getVotersList(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/vote";
       response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
