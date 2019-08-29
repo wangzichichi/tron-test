@@ -126,7 +126,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/transaction-info?hash=1c25bc
 @param hash: query transaction hash;  
 @return: a transaction detail info;  
 @TestOwner:王子赫;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 12
 **/api/transfer**  
