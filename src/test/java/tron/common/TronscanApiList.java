@@ -183,7 +183,7 @@ public class TronscanApiList {
    * constructor.
    */
   public static HttpResponse getContractTransactionList(String tronscanNode,
-      String contractAddress,Integer limit) {
+      String contractAddress, Integer limit) {
     try {
       String requestUrl = "http://" + tronscanNode
           + "api/contracts/transaction?sort=-timestamp&count=true&"
@@ -235,11 +235,11 @@ public class TronscanApiList {
   /**
    * constructor.
    */
-  public static HttpResponse getContractsList(String tronscanNode,Map<String, String> params) {
+  public static HttpResponse getContractsList(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/contracts";
       System.out.println(requestUrl);
-      response = createGetConnect(requestUrl,params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httppost.releaseConnection();
@@ -268,7 +268,7 @@ public class TronscanApiList {
   /**
    * constructor.
    */
-  public static HttpResponse getTransactionInfo(String tronscanNode,String hash) {
+  public static HttpResponse getTransactionInfo(String tronscanNode, String hash) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/transaction-info?hash=" + hash;
       System.out.println(requestUrl);
@@ -286,10 +286,10 @@ public class TronscanApiList {
    * constructor.
    */
 
-  public static HttpResponse getAccount(String tronscanNode,Map<String, String> params) {
+  public static HttpResponse getAccount(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/account/list";
-      response = createGetConnect(requestUrl,params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httppost.releaseConnection();
@@ -298,10 +298,10 @@ public class TronscanApiList {
     return response;
   }
 
-  public static HttpResponse getBlockDetail(String tronscanNode,Map<String, String> Params) {
+  public static HttpResponse getBlockDetail(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/block";
-      response = createGetConnect(requestUrl,Params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httppost.releaseConnection();
@@ -310,10 +310,10 @@ public class TronscanApiList {
     return response;
   }
 
-  public static HttpResponse getTransactionList(String tronscanNode,Map<String, String> Params) {
+  public static HttpResponse getTransactionList(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/transaction";
-      response = createGetConnect(requestUrl,Params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httppost.releaseConnection();
@@ -322,10 +322,10 @@ public class TronscanApiList {
     return response;
   }
 
-  public static HttpResponse getTransferList(String tronscanNode,Map<String, String> Params) {
+  public static HttpResponse getTransferList(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/transfer";
-      response = createGetConnect(requestUrl,Params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httppost.releaseConnection();
@@ -346,10 +346,10 @@ public class TronscanApiList {
     return response;
   }
 
-  public static HttpResponse getContractCode(String tronscanNode,Map<String, String> Params) {
+  public static HttpResponse getContractCode(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/contracts/code";
-      response = createGetConnect(requestUrl,Params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httppost.releaseConnection();
@@ -403,7 +403,7 @@ public class TronscanApiList {
   /**
    * constructor.
    */
-  public static HttpResponse createGetConnect(String url,Map<String, String> params) {
+  public static HttpResponse createGetConnect(String url, Map<String, String> params) {
     try {
       httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,
           connectionTimeout);
@@ -481,7 +481,7 @@ public class TronscanApiList {
    */
   public static void printJsonArrayContent(JSONArray responseContent) {
     log.info("----------------------------Print JSON Start---------------------------");
-    for (int i = 0; i < responseContent.size();i++) {
+    for (int i = 0; i < responseContent.size(); i++) {
       for (String str : responseContent.getJSONObject(i).keySet()) {
         log.info(str + ":" + responseContent.get(i).toString());
       }
@@ -494,7 +494,7 @@ public class TronscanApiList {
   /**
    * constructor.
    */
-  public static HashMap<String,String> generateAddress() {
+  public static HashMap<String, String> generateAddress() {
     try {
       String requestUrl = "http://" + blockChainNode + "/wallet/generateaddress";
       response = createConnect(requestUrl);
@@ -504,10 +504,10 @@ public class TronscanApiList {
       return null;
     }
     responseContent = parseResponseContent(response);
-    HashMap<String,String> accountInfo = new HashMap<>();
-    accountInfo.put("privateKey",responseContent.getString("privateKey"));
-    accountInfo.put("address",responseContent.getString("address"));
-    accountInfo.put("hexAddress",responseContent.getString("hexAddress"));
+    HashMap<String, String> accountInfo = new HashMap<>();
+    accountInfo.put("privateKey", responseContent.getString("privateKey"));
+    accountInfo.put("address", responseContent.getString("address"));
+    accountInfo.put("hexAddress", responseContent.getString("hexAddress"));
     log.info("privateKey:" + accountInfo.get("privateKey"));
     log.info("hexAddress:" + accountInfo.get("hexAddress"));
     log.info("address:" + accountInfo.get("address"));
