@@ -40,12 +40,12 @@ public class NodeMap {
     tronscanApiList.printJsonContent(responseContent);
 
 
-    //Two object, "total" and "Data"
-    Assert.assertTrue(responseContent.size() >= 2);
+    //three object, "total" and "Data"
+    Assert.assertTrue(responseContent.size() >= 3);
     Integer total = Integer.valueOf(responseContent.get("total").toString());
     JSONArray exchangeArray = responseContent.getJSONArray("data");
     Assert.assertTrue(exchangeArray.size() == total);
-
+    Assert.assertTrue(Double.valueOf(responseContent.get("code").toString()) >= 0);
     //country
     targetContent = exchangeArray.getJSONObject(0);
     Assert.assertTrue(targetContent.containsKey("country"));

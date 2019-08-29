@@ -141,7 +141,6 @@ public class tronscanApiList {
   public static HttpResponse getLastestBlock(String tronscanNode) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/block/latest";
-      System.out.println(requestUrl);
       response = createGetConnect(requestUrl);
     } catch (Exception e) {
       e.printStackTrace();
@@ -157,8 +156,23 @@ public class tronscanApiList {
   public static HttpResponse getNodeMap(String tronscanNode) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/nodemap";
-      System.out.println(requestUrl);
       response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.
+   */
+  public static HttpResponse getTokentrc20(String tronscanNode,Map<String, String> Params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/token_trc20";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl,Params);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();

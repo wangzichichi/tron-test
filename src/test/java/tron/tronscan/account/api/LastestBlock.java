@@ -54,7 +54,8 @@ public class LastestBlock {
     //timestamp
     Assert.assertFalse(responseContent.get("timestamp").toString().isEmpty());
     //confirmed true or false
-    Assert.assertTrue(responseContent.containsKey("confirmed"));
+    Assert.assertTrue(Boolean.valueOf(targetContent.getString("confirmed")));
+    //Assert.assertTrue(responseContent.containsKey("confirmed"));
     Assert.assertTrue(responseContent.getLong("witnessId") >= 0);
     Assert.assertTrue(responseContent.getLong("size") > 0);
     Assert.assertTrue(responseContent.getLong("number") > 100);
