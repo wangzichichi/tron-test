@@ -116,6 +116,65 @@ public class tronscanApiList {
     return response;
   }
 
+  public static HttpResponse getBlockDetail(String tronscanNode,Map<String, String> Params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/block";
+      response = createGetConnect(requestUrl,Params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  public static HttpResponse getTransactionList(String tronscanNode,Map<String, String> Params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/transaction";
+      response = createGetConnect(requestUrl,Params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  public static HttpResponse getTransferList(String tronscanNode,Map<String, String> Params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/transfer";
+      response = createGetConnect(requestUrl,Params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  public static HttpResponse getFundsInfo(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/funds";
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  public static HttpResponse getContractCode(String tronscanNode,Map<String, String> Params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/contracts/code";
+      response = createGetConnect(requestUrl,Params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
 
 
   /**
