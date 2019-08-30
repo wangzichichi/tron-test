@@ -384,7 +384,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/exchange/kgraph?exchange_id=
 @param exchange_id: exchange id;  
 @return: a single the exchange pair's trade chart data;  
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 36
 **/api/exchange/kgraph**  
@@ -454,7 +454,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/asset/transfer?limit=20&star
 @param end_timestamp: query date range;   
 @return: TRC10 token transfers list;
 @TestOwner:朱凯;
-@AutomationCase:false;   
+@AutomationCase:true;   
 
 # 42
 **/api/token_trc20/transfers**   
@@ -467,4 +467,4 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/token_trc20/transfers?limit=
 @param end_timestamp: query date range;   
 @return: TRC20 token transfers list;   
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
