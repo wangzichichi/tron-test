@@ -67,7 +67,19 @@ public class FundsInfo {
     Assert.assertTrue(responseContent.containsKey("code"));
     Assert.assertTrue(Integer.valueOf(responseContent.get("page_index").toString()) >= 1);
     Assert.assertTrue(responseContent.containsKey("message"));
-    Assert.assertTrue(responseContent.containsKey("data"));
+
+    //data json
+    targetContent = responseContent.getJSONObject("data");
+    Assert.assertTrue(Long.valueOf(targetContent.get("total").toString()) >= 0);
+    //data Contain data json
+    JSONArray dataArray = targetContent.getJSONArray("data");
+    targetContent = dataArray.getJSONObject(0);
+    //address
+    Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+    Assert.assertTrue(patternAddress.matcher(targetContent.getString("address")).matches());
+    //balance
+    Assert.assertTrue(Long.valueOf(targetContent.get("balance").toString()) >= 0);
+    Assert.assertTrue(targetContent.containsKey("key"));
 
   }
 

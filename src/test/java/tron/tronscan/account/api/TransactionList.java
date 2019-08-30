@@ -22,6 +22,7 @@ public class TransactionList {
       .getString("foundationAccount.key1");
   private JSONObject responseContent;
   private JSONArray responseArrayContent;
+  private JSONObject proposalContent;
   private JSONObject targetContent;
   private HttpResponse response;
   private String tronScanNode = Configuration.getByPath("testng.conf").getStringList("tronscan.ip.list")
@@ -106,6 +107,81 @@ public class TransactionList {
 
   }
 
+  /**
+   * constructor.
+   */
+  @Test(enabled = true, description = "List the transactions in the blockchain(only display the latest 10,000 data records in the query time range)")
+  public void getTransactionTestRang(){
+    Map<String, String> Params = new HashMap<>();
+    Params.put("sort","-timestamp");
+    Params.put("limit","20");
+    Params.put("count","true");
+    Params.put("start","0");
+    Params.put("start_timestamp","1548000000000");
+    Params.put("end_timestamp","1548056638507");
+    response = TronscanApiList.getTransactionList(tronScanNode,Params);
+
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    //three object, "total" and "Data","rangeTotal"
+    Assert.assertTrue(responseContent.size() >= 3);
+    //wholeChainTxCount
+    Assert.assertTrue(Long.valueOf(responseContent.get("wholeChainTxCount").toString()) >= 0);
+    Long total = Long.valueOf(responseContent.get("total").toString());
+    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
+    JSONArray exchangeArray = responseContent.getJSONArray("data");
+    Assert.assertTrue(rangeTotal >= total);
+
+    targetContent = exchangeArray.getJSONObject(0);
+    //contractRet
+    Assert.assertTrue(targetContent.containsKey("contractRet"));
+    //cost json
+    proposalContent = targetContent.getJSONObject("cost");
+    //net_fee
+    Assert.assertTrue(Long.valueOf(proposalContent.get("net_fee").toString()) >= 0);
+    //energy_usage
+    Assert.assertTrue(Long.valueOf(proposalContent.get("energy_usage").toString()) >= 0);
+    //energy_fee
+    Assert.assertTrue(Long.valueOf(proposalContent.get("energy_fee").toString()) >= 0);
+    //energy_usage_total
+    Assert.assertTrue(Long.valueOf(proposalContent.get("energy_usage_total").toString()) >= 0);
+    //origin_energy_usage
+    Assert.assertTrue(Long.valueOf(proposalContent.get("origin_energy_usage").toString()) >= 0);
+    //net_usage
+    Assert.assertTrue(Long.valueOf(proposalContent.get("net_usage").toString()) >= 0);
+    //data
+    Assert.assertTrue(targetContent.containsKey("data"));
+    //contractRet
+    Assert.assertTrue(!targetContent.get("contractType").toString().isEmpty());
+    //fee
+    Assert.assertTrue(targetContent.containsKey("fee"));
+    //toAddress
+    Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+    Assert.assertTrue(patternAddress.matcher(targetContent.getString("toAddress")).matches());
+    Assert.assertTrue(patternAddress.matcher(targetContent.getString("ownerAddress")).matches());
+    //confirmed
+    Assert.assertTrue(Boolean.valueOf(targetContent.getString("confirmed")));
+    Assert.assertTrue(targetContent.containsKey("Events"));
+    Assert.assertTrue(targetContent.containsKey("SmartCalls"));
+    Assert.assertTrue(targetContent.containsKey("block"));
+    //hash
+    Pattern patternHash = Pattern.compile("^[a-z0-9]{64}");
+    Assert.assertTrue(patternHash.matcher(targetContent.getString("hash")).matches());
+    Assert.assertTrue(targetContent.containsKey("id"));
+    //contractData json
+    proposalContent = targetContent.getJSONObject("contractData");
+    Assert.assertTrue(proposalContent.containsKey("data"));
+    //contractData Contain owner_address，contract_address
+    Assert.assertTrue(patternAddress.matcher(proposalContent.getString("owner_address")).matches());
+    Assert.assertTrue(patternAddress.matcher(proposalContent.getString("contract_address")).matches());
+    //call_value
+    Assert.assertTrue(Long.valueOf(proposalContent.get("call_value").toString()) >= 0);
+    //timestamp
+    Assert.assertTrue(targetContent.containsKey("timestamp"));
+
+
+  }
   /**
    * constructor.
    */

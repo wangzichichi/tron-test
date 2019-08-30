@@ -35,8 +35,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/account?address=TWd4WrZ9wn84
 @param address: an account;  
 @return: an account detail info;  
 @TestOwner:姜红;
-@AutomationCase: false;
-@AutomationCase: false;  
+@AutomationCase: true;  
 
 # 5
 **/api/block**  
@@ -65,7 +64,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/block?sort=-number&limit=20&
 @param producer: SR address;  
 @return: blocks produced by the specified SR;  
 @TestOwner:姜红;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 7
 **/api/block**  
@@ -88,7 +87,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/transaction?sort=-timestamp&
 @param end_timestamp: query date range;  
 @return: transactions list;  
 @TestOwner:姜红;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 9
 **/api/transaction**  
@@ -204,7 +203,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/contracts?count=true&limit=2
 @param count: total number of records;  
 @return: contracts list;  
 @TestOwner:王子赫;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 19
 **/api/contract**  
@@ -414,7 +413,7 @@ Demo: curl -X Post  https://apilist.tronscan.org/api/broadcast
 @param: transaction: signature generated hex;  
 @return: broadcast result;  
 @TestOwner:王子赫;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 39
 **/api/contract/events**   

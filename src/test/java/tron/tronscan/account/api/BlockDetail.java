@@ -91,7 +91,28 @@ public class BlockDetail {
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("witnessAddress")).matches());
   }
+  @Test(enabled = true, description = "List all the blocks produced by the specified SR in the blockchain")
+  public void getBlocksList() {
+    //Get response
+    int limit = 20;
+    String address = "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9";
+    Map<String, String> params = new HashMap<>();
+    params.put("sort", "-number");
+    params.put("limit", String.valueOf(limit));
+    params.put("count", "true");
+    params.put("start", "0");
+    params.put("producer", address);
 
+    response = TronscanApiList.getBlockDetail(tronScanNode, params);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    Assert.assertTrue(responseContent.size() >= 3);
+    Long total = Long.valueOf(responseContent.get("total").toString());
+    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
+    Assert.assertTrue(rangeTotal >= total);
+    Assert.assertTrue(responseContent.containsKey("data"));
+  }
   /**
    * constructor.
    */

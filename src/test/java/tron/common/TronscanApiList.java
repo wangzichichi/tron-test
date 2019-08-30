@@ -459,7 +459,21 @@ public class TronscanApiList {
     }
     return response;
   }
+  /**
+   * constructor.
+   */
 
+  public static HttpResponse getAccountList(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/account";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
   public static HttpResponse getBlockDetail(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/block";
@@ -478,7 +492,7 @@ public class TronscanApiList {
       response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
-      httppost.releaseConnection();
+      httpget.releaseConnection();
       return null;
     }
     return response;
