@@ -589,11 +589,11 @@ public class TronscanApiList {
   public static HttpResponse getAssetTransferList(String tronscanNode,
       Map<String, String> params) {
     try {
-      String requestUrl = "http://" + tronscanNode + "asset/transfer";
+      String requestUrl = "http://" + tronscanNode + "api/asset/transfer";
       response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
-      httppost.releaseConnection();
+      httpget.releaseConnection();
       return null;
     }
     return response;
@@ -602,7 +602,7 @@ public class TronscanApiList {
   public static HttpResponse getTransfersTrc20List(String tronscanNode,
       Map<String, String> params) {
     try {
-      String requestUrl = "http://" + tronscanNode + "token_trc20/transfers";
+      String requestUrl = "http://" + tronscanNode + "api/token_trc20/transfers";
       response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
