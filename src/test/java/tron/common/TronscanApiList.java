@@ -556,6 +556,59 @@ public class TronscanApiList {
       httppost.releaseConnection();
       return null;
     }
+
+    return response;
+  }
+
+  public static HttpResponse getSingleProposalList(String tronscanNode,
+      Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/proposal";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  public static HttpResponse getExchangeTradeData(String tronscanNode,
+      Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "exchange/kgraph";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  public static HttpResponse getAssetTransferList(String tronscanNode,
+      Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "asset/transfer";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  public static HttpResponse getTransfersTrc20List(String tronscanNode,
+      Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "token_trc20/transfers";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
     return response;
   }
 
