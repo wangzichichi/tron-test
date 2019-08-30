@@ -2,14 +2,20 @@ package tron.tronscan.account.api;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
+import com.sun.xml.internal.rngom.digested.DDataPattern.Param;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 import tron.common.utils.Utils;
+import tron.common.TronscanApiList;
+
 @Slf4j
 public class FundsInfo {
 
@@ -17,12 +23,11 @@ public class FundsInfo {
       .getString("foundationAccount.key1");
   private JSONObject responseContent;
   private JSONArray responseArrayContent;
+  private JSONObject proposalContent;
   private JSONObject targetContent;
   private HttpResponse response;
-  private String tronScanNode = Configuration.getByPath("testng.conf")
-      .getStringList("tronscan.ip.list")
+  private String tronScanNode = Configuration.getByPath("testng.conf").getStringList("tronscan.ip.list")
       .get(0);
-
   /**
    * constructor.
    */
@@ -46,13 +51,32 @@ public class FundsInfo {
     Assert.assertTrue(responseContent.containsKey("turnOver"));
   }
 
+  /**
+   * constructor.
+   */
+  @Test(enabled = true, description = "List all the foundation addresses ")
+  public void getFundTest() {
+    //Get response
+    Map<String, String> Params = new HashMap<>();
+    Params.put("page_index","1");
+    Params.put("per_page","20");
+    response = TronscanApiList.getFundTest(tronScanNode,Params);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    Assert.assertTrue(responseContent.containsKey("code"));
+    Assert.assertTrue(Integer.valueOf(responseContent.get("page_index").toString()) >= 1);
+    Assert.assertTrue(responseContent.containsKey("message"));
+    Assert.assertTrue(responseContent.containsKey("data"));
+
+  }
 
   /**
    * constructor.
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    TronscanApiList.disConnect();
+//    TronscanApiList.disConnect();
   }
 
 }

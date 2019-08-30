@@ -3,7 +3,7 @@ package tron.tronscan.account.api;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
-import java.util.regex.Pattern;
+import java.util.Map;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
@@ -15,9 +15,9 @@ import tron.common.utils.Configuration;
  * ${params}
  *
  * @Author:jh
- * @Date:2019-08-29 11:26
+ * @Date:2019-08-29 20:03
  */
-public class NodeMap {
+public class ExchangeAphList {
 
   private final String foundationKey = Configuration.getByPath("testng.conf")
       .getString("foundationAccount.key1");
@@ -27,37 +27,31 @@ public class NodeMap {
   private String tronScanNode = Configuration.getByPath("testng.conf")
       .getStringList("tronscan.ip.list").get(0);
 
+
   /**
    * constructor.
    */
-  @Test(enabled = true, description = "List all the nodes in the blockchain")
-  public void getNodeMap() {
-    response = TronscanApiList.getNodeMap(tronScanNode);
-    //log.info("code is " + response.getStatusLine().getStatusCode());
+  @Test(enabled = true, description = "List a single the exchange pair's trade chart data ")
+  public void getExchangAphTest() {
+    //
+    Map<String, String> Params = new HashMap<>();
+    Params.put("exchange_id","9");
+    Params.put("granularity","1h");
+    Params.put("time_start","1547510400");
+    Params.put("time_end","1548062933");
+    //Five object
+    response = TronscanApiList.getExchangAphTest(tronScanNode,Params);
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
-
-
-    //three object, "total" and "Data"
-    Assert.assertTrue(responseContent.size() >= 3);
-    Integer total = Integer.valueOf(responseContent.get("total").toString());
-    JSONArray exchangeArray = responseContent.getJSONArray("data");
-    Assert.assertTrue(exchangeArray.size() == total);
-    Assert.assertTrue(Double.valueOf(responseContent.get("code").toString()) >= 0);
-    //country
-    targetContent = exchangeArray.getJSONObject(0);
-    Assert.assertTrue(targetContent.containsKey("country"));
-    //lng and lat Contain double
-    Assert.assertTrue(Double.valueOf(targetContent.get("lng").toString())> -1000);
-    Assert.assertTrue(Double.valueOf(targetContent.get("lat").toString())> 0);
-
-    Assert.assertTrue(targetContent.containsKey("ip"));
-
-
-
+    //exchange_id
+    Assert.assertTrue(Long.valueOf(responseContent.get("exchange_id").toString()) > 0);
+    //
+    Assert.assertTrue(responseContent.containsKey("data"));
+    Assert.assertTrue(responseContent.containsKey("time_start"));
+    Assert.assertTrue(responseContent.containsKey("granularity"));
+    Assert.assertTrue(responseContent.containsKey("time_end"));
   }
-
   /**
    * constructor.
    */

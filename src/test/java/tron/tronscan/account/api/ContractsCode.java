@@ -59,6 +59,33 @@ public class ContractsCode {
   /**
    * constructor.
    */
+  @Test(enabled = true, description = "Get a single contract's detail ")
+  public void getContractTest() {
+    //Get response
+    String address = "TEEXEWrkMFKapSMJ6mErg39ELFKDqEs6w3";
+    Map<String, String> Params = new HashMap<>();
+    Params.put("contract",address);
+    response = TronscanApiList.getContractTest(tronScanNode,Params);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+
+    JSONObject responseObject = responseContent.getJSONObject("status");
+    Assert.assertTrue(responseObject.containsKey("code"));
+    Assert.assertTrue(responseObject.containsKey("message"));
+
+    responseObject = responseContent.getJSONObject("data");
+    Assert.assertTrue(responseObject.containsKey("address"));
+    Assert.assertTrue(responseObject.containsKey("creator"));
+    Assert.assertTrue(responseObject.containsKey("balance"));
+    Assert.assertTrue(responseObject.containsKey("balanceInUsd"));
+    Assert.assertTrue(responseObject.containsKey("trxCount"));
+
+  }
+
+  /**
+   * constructor.
+   */
   @AfterClass
   public void shutdown() throws InterruptedException {
     TronscanApiList.disConnect();

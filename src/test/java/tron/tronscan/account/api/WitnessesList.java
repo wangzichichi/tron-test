@@ -55,7 +55,7 @@ public class WitnessesList {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    TronscanApiList.disConnect();
+    TronscanApiList.disGetConnect();
   }
 
 }

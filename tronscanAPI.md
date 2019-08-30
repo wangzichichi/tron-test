@@ -26,7 +26,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/account/list?sort=-balance&l
 @param start: query index for pagination;  
 @return: accounts list;  
 @TestOwner:朱凯;
-@AutomationCase:true;
+@AutomationCase:false;
 
 # 4
 **/api/account**  
@@ -50,7 +50,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/block?sort=-number&limit=20&
 @param end_timestamp: query date range;  
 @return: blocks list;  
 @TestOwner:朱凯;
-@AutomationCase:true;
+@AutomationCase:false;
 
 # 6
 **/api/block**  
@@ -74,7 +74,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/block?number=5987471
 @param number: block number;  
 @return: a block detail info;  
 @TestOwner:朱凯;
-@AutomationCase:true;
+@AutomationCase:false;
 
 # 8
 **/api/transaction**  
@@ -103,7 +103,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/transaction?sort=-timestamp&
 @param address: an account;  
 @return: transactions list;
 @TestOwner:朱凯;
-@AutomationCase:true;
+@AutomationCase:false;
 
 # 10
 **/api/contracts/transaction**(only display the latest 10,000 data records in the query time range)
@@ -156,7 +156,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/transfer?sort=-timestamp&cou
 @param address: transfers related address;  
 @return: transfers list related to an specified account;  
 @TestOwner:朱凯;
-@AutomationCase:true;
+@AutomationCase:false;
 
 # 14
 **/api/nodemap**  
@@ -184,7 +184,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/fund?page_index=1&per_page=2
 @param per_page: page size for pagination;  
 @return: all the foundation addresses;  
 @TestOwner:姜红;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 17
 **/api/funds**  
@@ -193,7 +193,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/funds
 @param: null;  
 @return: TRX number overview info;  
 @TestOwner:朱凯;
-@AutomationCase:true;
+@AutomationCase:false;
 
 # 18
 **/api/contracts**  
@@ -213,7 +213,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/contract?contract=TEEXEWrkMF
 @param contract: contract address;  
 @return: a contract detail info;  
 @TestOwner:姜红;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 20
 **/api/contracts/code**  
@@ -222,7 +222,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/contracts/code?contract=TEEX
 @param contract: contract address;  
 @return: a single contract's abi & byteCode;  
 @TestOwner:朱凯;
-@AutomationCase:true;
+@AutomationCase:false;
 
 # 21
 **/api/contracts/trigger**  
@@ -301,7 +301,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/vote?sort=-votes&limit=20&st
 @param voter: an voter account;  
 @return: all the votes info made by a specified voter;  
 @TestOwner:姜红;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 28
 **/api/vote**  
@@ -372,7 +372,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/exchange/transaction?sort=-t
 @param exchangeID: exchange id;  
 @return: a single the exchange pair's transaction records;  
 @TestOwner:姜红;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 35
 **/api/exchange/kgraph**  
@@ -396,7 +396,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/exchange/kgraph?exchange_id=
 @param exchange_id: exchange id;  
 @return: a single the exchange pair's trade chart data;  
 @TestOwner:姜红;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 37
 **/api/stats/overview**  
@@ -405,7 +405,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/stats/overview
 @param: null;  
 @return: list of avgBlockTime, blockchainSize, newAddressSeen, newBlockSeen, newTransactionSeen, totalAddress, totalBlockCount, totalTransaction;  
 @TestOwner:姜红;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 38
 **/api/broadcast**  
@@ -440,7 +440,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/internal-transaction?limit=2
 @param address: an account;    
 @return: internal transactions list;    
 @TestOwner:姜红;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 41
 **/api/asset/transfer**   
