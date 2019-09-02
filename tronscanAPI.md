@@ -235,7 +235,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/contracts/trigger?sort=-time
 @param end_timestamp: query date range;  
 @return: a single contract's trigger detail;  
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 22
 **/api/token_trc20**  
@@ -258,7 +258,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/token?sort=-name&limit=20&st
 @param status: if equals 'ico', only returns the tokens that can be participated;  
 @return: trc10 tokens list(only audited tokens);  
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 24
 **/api/token**  
@@ -312,7 +312,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/vote?sort=-votes&limit=20&st
 @param candidate: an witness account;  
 @return: all the voters that vote for a specified candidate; 
 @TestOwner:朱凯;
-@AutomationCase:false; 
+@AutomationCase:true; 
 
 # 29
 **/api/chainparameters**  
@@ -341,7 +341,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/proposal?id=16
 @param id: proposal id;  
 @return: a single proposal detail info;  
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 32
 **/api/exchanges/list**  
@@ -383,7 +383,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/exchange/kgraph?exchange_id=
 @param exchange_id: exchange id;  
 @return: a single the exchange pair's trade chart data;  
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
 
 # 36
 **/api/exchange/kgraph**  
@@ -453,7 +453,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/asset/transfer?limit=20&star
 @param end_timestamp: query date range;   
 @return: TRC10 token transfers list;
 @TestOwner:朱凯;
-@AutomationCase:false;   
+@AutomationCase:true;   
 
 # 42
 **/api/token_trc20/transfers**   
@@ -466,4 +466,4 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/token_trc20/transfers?limit=
 @param end_timestamp: query date range;   
 @return: TRC20 token transfers list;   
 @TestOwner:朱凯;
-@AutomationCase:false;
+@AutomationCase:true;
