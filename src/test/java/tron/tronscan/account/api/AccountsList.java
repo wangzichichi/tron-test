@@ -89,7 +89,7 @@ public class AccountsList {
     Assert.assertTrue(Double.valueOf(targetContent.get("balance").toString()) >= 0);
     //decimals
     Integer decimals = Integer.valueOf(targetContent.get("decimals").toString());
-    Assert.assertTrue(decimals >= 0 && decimals <= 7);
+    Assert.assertTrue(decimals >= 0 && decimals <= 18);
     //name
     Assert.assertTrue(!targetContent.get("name").toString().isEmpty());
     //contract_address
