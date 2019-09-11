@@ -467,3 +467,12 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/token_trc20/transfers?limit=
 @return: TRC20 token transfers list;   
 @TestOwner:朱凯;
 @AutomationCase:true;
+
+# 43
+**/api/system/proxy**   
+Desc: add CNY price 
+Demo: curl -X Get  http://apilist.tronscan.org/api/system/proxy?url=https://api.coinmarketcap.com/v1/ticker/tronix/?convert=CNY
+@param url: Plug-in address;      
+@return: proxy token transfers list;   
+@TestOwner:姜红;
+@AutomationCase:true;

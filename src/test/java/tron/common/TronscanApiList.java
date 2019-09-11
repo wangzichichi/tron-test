@@ -459,6 +459,7 @@ public class TronscanApiList {
     }
     return response;
   }
+
   /**
    * constructor.
    */
@@ -625,7 +626,21 @@ public class TronscanApiList {
     }
     return response;
   }
-
+  /**
+   * constructor.add CNY price
+   */
+  public static HttpResponse getProxyList(String tronscanNode,Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/system/proxy";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl,params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
 
   /**
    * constructor.
