@@ -643,6 +643,21 @@ public class TronscanApiList {
   }
 
   /**
+   * constructor.查询通证列表
+   */
+  public static HttpResponse getTokenOverview(String tronscanNode,Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/tokens/overview";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl,params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+  /**
    * constructor.
    */
   public static HttpResponse createConnect(String url) {

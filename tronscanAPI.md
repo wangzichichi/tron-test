@@ -1,4 +1,4 @@
-# 1
+# 1 获取系统参数
 **/api/system/status**  
 Desc: List data synchronization state  
 Demo: curl -X Get  https://apilist.tronscan.org/api/system/status  
@@ -8,7 +8,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/system/status
 @AutomationCase:true;
 
 
-# 2
+# 2 查询最新块
 **/api/block/latest**  
 Desc: Get the lastest block  
 Demo: curl -X Get  https://apilist.tronscan.org/api/block/latest  
@@ -17,7 +17,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/block/latest
 @TestOwner:姜红;
 @AutomationCase:true;
 
-# 3
+# 3 查询账户列表
 **/api/account/list**  
 Desc: List all the accounts in the blockchain (only 10,000 accounts are displayed, sorted by TRX balance from high to low) 
 Demo: curl -X Get  https://apilist.tronscan.org/api/account/list?sort=-balance&limit=20&start=0  
@@ -28,7 +28,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/account/list?sort=-balance&l
 @TestOwner:朱凯;
 @AutomationCase:false;
 
-# 4
+# 4 查询具体地址
 **/api/account**  
 Desc: Get a single account's detail  
 Demo: curl -X Get  https://apilist.tronscan.org/api/account?address=TWd4WrZ9wn84f5x1hZhL4DHvk738ns5jwb  
@@ -37,7 +37,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/account?address=TWd4WrZ9wn84
 @TestOwner:姜红;
 @AutomationCase: true;  
 
-# 5
+# 5 查询区块列表
 **/api/block**  
 Desc: List the blocks in the blockchain(only display the latest 10,000 data records in the query time range)  
 Demo: curl -X Get  https://apilist.tronscan.org/api/block?sort=-number&limit=20&count=true&start=20&start_timestamp=1551715200000&end_timestamp=1551772172616 
@@ -51,7 +51,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/block?sort=-number&limit=20&
 @TestOwner:朱凯;
 @AutomationCase:false;
 
-# 6
+# 6 查询具体区块producer
 **/api/block**  
 Desc: List all the blocks produced by the specified SR in the blockchain  
 Demo: curl -X Get  https://apilist.tronscan.org/api/block?sort=-number&limit=20&count=true&start=0&producer=TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9  
@@ -66,7 +66,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/block?sort=-number&limit=20&
 @TestOwner:姜红;
 @AutomationCase:true;
 
-# 7
+# 7 查询具体区块
 **/api/block**  
 Desc: Get a single block's detail  
 Demo: curl -X Get  https://apilist.tronscan.org/api/block?number=5987471  
@@ -75,7 +75,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/block?number=5987471
 @TestOwner:朱凯;
 @AutomationCase:false;
 
-# 8
+# 8 查询交易列表
 **/api/transaction**  
 Desc: List the transactions in the blockchain(only display the latest 10,000 data records in the query time range)  
 Demo: curl -X Get  https://apilist.tronscan.org/api/transaction?sort=-timestamp&count=true&limit=20&start=0&start_timestamp=1548000000000&end_timestamp=1548056638507  
@@ -89,7 +89,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/transaction?sort=-timestamp&
 @TestOwner:姜红;
 @AutomationCase:true;
 
-# 9
+# 9 地址下交易查询
 **/api/transaction**  
 Desc: List the transactions related to a specified account  
 Demo: curl -X Get  https://apilist.tronscan.org/api/transaction?sort=-timestamp&count=true&limit=20&start=0&address=TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9  
@@ -104,9 +104,9 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/transaction?sort=-timestamp&
 @TestOwner:朱凯;
 @AutomationCase:false;
 
-# 10
+# 10 查询合约下交易
 **/api/contracts/transaction**(only display the latest 10,000 data records in the query time range)
-Desc: List the transactions related to an smart contract(only display the latest 10,000 data records in the query time range)  Demo: curl -X Get  https://apilist.tronscan.org/api/contracts/transaction?sort=-timestamp&count=true&limit=20&start=0&contract=TWfbypo79cDaXidFBdkDNuVJNAXzPdTmcx  
+Desc:  List the transactions related to an smart contract(only display the latest 10,000 data records in the query time range)  Demo: curl -X Get  https://apilist.tronscan.org/api/contracts/transaction?sort=-timestamp&count=true&limit=20&start=0&contract=TWfbypo79cDaXidFBdkDNuVJNAXzPdTmcx  
 @param sort: define the sequence of the records return;  
 @param limit: page size for pagination;  
 @param start: query index for pagination;  
@@ -118,18 +118,18 @@ Desc: List the transactions related to an smart contract(only display the latest
 @TestOwner:王子赫;
 @AutomationCase:true;
 
-# 11
+# 11 查询具体交易
 **/api/transaction-info**  
-Desc: List a transaction detail  
+Desc:  List a transaction detail  
 Demo: curl -X Get  https://apilist.tronscan.org/api/transaction-info?hash=1c25bc75d0bebac2f3aa71c350d67c4eed56ec2501b72302ae6d0110dc40cf96  
 @param hash: query transaction hash;  
 @return: a transaction detail info;  
 @TestOwner:王子赫;
 @AutomationCase:true;
 
-# 12
+# 12 查询转账列表
 **/api/transfer**  
-Desc: List the transfers in the blockchain(only display the latest 10,000 data records in the query time range)  
+Desc:  List the transfers in the blockchain(only display the latest 10,000 data records in the query time range)  
 Demo: curl -X Get  https://apilist.tronscan.org/api/transfer?sort=-timestamp&count=true&limit=20&start=0&start_timestamp=1548000000000&end_timestamp=1548057645667  
 @param sort: define the sequence of the records return;  
 @param limit: page size for pagination;  
@@ -157,7 +157,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/transfer?sort=-timestamp&cou
 @TestOwner:朱凯;
 @AutomationCase:false;
 
-# 14
+# 14 查询节点
 **/api/nodemap**  
 Desc: List all the nodes in the blockchain  
 Demo: curl -X Get  https://apilist.tronscan.org/api/nodemap  
@@ -166,7 +166,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/nodemap
 @TestOwner:姜红;
 @AutomationCase:true;
 
-# 15
+# 15 获取捐赠者信息
 **/api/listdonators**  
 Desc: List all the donators to the foundation address  
 Demo: curl -X Get  https://apilist.tronscan.org/api/listdonators  
@@ -175,7 +175,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/listdonators
 @TestOwner:王子赫;
 @AutomationCase:true;
 
-# 16
+# 16 查询fund信息
 **/api/fund**  
 Desc: List all the foundation addresses  
 Demo: curl -X Get  https://apilist.tronscan.org/api/fund?page_index=1&per_page=20  
@@ -185,7 +185,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/fund?page_index=1&per_page=2
 @TestOwner:姜红;
 @AutomationCase:true;
 
-# 17
+# 17 查询捐赠总览信息
 **/api/funds**  
 Desc: List TRX number overview info  
 Demo: curl -X Get  https://apilist.tronscan.org/api/funds  
@@ -194,7 +194,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/funds
 @TestOwner:朱凯;
 @AutomationCase:false;
 
-# 18
+# 18 查询合约列表
 **/api/contracts**  
 Desc: List all the contracts in the blockchain  
 Demo: curl -X Get  https://apilist.tronscan.org/api/contracts?count=true&limit=20&start=0  
@@ -205,7 +205,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/contracts?count=true&limit=2
 @TestOwner:王子赫;
 @AutomationCase:true;
 
-# 19
+# 19 查询合约
 **/api/contract**  
 Desc: Get a single contract's detail  
 Demo: curl -X Get  https://apilist.tronscan.org/api/contract?contract=TEEXEWrkMFKapSMJ6mErg39ELFKDqEs6w3  
@@ -214,7 +214,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/contract?contract=TEEXEWrkMF
 @TestOwner:姜红;
 @AutomationCase:true;
 
-# 20
+# 20 获取合约编码
 **/api/contracts/code**  
 Desc: Get a single contract's abi & byteCode  
 Demo: curl -X Get  https://apilist.tronscan.org/api/contracts/code?contract=TEEXEWrkMFKapSMJ6mErg39ELFKDqEs6w3  
@@ -223,7 +223,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/contracts/code?contract=TEEX
 @TestOwner:朱凯;
 @AutomationCase:false;
 
-# 21
+# 21 查询合约调用
 **/api/contracts/trigger**  
 Desc: List all the triggers of the contracts in the blockchain(only display the latest 10,000 data records in the query time range)  
 Demo: curl -X Get  https://apilist.tronscan.org/api/contracts/trigger?sort=-timestamp&count=true&limit=20&start=0&start_timestamp=1548000000000&end_timestamp=1548060167540  
@@ -237,7 +237,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/contracts/trigger?sort=-time
 @TestOwner:朱凯;
 @AutomationCase:true;
 
-# 22
+# 22 查询trc20
 **/api/token_trc20**  
 Desc: List all the trc20 tokens in the blockchain  
 Demo: curl -X Get  https://apilist.tronscan.org/api/token_trc20?limit=20&start=0  
@@ -247,7 +247,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/token_trc20?limit=20&start=0
 @TestOwner:姜红;
 @AutomationCase:true;
 
-# 23
+# 23 获取token列表信息
 **/api/token**  
 Desc: List all the trc10 tokens in the blockchain  
 Demo: curl -X Get  https://apilist.tronscan.org/api/token?sort=-name&limit=20&start=0&totalAll=1&status=ico  
@@ -260,7 +260,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/token?sort=-name&limit=20&st
 @TestOwner:朱凯;
 @AutomationCase:true;
 
-# 24
+# 24 获取token列表信息
 **/api/token**  
 Desc: List a single trc10 token's detail  
 Demo: curl -X Get  https://apilist.tronscan.org/api/token?id=1001761&showAll=1  
@@ -270,7 +270,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/token?id=1001761&showAll=1
 @TestOwner:王子赫;
 @AutomationCase:true;
 
-# 25
+# 25 获取witness
 **/api/witness**  
 Desc: List all the witnesses in the blockchain  
 Demo: curl -X Get  https://apilist.tronscan.org/api/witness  
@@ -281,7 +281,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/witness
 
 
 
-# 26
+# 26 witness查询
 **/api/vote/witness**  
 Desc: List all the votes info of the witnesses  
 Demo: curl -X Get  https://apilist.tronscan.org/api/vote/witness  
@@ -290,7 +290,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/vote/witness
 @TestOwner:王子赫;
 @AutomationCase:true;
 
-# 27
+# 27 地址下投票查询
 **/api/vote**  
 Desc: List all the votes info made by a specified voter  
 Demo: curl -X Get  https://apilist.tronscan.org/api/vote?sort=-votes&limit=20&start=0&voter=TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9  
@@ -302,7 +302,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/vote?sort=-votes&limit=20&st
 @TestOwner:姜红;
 @AutomationCase:true;
 
-# 28
+# 28 candidate下投票查询
 **/api/vote**  
 Desc: List all the voters that vote for a specified candidate  
 Demo: curl -X Get  https://apilist.tronscan.org/api/vote?sort=-votes&limit=20&start=0&candidate=TGzz8gjYiYRqpfmDwnLxfgPuLVNmpCswVp  
@@ -314,7 +314,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/vote?sort=-votes&limit=20&st
 @TestOwner:朱凯;
 @AutomationCase:true; 
 
-# 29
+# 29 获取链上参数
 **/api/chainparameters**  
 Desc: List all the proposal parameters  
 Demo: curl -X Get  https://apilist.tronscan.org/api/chainparameters  
@@ -323,7 +323,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/chainparameters
 @TestOwner:王子赫;
 @AutomationCase:true;
 
-# 30
+# 30 获取提案列表
 **/api/proposal**  
 Desc: List all the proposals in the blockchain  
 Demo: curl -X Get  https://apilist.tronscan.org/api/proposal?sort=-number&limit=20&start=0  
@@ -334,7 +334,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/proposal?sort=-number&limit=
 @TestOwner:姜红;
 @AutomationCase:true;
 
-# 31
+# 31 获取提案
 **/api/proposal**  
 Desc: List a single proposal detail  
 Demo: curl -X Get  https://apilist.tronscan.org/api/proposal?id=16  
@@ -343,7 +343,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/proposal?id=16
 @TestOwner:朱凯;
 @AutomationCase:true;
 
-# 32
+# 32 列出exchange信息
 **/api/exchanges/list**  
 Desc: List all the audited exchange pairs  
 Demo: curl -X Get  https://apilist.tronscan.org/api/exchanges/list?sort=-balance  
@@ -352,7 +352,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/exchanges/list?sort=-balance
 @TestOwner:王子赫;
 @AutomationCase:true;
 
-# 33
+# 33 列出所有交易所信息
 **/api/exchanges/listall**  
 Desc: List all the exchange pairs in the blockchain  
 Demo: curl -X Get  https://apilist.tronscan.org/api/exchanges/listall  
@@ -361,7 +361,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/exchanges/listall
 @TestOwner:王子赫;
 @AutomationCase:true;
 
-# 34
+# 34 查询交易所信息
 **/api/exchange/transaction**  
 Desc: List a single the exchange pair's transaction records  
 Demo: curl -X Get  https://apilist.tronscan.org/api/exchange/transaction?sort=-timestamp&start=0&limit=15&exchangeID=9  
@@ -373,7 +373,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/exchange/transaction?sort=-t
 @TestOwner:姜红;
 @AutomationCase:true;
 
-# 35
+# 35 获取交易所k线信息
 **/api/exchange/kgraph**  
 Desc: List a single the exchange pair's trade chart data  
 Demo: curl -X Get  https://apilist.tronscan.org/api/exchange/kgraph?exchange_id=9&granularity=1h&time_start=1547510400&time_end=1548062933  
@@ -385,7 +385,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/exchange/kgraph?exchange_id=
 @TestOwner:朱凯;
 @AutomationCase:true;
 
-# 36
+# 36 获取交易所k线信息
 **/api/exchange/kgraph**  
 Desc: List a single the exchange pair's trade chart data  
 Demo: curl -X Get  https://apilist.tronscan.org/api/exchange/kgraph?exchange_id=9&granularity=1h&time_start=1547510400&time_end=1548062933  
@@ -397,7 +397,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/exchange/kgraph?exchange_id=
 @TestOwner:姜红;
 @AutomationCase:true;
 
-# 37
+# 37 全局统计接口
 **/api/stats/overview**  
 Desc: Blockchain data overview in history  
 Demo: curl -X Get  https://apilist.tronscan.org/api/stats/overview  
@@ -415,7 +415,7 @@ Demo: curl -X Post  https://apilist.tronscan.org/api/broadcast
 @TestOwner:王子赫;
 @AutomationCase:true;
 
-# 39
+# 39 获取合约事件
 **/api/contract/events**   
 Desc: List the TRC-20 transfers related to a specified account(only display the latest 10,000 data records in the query time range)   
 Demo: curl -X Get  https://apilist.tronscan.org/api/contract/events?address=TSbJFbH8sSayRFMavwohY2P6QfKwQEWcaz&start=0&limit=20&start_timestamp=1548000000000&end_timestamp=1548056638507   
@@ -428,7 +428,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/contract/events?address=TSbJ
 @TestOwner:王子赫;
 @AutomationCase:true;  
 
-# 40
+# 40 账户下合约内交易
 **/api/internal-transaction**   
 Desc: List the internal transactions related to a specified account(only display the latest 10,000 data records in the query time range)    
 Demo: curl -X Get  https://apilist.tronscan.org/api/internal-transaction?limit=20&start=0&address=TBTzh1N24TUinHHrnxZoAv7ouWrNe6M9n2&start_timestamp=1529856000000&end_timestamp=1552549684954    
@@ -441,7 +441,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/internal-transaction?limit=2
 @TestOwner:姜红;
 @AutomationCase:true;
 
-# 41
+# 41 查询trc10通证下交易
 **/api/asset/transfer**   
 Desc: List the transfers related to a specified TRC10 token(only display the latest 10,000 data records in the query time range)   
 Demo: curl -X Get  https://apilist.tronscan.org/api/asset/transfer?limit=20&start=0&name=IGG&issueAddress=TSbhZijH2t7Qn1UAHAu7PBHQdVAvRwSyYr&start_timestamp=1529856000000&end_timestamp=1552549912537   
@@ -455,7 +455,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/asset/transfer?limit=20&star
 @TestOwner:朱凯;
 @AutomationCase:true;   
 
-# 42
+# 42 查询trc20通证转账
 **/api/token_trc20/transfers**   
 Desc: List the transfers related to a specified TRC20 token(only display the latest 10,000 data records in the query time range)   
 Demo: curl -X Get  https://apilist.tronscan.org/api/token_trc20/transfers?limit=20&start=0&contract_address=TCN77KWWyUyi2A4Cu7vrh5dnmRyvUuME1E&start_timestamp=1529856000000&end_timestamp=1552550375474   
@@ -468,11 +468,25 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/token_trc20/transfers?limit=
 @TestOwner:朱凯;
 @AutomationCase:true;
 
-# 43
+# 43 提供CNY货币转换价格
 **/api/system/proxy**   
 Desc: add CNY price 
-Demo: curl -X Get  http://apilist.tronscan.org/api/system/proxy?url=https://api.coinmarketcap.com/v1/ticker/tronix/?convert=CNY
+Demo: curl -X Get  https://apilist.tronscan.org/api/system/proxy?url=https://api.coinmarketcap.com/v1/ticker/tronix/?convert=CNY   
 @param url: Plug-in address;      
+@return: proxy token transfers list;   
+@TestOwner:姜红;
+@AutomationCase:true;
+
+# 44 查询通证列表
+**/api/tokens/overview**
+Desc: 查询通证列表
+Demo: curl -X Get  https://apilist.tronscan.org/api/tokens/overview?start=0&limit=20&order=desc&filter=all&sort=volume24hInTrx&order_current=descend
+@param start: query index for pagination;
+@param limit: page size for pagination;
+@param order: desc;
+@param filter: all;
+@param sort: define the sequence of the records return; 
+@param order_current: descend;
 @return: proxy token transfers list;   
 @TestOwner:姜红;
 @AutomationCase:true;

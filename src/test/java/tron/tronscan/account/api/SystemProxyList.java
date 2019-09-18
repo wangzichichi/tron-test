@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.Test;
@@ -17,11 +17,10 @@ import tron.common.utils.Configuration;
  * @Author:tron
  * @Date:2019-09-11 15:05
  */
+@Slf4j
 public class SystemProxyList {
   private final String foundationKey = Configuration.getByPath("testng.conf")
       .getString("foundationAccount.key1");
-  private JSONObject responseContent;
-  private JSONArray responseArrayContent;
   private JSONObject targetContent;
   private HttpResponse response;
   private String tronScanNode = Configuration.getByPath("testng.conf")
@@ -41,8 +40,6 @@ public class SystemProxyList {
     response = TronscanApiList.getProxyList(tronScanNode, params);
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     JSONArray responseContent = TronscanApiList.parseArrayResponseContent(response);
-    //TronscanApiList.printJsonArrayContent(responseContent);
-    //System.out.println(responseContent);
     JSONArray exchangeArray = responseContent;
 
     //first_token_id
@@ -52,5 +49,7 @@ public class SystemProxyList {
 
     Double price_cny = Double.valueOf(targetContent.get("price_cny").toString());
     Assert.assertTrue(price_cny > 0);
+    log.debug("");
+
   }
 }
