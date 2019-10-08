@@ -45,7 +45,7 @@ public class AccountsList {
     //data object
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
-    Assert.assertEquals(limit,responseObject.size());
+    Assert.assertEquals(limit, responseObject.size());
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("address")).matches());
     Assert.assertTrue(responseObject.containsKey("balance"));
@@ -53,6 +53,7 @@ public class AccountsList {
     Assert.assertTrue(responseContent.containsKey("total"));
     Assert.assertTrue(responseContent.containsKey("rangeTotal"));
   }
+
   /**
    * constructor.
    */
@@ -93,7 +94,8 @@ public class AccountsList {
     //name
     Assert.assertTrue(!targetContent.get("name").toString().isEmpty());
     //contract_address
-    Assert.assertTrue(patternAddress.matcher(targetContent.getString("contract_address")).matches());
+    Assert
+        .assertTrue(patternAddress.matcher(targetContent.getString("contract_address")).matches());
 
     //bandwidth json
     targetContent = responseContent.getJSONObject("bandwidth");
@@ -142,7 +144,6 @@ public class AccountsList {
     Assert.assertTrue(patternAddress.matcher(targetContent.getString("from")).matches());
     Assert.assertTrue(patternAddress.matcher(targetContent.getString("to")).matches());
 
-
     //representative json
     targetContent = responseContent.getJSONObject("representative");
     Assert.assertTrue(Integer.valueOf(targetContent.get("lastWithDrawTime").toString()) >= 0);
@@ -152,6 +153,31 @@ public class AccountsList {
     Assert.assertTrue(targetContent.containsKey("url"));
 
   }
+
+  /**
+   * constructor.查询账户交易统计信息
+   */
+  @Test(enabled = true, description = "查询账户交易统计信息")
+  public void getAccountStats() {
+    //Get response
+    String address = "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9";
+    Map<String, String> params = new HashMap<>();
+    params.put("address", address);
+    response = TronscanApiList.getAccountStats(tronScanNode, params);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    //data object
+    Assert.assertTrue(responseContent.size() == 3);
+    //wholeChainTxCount
+    Assert.assertTrue(Long.valueOf(responseContent.get("transactions").toString()) >= 0);
+    Long transactions = Long.valueOf(responseContent.get("transactions").toString());
+    Long transactions_out = Long.valueOf(responseContent.get("transactions_out").toString());
+    Long transactions_in = Long.valueOf(responseContent.get("transactions_in").toString());
+    Long total = transactions_in + transactions_out;
+    Assert.assertTrue((transactions_in + transactions_out) == transactions);
+  }
+
   /**
    * constructor.
    */

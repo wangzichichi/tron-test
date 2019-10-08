@@ -18,6 +18,7 @@ import tron.common.utils.Configuration;
  * @Date:2019-08-29 19:34
  */
 public class InternalTranList {
+
   private final String foundationKey = Configuration.getByPath("testng.conf")
       .getString("foundationAccount.key1");
   private JSONObject responseContent;
@@ -28,20 +29,20 @@ public class InternalTranList {
 
 
   /**
-   * constructor.
+   * constructor.查询合约内部合约内交易
    */
   @Test(enabled = true, description = "List the internal transactions related to a specified account(only display the latest 10,000 data records in the query time range) ")
   public void getInternalTransaction() {
     //
-    String address = "TBTzh1N24TUinHHrnxZoAv7ouWrNe6M9n2";
+    String address = "TEEXEWrkMFKapSMJ6mErg39ELFKDqEs6w3";
     Map<String, String> Params = new HashMap<>();
-    Params.put("start_timestamp","1529856000000");
-    Params.put("end_timestamp","1552549684954");
-    Params.put("limit","20");
-    Params.put("start","0");
-    Params.put("address",address);
+    Params.put("start_timestamp", "1529856000000");
+    Params.put("end_timestamp", "1567595388290");
+    Params.put("limit", "20");
+    Params.put("start", "0");
+    Params.put("contract", address);
     //Three object "total" ,"data","rangeTotal"
-    response = TronscanApiList.getInternalTransaction(tronScanNode,Params);
+    response = TronscanApiList.getInternalTransaction(tronScanNode, Params);
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
@@ -52,6 +53,7 @@ public class InternalTranList {
     Assert.assertTrue(rangeTotal >= total);
 
   }
+
   /**
    * constructor.
    */

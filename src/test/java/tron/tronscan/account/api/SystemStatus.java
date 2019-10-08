@@ -21,7 +21,7 @@ public class SystemStatus {
   private HttpResponse response;
   private String tronScanNode = Configuration.getByPath("testng.conf")
       .getStringList("tronscan.ip.list").get(0);
-  private HashMap<String,String> testAccount;
+  private HashMap<String, String> testAccount;
 
   /**
    * constructor.
@@ -55,9 +55,8 @@ public class SystemStatus {
     //full block is equal databaseBlock
     targetContent = responseContent.getJSONObject("full");
     long full = Long.valueOf(targetContent.get("block").toString());
-    log.info("full:" + full +  " , databaseBlock:" + databaseBlock);
-    Assert.assertEquals(full,databaseBlock);
-
+    log.info("full:" + full + " , databaseBlock:" + databaseBlock);
+    Assert.assertEquals(full, databaseBlock);
 
     //full block is equal databaseBlock
     targetContent = responseContent.getJSONObject("solidity");
@@ -65,11 +64,9 @@ public class SystemStatus {
     Assert.assertTrue(solidity == databaseConfirmedBlock);
 
     testAccount = TronscanApiList.generateAddress();
-    log.info("privateKey:" + testAccount.get("privateKey") );
-    log.info("hexAddress:" + testAccount.get("hexAddress") );
-    log.info("address:" + testAccount.get("address") );
-
-
+    log.info("privateKey:" + testAccount.get("privateKey"));
+    log.info("hexAddress:" + testAccount.get("hexAddress"));
+    log.info("address:" + testAccount.get("address"));
 
 
   }
@@ -81,5 +78,4 @@ public class SystemStatus {
   public void shutdown() throws InterruptedException {
     TronscanApiList.disConnect();
   }
-
 }

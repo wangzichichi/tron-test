@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
@@ -20,6 +21,7 @@ import tron.common.utils.Configuration;
  */
 @Slf4j
 public class TokenOverview {
+
   private final String foundationKey = Configuration.getByPath("testng.conf")
       .getString("foundationAccount.key1");
   private JSONObject responseContent;
@@ -29,6 +31,7 @@ public class TokenOverview {
   private String tronScanNode = Configuration.getByPath("testng.conf")
       .getStringList("tronscan.ip.list")
       .get(0);
+
   /**
    * constructor.
    */
@@ -49,10 +52,10 @@ public class TokenOverview {
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
     //data object
-    Assert.assertTrue(responseContent.size() >= 3);
+    Assert.assertTrue(responseContent.size() == 3);
     Long total = Long.valueOf(responseContent.get("total").toString());
-    Long rangeTotal = Long.valueOf(responseContent.get("totalAll").toString());
-    Assert.assertTrue(rangeTotal >= total);
+    Long totalAll = Long.valueOf(responseContent.get("totalAll").toString());
+    Assert.assertTrue(totalAll >= total);
     JSONArray exchangeArray = responseContent.getJSONArray("tokens");
     targetContent = exchangeArray.getJSONObject(0);
     //marketcap
@@ -83,5 +86,13 @@ public class TokenOverview {
     //volume24hInTrx
     Assert.assertTrue(Double.valueOf(targetContent.get("volume24hInTrx").toString()) >= 0);
 
+  }
+
+  /**
+   * constructor.
+   */
+  @AfterClass
+  public void shutdown() throws InterruptedException {
+    TronscanApiList.disGetConnect();
   }
 }

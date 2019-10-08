@@ -56,7 +56,7 @@ public class TronscanApiList {
       response = createConnect(requestUrl);
     } catch (Exception e) {
       e.printStackTrace();
-      httppost.releaseConnection();
+      httpget.releaseConnection();
       return null;
     }
     return response;
@@ -178,6 +178,7 @@ public class TronscanApiList {
     }
     return response;
   }
+
   /**
    * constructor.
    */
@@ -193,14 +194,15 @@ public class TronscanApiList {
     }
     return response;
   }
+
   /**
-   * constructor.
+   * constructor.上传节点信息
    */
-  public static HttpResponse getTokentrc20(String tronscanNode,Map<String, String> params) {
+  public static HttpResponse getInfo_upload(String tronscanNode, Map<String, String> params) {
     try {
-      String requestUrl = "http://" + tronscanNode + "api/token_trc20?limit=20&start=0";
+      String requestUrl = "http://" + tronscanNode + "api/v2/node/info_upload";
       System.out.println(requestUrl);
-      response = createGetConnect(requestUrl,params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -212,12 +214,11 @@ public class TronscanApiList {
   /**
    * constructor.
    */
-  public static HttpResponse getProposalList(String tronscanNode,Map<String, String> params) {
+  public static HttpResponse getTokentrc20(String tronscanNode, Map<String, String> params) {
     try {
-      String requestUrl = "http://" + tronscanNode + "api/proposal"
-                    + "?sort=-number&limit=20&start=0";
+      String requestUrl = "http://" + tronscanNode + "api/token_trc20?limit=20&start=0";
       System.out.println(requestUrl);
-      response = createGetConnect(requestUrl,params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -225,15 +226,16 @@ public class TronscanApiList {
     }
     return response;
   }
+
   /**
    * constructor.
    */
-  public static HttpResponse getTransactionTest(String tronscanNode,Map<String, String> params) {
+  public static HttpResponse getTokentrc20_transfer(String tronscanNode,
+      Map<String, String> params) {
     try {
-      String requestUrl = "http://" + tronscanNode + "api/exchange/transaction"
-              + "?sort=-timestamp&start=0&limit=15&exchangeID=9";
+      String requestUrl = "http://" + tronscanNode + "api/trc10trc20-transfer";
       System.out.println(requestUrl);
-      response = createGetConnect(requestUrl,params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -241,6 +243,41 @@ public class TronscanApiList {
     }
     return response;
   }
+
+  /**
+   * constructor.
+   */
+  public static HttpResponse getProposalList(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/proposal"
+          + "?sort=-number&limit=20&start=0";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.
+   */
+  public static HttpResponse getTransactionTest(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/exchange/transaction"
+          + "?sort=-timestamp&start=0&limit=15&exchangeID=9";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
   /**
    * constructor.
    */
@@ -260,15 +297,12 @@ public class TronscanApiList {
   /**
    * constructor.
    */
-  public static HttpResponse getInternalTransaction(String tronscanNode, Map<String, String> params) {
+  public static HttpResponse getInternalTransaction(String tronscanNode,
+      Map<String, String> params) {
     try {
-      String requestUrl = "http://" + tronscanNode
-          + "api/internal-transaction?"
-          + "limit=20"
-          + "&start=0&"
-          + "&start_timestamp=1529856000000&end_timestamp=1552549684954";
+      String requestUrl = "http://" + tronscanNode + "api/internal-transaction";
       System.out.println(requestUrl);
-      response = createGetConnect(requestUrl,params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -276,6 +310,41 @@ public class TronscanApiList {
     }
     return response;
   }
+
+  /**
+   * constructor.
+   */
+  public static HttpResponse getToken20_holders(String tronscanNode,
+      Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/token_trc20/holders";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.
+   */
+  public static HttpResponse getAnnouncement(String tronscanNode,
+      Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/announcement";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
   /**
    * constructor.
    */
@@ -287,7 +356,7 @@ public class TronscanApiList {
           + "granularity=1h&"
           + "time_start=1547510400&time_end=1548062933";
       System.out.println(requestUrl);
-      response = createGetConnect(requestUrl,params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -295,14 +364,15 @@ public class TronscanApiList {
     }
     return response;
   }
+
   /**
    * constructor.
    */
   public static HttpResponse getVoteTest(String tronscanNode, Map<String, String> params) {
     try {
-      String requestUrl = "http://" + tronscanNode + "api/vote?";
+      String requestUrl = "http://" + tronscanNode + "api/vote";
       System.out.println(requestUrl);
-      response = createGetConnect(requestUrl,params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -310,14 +380,15 @@ public class TronscanApiList {
     }
     return response;
   }
+
   /**
    * constructor.
    */
   public static HttpResponse getContractTest(String tronscanNode, Map<String, String> params) {
     try {
-      String requestUrl = "http://" + tronscanNode + "api/contract?";
+      String requestUrl = "http://" + tronscanNode + "api/contract";
       System.out.println(requestUrl);
-      response = createGetConnect(requestUrl,params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -333,7 +404,7 @@ public class TronscanApiList {
     try {
       String requestUrl = "http://" + tronscanNode + "api/fund?page_index=1&per_page=20";
       System.out.println(requestUrl);
-      response = createGetConnect(requestUrl,params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -341,6 +412,7 @@ public class TronscanApiList {
     }
     return response;
   }
+
   /**
    * constructor.
    */
@@ -373,6 +445,22 @@ public class TronscanApiList {
     } catch (Exception e) {
       e.printStackTrace();
       httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.
+   */
+  public static HttpResponse getVoteWitness(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/vote/witness";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
       return null;
     }
     return response;
@@ -475,6 +563,26 @@ public class TronscanApiList {
     }
     return response;
   }
+
+  /**
+   * constructor.
+   */
+
+  public static HttpResponse getAccountStats(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/account/stats";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.
+   */
   public static HttpResponse getBlockDetail(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/block";
@@ -626,14 +734,15 @@ public class TronscanApiList {
     }
     return response;
   }
+
   /**
    * constructor.add CNY price
    */
-  public static HttpResponse getProxyList(String tronscanNode,Map<String, String> params) {
+  public static HttpResponse getProxyList(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/system/proxy";
       System.out.println(requestUrl);
-      response = createGetConnect(requestUrl,params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -645,11 +754,11 @@ public class TronscanApiList {
   /**
    * constructor.查询通证列表
    */
-  public static HttpResponse getTokenOverview(String tronscanNode,Map<String, String> params) {
+  public static HttpResponse getTokenOverview(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/tokens/overview";
       System.out.println(requestUrl);
-      response = createGetConnect(requestUrl,params);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -657,6 +766,8 @@ public class TronscanApiList {
     }
     return response;
   }
+
+
   /**
    * constructor.
    */
@@ -761,6 +872,7 @@ public class TronscanApiList {
       return null;
     }
   }
+
 
   /**
    * constructor.

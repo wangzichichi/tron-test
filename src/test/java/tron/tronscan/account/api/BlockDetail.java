@@ -91,6 +91,7 @@ public class BlockDetail {
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("witnessAddress")).matches());
   }
+
   @Test(enabled = true, description = "List all the blocks produced by the specified SR in the blockchain")
   public void getBlocksList() {
     //Get response
@@ -110,9 +111,10 @@ public class BlockDetail {
     Assert.assertTrue(responseContent.size() >= 3);
     Long total = Long.valueOf(responseContent.get("total").toString());
     Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
-    Assert.assertTrue(rangeTotal >= total);
+    Assert.assertTrue(total >= rangeTotal);
     Assert.assertTrue(responseContent.containsKey("data"));
   }
+
   /**
    * constructor.
    */
