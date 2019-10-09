@@ -2,8 +2,6 @@ package tron.tronscan.account.api;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonObject;
-import com.sun.xml.internal.rngom.digested.DDataPattern.Param;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -12,9 +10,8 @@ import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import tron.common.utils.Configuration;
-import tron.common.utils.Utils;
 import tron.common.TronscanApiList;
+import tron.common.utils.Configuration;
 
 @Slf4j
 public class FundsInfo {
@@ -24,10 +21,13 @@ public class FundsInfo {
   private JSONObject responseContent;
   private JSONArray responseArrayContent;
   private JSONObject proposalContent;
+  private JSONArray exchangeArray;
   private JSONObject targetContent;
   private HttpResponse response;
-  private String tronScanNode = Configuration.getByPath("testng.conf").getStringList("tronscan.ip.list")
+  private String tronScanNode = Configuration.getByPath("testng.conf")
+      .getStringList("tronscan.ip.list")
       .get(0);
+
   /**
    * constructor.
    */
@@ -58,9 +58,9 @@ public class FundsInfo {
   public void getFundTest() {
     //Get response
     Map<String, String> Params = new HashMap<>();
-    Params.put("page_index","1");
-    Params.put("per_page","20");
-    response = TronscanApiList.getFundTest(tronScanNode,Params);
+    Params.put("page_index", "1");
+    Params.put("per_page", "20");
+    response = TronscanApiList.getFundTest(tronScanNode, Params);
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
@@ -86,9 +86,73 @@ public class FundsInfo {
   /**
    * constructor.
    */
+  @Test(enabled = true, description = "获取Bittorrent的流通量和市值")
+  public void getBitt_fund() {
+    response = TronscanApiList.getBitt_fund(tronScanNode);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    Assert
+        .assertTrue(Double.valueOf(responseContent.get("totalTurnOver").toString()) >= 1000000000);
+    Assert.assertTrue(Double.valueOf(responseContent.get("marketValue").toString()) >= 10000000);
+  }
+
+
+  /**
+   * constructor.
+   */
+  @Test(enabled = true, description = "获取bittorrent代笔解锁时间表图")
+  public void getBitt_graphic() {
+    response = TronscanApiList.getBitt_graphic(tronScanNode);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    JSONArray exchangeArray = TronscanApiList.parseArrayResponseContent(response);
+    //JSONArray exchangeArray = responseArrayContent;
+    targetContent = exchangeArray.getJSONObject(0);
+    Assert.assertTrue(exchangeArray.size() > 0);
+    for (int i = 0; i <= targetContent.size(); i++) {
+      Assert.assertTrue(targetContent.containsKey("data"));
+      Assert.assertTrue(targetContent.containsKey("name"));
+    }
+  }
+
+
+  /**
+   * constructor.
+   */
+  @Test(enabled = true, description = "获取wink的流通量和市值")
+  public void getWinkFund() {
+    response = TronscanApiList.getWinkFund(tronScanNode);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    Assert
+        .assertTrue(Double.valueOf(responseContent.get("totalTurnOver").toString()) >= 1000000000);
+    Assert.assertTrue(Double.valueOf(responseContent.get("marketValue").toString()) >= 10000000);
+  }
+
+  /**
+   * constructor.
+   */
+  @Test(enabled = true, description = "获取wink代笔解锁时间表图")
+  public void getWink_graphic() {
+    response = TronscanApiList.getWink_graphic(tronScanNode);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    JSONArray exchangeArray = TronscanApiList.parseArrayResponseContent(response);
+    //JSONArray exchangeArray = responseArrayContent;
+    targetContent = exchangeArray.getJSONObject(0);
+    Assert.assertTrue(exchangeArray.size() > 0);
+    for (int i = 0; i <= targetContent.size(); i++) {
+      Assert.assertTrue(targetContent.containsKey("data"));
+      Assert.assertTrue(targetContent.containsKey("name"));
+    }
+  }
+
+  /**
+   * constructor.
+   */
   @AfterClass
   public void shutdown() throws InterruptedException {
-//    TronscanApiList.disConnect();
+    TronscanApiList.disGetConnect();
   }
 
 }

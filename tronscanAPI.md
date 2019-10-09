@@ -583,3 +583,105 @@ Desc: download the transaction info of a address (recent 10,000 transactions)
 Demo: curl -X Get  https://apilist.tronscan.org/api/v2/node/info_upload?address=TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9
 @param address: the address
 @return: csv file of the address' transaction; 
+@TestOwner:姜红;
+@AutomationCase:true;
+
+# 53
+**/api/v2/node/overview_upload**   
+Desc: download daily new address number and transaction number info
+Demo: curl -X Get  https://apilist.tronscan.org/api/v2/node/overview_upload
+@param: null
+@return: csv file of daily new address number and transaction number info;
+@TestOwner:姜红;
+@AutomationCase:true;
+
+# 54 获取Bittorrent的流通量和市值
+**/api/bittorrent/fund**  
+Desc: 获取Bittorrent的流通量和市值
+Demo: curl -X Get  https://apilist.tronscan.org/api/bittorrent/fund 
+@param: null;  
+@return: bittorrent的流通量和市值;
+@TestOwner:姜红;
+@AutomationCase:true;
+
+# 55 获取bittorrent代笔解锁时间表图
+**/api/bittorrent/graphic**  
+Desc: 获取bittorrent代笔解锁时间表图
+Demo: curl -X Get  https://apilist.tronscan.org/api/bittorrent/graphic
+@param: null;  
+@return: bittorrent代笔解锁时间表图; 
+@TestOwner:姜红;
+@AutomationCase:true;
+
+# 56 获取wink的流通量和市值
+**/api/wink/fund**  
+Desc: 获取wink的流通量和市值
+Demo: curl -X Get  https://apilist.tronscan.org/api/wink/fund 
+@param: null;  
+@return: wink的流通量和市值; 
+@TestOwner:姜红;
+@AutomationCase:true;
+
+# 57 搜索框查询接口--
+**/api/search**  
+Desc: 搜索框查询接口
+Demo: curl -X Get  https://apilist.tronscan.org/api/search?term=888 
+@param: null;  
+@return: 搜索框查询接口; 
+@TestOwner:姜红;
+@AutomationCase:true;
+
+# 58 查询投票接口
+**/api/account/votes**  
+Desc: Get specific account's vote list; 
+Demo: curl -X Get  https://apilist.tronscan.org/api/account/votes?address=TAUVtaa3wX2omBP683qtPLjRHVQBsDXYS3
+@param address: an account;  
+@return: specific account's vote list;
+@TestOwner:姜红;
+@AutomationCase:true;
+
+# 59 查看SR信息
+**/api/account/sr**  
+Desc: Get a super representative's github link; 
+Demo: curl -X Get  https://apilist.tronscan.org/api/account/sr?address=TGzz8gjYiYRqpfmDwnLxfgPuLVNmpCswVp
+@param address: super representative address;  
+@return: super representative's github link;
+@TestOwner:姜红;
+@AutomationCase:true;
+
+# 60 查询总数接口
+**/api/count**  
+Desc: Get a super totalCount's github link; 
+Demo: curl -X Get  http://apilist.tronscan.org/api/count?type=trc10trc20&address=TAahLbGTZk6YuCycii72datPQEtyC5x231
+@param address: super representative address;
+@param type:  announcement type, now all equal 1;
+@return: super representative's github link;
+@TestOwner:姜红;
+@AutomationCase:true;
+
+# 61 获取当前投票信息
+**/api/vote/current-cycle**
+Desc: 获取当前投票信息  
+Demo: curl -X Get https://apilist.tronscan.org/api/vote/current-cycle
+@param: null;  
+@return: 当前投票信息; 
+@TestOwner:姜红;
+@AutomationCase:true;
+
+# 62 获取下一轮投票情况
+**/api/vote/next-cycle**
+Desc: Get next round vote time;  
+Demo: curl -X Get https://apilist.tronscan.org/api/vote/next-cycle
+@param: null;  
+@return: next round vote time;
+@TestOwner:姜红;
+@AutomationCase:true; 
+
+# 63 获取maintenance的witness方法
+**/api/witness/maintenance-statistic**  
+Desc: 获取本轮出块算力分布图
+Demo: curl -X Get  https://apilist.tronscan.org/api/witness/maintenance-statistic 
+@param: null;  
+@return: 本轮算力分布图;
+@TestOwner:姜红;
+@AutomationCase:true; 

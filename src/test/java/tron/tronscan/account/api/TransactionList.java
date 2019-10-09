@@ -20,6 +20,7 @@ public class TransactionList {
       .getString("foundationAccount.key1");
   private JSONObject responseContent;
   private JSONArray responseArrayContent;
+  private JSONObject sonContent;
   private JSONObject proposalContent;
   private JSONObject targetContent;
   private HttpResponse response;
@@ -257,6 +258,45 @@ public class TransactionList {
     //timestamp
     Assert.assertTrue(targetContent.containsKey("timestamp"));
 
+  }
+
+  /**
+   * constructor.simple-transaction接口
+   */
+  @Test(enabled = true, description = "List the transactions under specified conditions;")
+  public void getSimple_Transaction() {
+    response = TronscanApiList.getSimple_Transaction(tronScanNode);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    //total_votes
+    Long total = Long.valueOf(responseContent.get("total").toString());
+    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
+    Assert.assertTrue(rangeTotal >= total);
+    //candidates
+    JSONArray exchangeArray = responseContent.getJSONArray("data");
+    targetContent = exchangeArray.getJSONObject(0);
+    for (int i = 0; i <= targetContent.size(); i++) {
+      //hash
+      Assert.assertTrue(!targetContent.get("hash").toString().isEmpty());
+      //timestamp
+      Assert.assertTrue(Long.valueOf(targetContent.get("timestamp").toString()) >= 0);
+      //ownerAddress
+      Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+      Assert.assertTrue(patternAddress.matcher(targetContent.getString("ownerAddress")).matches());
+      Assert.assertTrue(patternAddress.matcher(targetContent.getString("toAddress")).matches());
+      //contractType
+      Assert.assertTrue(!targetContent.get("contractType").toString().isEmpty());
+      //confirmed
+      Assert.assertTrue(Boolean.valueOf(targetContent.getString("confirmed")));
+      //
+      sonContent = targetContent.getJSONObject("contractData");
+      //data
+      Assert.assertTrue(!sonContent.get("data").toString().isEmpty());
+      //owner_address
+      Assert.assertTrue(patternAddress.matcher(sonContent.getString("owner_address")).matches());
+      Assert.assertTrue(patternAddress.matcher(sonContent.getString("contract_address")).matches());
+    }
   }
 
   /**

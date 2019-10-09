@@ -179,6 +179,49 @@ public class AccountsList {
   }
 
   /**
+   * constructor.查询投票接口
+   */
+  @Test(enabled = true, description = "Get specific account's vote list")
+  public void getAccountVote() {
+    //Get response
+    String address = "TGzz8gjYiYRqpfmDwnLxfgPuLVNmpCswVp";
+    Map<String, String> params = new HashMap<>();
+    params.put("address", address);
+    response = TronscanApiList.getAccountVote(tronScanNode, params);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    //data object
+    Assert.assertTrue(responseContent.size() == 1);
+    //votes
+    Assert.assertTrue(responseContent.containsKey("votes"));
+
+  }
+
+  /**
+   * constructor.查看SR信息
+   */
+  @Test(enabled = true, description = "Get a super representative's github link")
+  public void getAccountSr() {
+    //Get response
+    String address = "TGzz8gjYiYRqpfmDwnLxfgPuLVNmpCswVp";
+    Map<String, String> params = new HashMap<>();
+    params.put("address", address);
+    response = TronscanApiList.getAccountSr(tronScanNode, params);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    //data object
+    Assert.assertTrue(responseContent.size() == 1);
+    targetContent = responseContent.getJSONObject("data");
+    //address
+    Assert.assertTrue(targetContent.containsKey("address"));
+    //githubLink
+    Assert.assertTrue(targetContent.containsKey("githubLink"));
+
+  }
+
+  /**
    * constructor.
    */
   @AfterClass

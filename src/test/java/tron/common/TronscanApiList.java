@@ -166,6 +166,22 @@ public class TronscanApiList {
   /**
    * constructor.
    */
+  public static HttpResponse getMaintenance_Statistic(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/witness/maintenance-statistic";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.
+   */
   public static HttpResponse getLastestBlock(String tronscanNode) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/block/latest";
@@ -203,6 +219,22 @@ public class TronscanApiList {
       String requestUrl = "http://" + tronscanNode + "api/v2/node/info_upload";
       System.out.println(requestUrl);
       response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.查询节点概览信息
+   */
+  public static HttpResponse getOverview_upload(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/v2/node/overview_upload";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -384,6 +416,38 @@ public class TronscanApiList {
   /**
    * constructor.
    */
+  public static HttpResponse getCurrent_Cycle(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/vote/current-cycle";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.
+   */
+  public static HttpResponse getNext_Cycle(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/vote/next-cycle";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.
+   */
   public static HttpResponse getContractTest(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/contract";
@@ -405,6 +469,70 @@ public class TronscanApiList {
       String requestUrl = "http://" + tronscanNode + "api/fund?page_index=1&per_page=20";
       System.out.println(requestUrl);
       response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.获取Bittorrent的流通量和市值
+   */
+  public static HttpResponse getBitt_fund(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/bittorrent/fund";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.获取bittorrent代笔解锁时间表图
+   */
+  public static HttpResponse getBitt_graphic(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/bittorrent/graphic";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.查询wink信息
+   */
+  public static HttpResponse getWinkFund(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/wink/fund";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.获取wink代笔解锁时间表图
+   */
+  public static HttpResponse getWink_graphic(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/wink/graphic";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -456,6 +584,22 @@ public class TronscanApiList {
   public static HttpResponse getVoteWitness(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/vote/witness";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.
+   */
+  public static HttpResponse getSearch(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/search";
       System.out.println(requestUrl);
       response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
@@ -531,6 +675,21 @@ public class TronscanApiList {
     return response;
   }
 
+  /**
+   * constructor.
+   */
+  public static HttpResponse getSimple_Transaction(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/simple-transaction";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
 
   /**
    * constructor.
@@ -571,6 +730,54 @@ public class TronscanApiList {
   public static HttpResponse getAccountStats(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/account/stats";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.
+   */
+
+  public static HttpResponse getAccountVote(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/account/votes";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.查看SR信息
+   */
+
+  public static HttpResponse getAccountSr(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/account/sr";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.查看SR信息
+   */
+
+  public static HttpResponse getTotalCount(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/count";
       response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();

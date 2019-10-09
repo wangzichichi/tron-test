@@ -76,6 +76,18 @@ public class NodeMap {
   }
 
   /**
+   * constructor.查询节点概览信息,下载的信息为表格形式
+   */
+  @Test(enabled = true, description = "download daily new address number and transaction number info")
+  public void getOverview_upload() {
+    response = TronscanApiList.getOverview_upload(tronScanNode);
+    log.info("code is " + response.getStatusLine().getStatusCode());
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    //responseContent = TronscanApiList.parseResponseContent(response);
+
+  }
+
+  /**
    * constructor.
    */
   @AfterClass

@@ -53,6 +53,31 @@ public class WitnessesList {
   /**
    * constructor.
    */
+  @Test(enabled = true, description = "获取本轮出块算力分布图")
+  public void getMaintenance_Statistic() {
+    response = TronscanApiList.getMaintenance_Statistic(tronScanNode);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    JSONArray exchangeArray = TronscanApiList.parseArrayResponseContent(response);
+    targetContent = exchangeArray.getJSONObject(0);
+    Assert.assertTrue(exchangeArray.size() > 0);
+    for (int i = 0; i <= targetContent.size(); i++) {
+      Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+      Assert.assertTrue(patternAddress.matcher(targetContent.getString("address")).matches());
+      //name
+      Assert.assertTrue(!targetContent.get("name").toString().isEmpty());
+      //url
+      Assert.assertTrue(targetContent.containsKey("url"));
+      //blockProduced
+      Assert.assertTrue(Long.valueOf(targetContent.get("blockProduced").toString()) >= 0);
+      Assert.assertTrue(Long.valueOf(targetContent.get("total").toString()) >= 0);
+      //percentage
+      Assert.assertTrue(Double.valueOf(targetContent.get("percentage").toString()) >= 0);
+    }
+  }
+
+  /**
+   * constructor.
+   */
   @AfterClass
   public void shutdown() throws InterruptedException {
     TronscanApiList.disGetConnect();
