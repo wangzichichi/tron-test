@@ -47,13 +47,43 @@ public class TronscanApiList {
   }
 
   /**
-   * constructor.
+   * constructor.获取系统参数
    */
   public static HttpResponse getSystemStatus(String tronscanNode) {
     try {
-      String requestUrl = "http://" + tronscanNode + "/api/system/status";
+      String requestUrl = "http://" + tronscanNode + "api/system/status";
       System.out.println(requestUrl);
-      response = createConnect(requestUrl);
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.获取系统tps信息
+   */
+  public static HttpResponse getSystemTps(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/system/tps";
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.获取系统tps信息
+   */
+  public static HttpResponse getSystemHomepage(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/system/homepage-bundle";
+      response = createGetConnect(requestUrl);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -67,7 +97,7 @@ public class TronscanApiList {
    */
   public static HttpResponse broadcast(String tronscanNode, String transactionHex) {
     try {
-      String requestUrl = "http://" + tronscanNode + "/api/broadcast";
+      String requestUrl = "http://" + tronscanNode + "api/broadcast";
       JsonObject userBaseObj2 = new JsonObject();
       userBaseObj2.addProperty("transaction", transactionHex);
       response = createConnect(requestUrl, userBaseObj2);
@@ -826,6 +856,21 @@ public class TronscanApiList {
     return response;
   }
 
+  /**
+   * constructor.获取simple-transfer方法
+   */
+  public static HttpResponse getSimple_transfer(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/simple-transfer";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
   public static HttpResponse getFundsInfo(String tronscanNode) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/funds";
@@ -867,6 +912,38 @@ public class TronscanApiList {
   public static HttpResponse getTokensList(String tronscanNode, Map<String, String> params) {
     try {
       String requestUrl = "http://" + tronscanNode + "api/token";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+
+    return response;
+  }
+
+  /**
+   * constructor.根据tokenName获取token的信息
+   */
+  public static HttpResponse getTokensAddress(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/token/address";
+      response = createGetConnect(requestUrl, params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+
+    return response;
+  }
+
+  /**
+   * constructor.获取trc10 token持有者
+   */
+  public static HttpResponse getTokenholders(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/tokenholders";
       response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();

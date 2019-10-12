@@ -12,7 +12,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
-import tron.common.utils.Utils;
 
 @Slf4j
 public class TransferList {
@@ -63,13 +62,60 @@ public class TransferList {
         patternAddress.matcher(responseObject.getString("transferToAddress")).matches());
   }
 
+  /**
+   * constructor.获取simple-transfer方法
+   */
+  @Test(enabled = true, description = "List the transfers under specified condition")
+  public void getSimple_transfer() {
+    //Get response
+    Map<String, String> params = new HashMap<>();
+    String to = "THzuXNFiDe4jBGiVRpRLxCf4u3WWxgrUZE";
+    String from = "TXYeahu7J6Hr7X33XFRaHgyznvun578jPm";
+    params.put("sort", "-timestamp");
+    params.put("asset_name", "trx");
+    params.put("to", to);
+    params.put("from", from);
+    params.put("end_timestamp", "1548056638507");
+    params.put("start_timestamp", "1548000000000");
+    response = TronscanApiList.getSimple_transfer(tronScanNode, params);
+    log.info("code is " + response.getStatusLine().getStatusCode());
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    //total_votes
+    Long total = Long.valueOf(responseContent.get("total").toString());
+    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
+    Assert.assertTrue(rangeTotal >= total);
+    //data
+    JSONArray exchangeArray = responseContent.getJSONArray("data");
+    targetContent = exchangeArray.getJSONObject(0);
+    for (int i = 0; i <= targetContent.size(); i++) {
+      //amount
+      Assert.assertTrue(Double.valueOf(targetContent.get("amount").toString()) >= 0);
+      //tokenName
+      Assert.assertTrue(!targetContent.get("tokenName").toString().isEmpty());
+      //timestamp
+      Assert.assertTrue(Long.valueOf(targetContent.get("timestamp").toString()) >= 0);
+      //transferFromAddress
+      Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+      Assert.assertTrue(
+          patternAddress.matcher(targetContent.getString("transferFromAddress")).matches());
+      Assert.assertTrue(
+          patternAddress.matcher(targetContent.getString("transferToAddress")).matches());
+      //id
+      Assert.assertTrue(targetContent.containsKey("id"));
+      Assert.assertTrue(targetContent.containsKey("transactionHash"));
+      //confirmed
+      Assert.assertTrue(Boolean.valueOf(targetContent.getString("confirmed")));
+    }
+  }
 
   /**
    * constructor.
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    TronscanApiList.disConnect();
+    TronscanApiList.disGetConnect();
   }
 
 }

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
@@ -91,6 +92,67 @@ public class TokensList {
     Assert.assertTrue(targetContent.containsKey("endTime"));
     Assert.assertTrue(targetContent.containsKey("white_paper"));
     Assert.assertTrue(targetContent.containsKey("social_media"));
+  }
+
+  /**
+   * constructor.根据tokenName获取token的信息
+   */
+  @Test(enabled = true, description = "Get token holders balance by token name (Deprecated)")
+  public void getTokensAddress() {
+    Map<String, String> params = new HashMap<>();
+    params.put("tokenName", "USDT");
+    response = TronscanApiList.getTokensAddress(tronScanNode, params);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    //total
+    Long total = Long.valueOf(responseContent.get("total").toString());
+    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
+    Assert.assertTrue(rangeTotal >= total);
+    //data
+    JSONArray exchangeArray = responseContent.getJSONArray("data");
+    targetContent = exchangeArray.getJSONObject(0);
+    for (int i = 0; i <= targetContent.size(); i++) {
+      //name
+      Assert.assertTrue(!targetContent.get("name").toString().isEmpty());
+      //balance
+      Assert.assertTrue(Long.valueOf(targetContent.get("balance").toString()) >= 0);
+      //address
+      Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+      Assert.assertTrue(patternAddress.matcher(targetContent.getString("address")).matches());
+
+    }
+  }
+
+  /**
+   * constructor.获取trc10 token持有者
+   */
+  @Test(enabled = true, description = "Get token holders of a trc10 token;")
+  public void getTokenholders() {
+    String address = "TF5Bn4cJCT6GVeUgyCN4rBhDg42KBrpAjg";
+    Map<String, String> params = new HashMap<>();
+    params.put("address", address);
+    response = TronscanApiList.getTokenholders(tronScanNode, params);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    //total
+    Long total = Long.valueOf(responseContent.get("total").toString());
+    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
+    Assert.assertTrue(rangeTotal >= total);
+    //data
+    JSONArray exchangeArray = responseContent.getJSONArray("data");
+    targetContent = exchangeArray.getJSONObject(0);
+    for (int i = 0; i <= targetContent.size(); i++) {
+      //name
+      Assert.assertTrue(!targetContent.get("name").toString().isEmpty());
+      //balance
+      Assert.assertTrue(Long.valueOf(targetContent.get("balance").toString()) >= 0);
+      //address
+      Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+      Assert.assertTrue(patternAddress.matcher(targetContent.getString("address")).matches());
+
+    }
   }
 
   /**

@@ -210,7 +210,7 @@ public class TransactionList {
     Long total = Long.valueOf(responseContent.get("total").toString());
     Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
     JSONArray exchangeArray = responseContent.getJSONArray("data");
-    Assert.assertTrue(total >= rangeTotal);
+    Assert.assertTrue(rangeTotal >= total);
 
     targetContent = exchangeArray.getJSONObject(0);
     //contractRet
