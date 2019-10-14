@@ -685,3 +685,60 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/witness/maintenance-statisti
 @return: 本轮算力分布图;
 @TestOwner:姜红;
 @AutomationCase:true; 
+
+# 64 根据tokenName获取token的信息
+**/api/token/address**
+ Desc: Get token holders balance by token name (Deprecated)
+ Demo: curl -X Get  https://apilist.tronscan.org/api/token/address?tokenName=USDT&sort=-balance&start=0@limit=20
+ @param tokenName: token name;   
+ @param sort: define the sequence of the records return;  
+ @param limit: page size for pagination;   
+ @param start: query index for pagination;  
+ @return: token holders and balance;  
+ @TestOwner:姜红;  
+ @AutomationCase:true;
+
+# 65 获取simple-transfer方法
+**/api/simple-transfer**  
+ Desc: List the transfers under specified condition
+ Demo: curl -X Get  https://apilist.tronscan.org/api/simple-transfer?start_timestamp=1548000000000&end_timestamp=1548056638507&from=TXYeahu7J6Hr7X33XFRaHgyznvun578jPm&to=THzuXNFiDe4jBGiVRpRLxCf4u3WWxgrUZE&asset_name=trx&sort=-timestamp 
+ @param sort: define the sequence of the records return;  
+ @param to: to address;  
+ @param from: from address;  
+ @param asset_name: transfer asset name;  
+ @param start_timestamp: query date range;  
+ @param end_timestamp: query date range;  
+ @return: all the transfers list;
+ @TestOwner:姜红;
+ @AutomationCase:true; 
+ 
+# 66 获取trc10 token持有者
+**/api/tokenholders**
+ Desc: Get token holders of a trc10 token;
+ Demo: curl -X Get  https://apilist.tronscan.org/api/tokenholders?sort=-balance&limit=20&start=0&address=TF5Bn4cJCT6GVeUgyCN4rBhDg42KBrpAjg  
+ @param id: token id;  
+ @param sort: define the sequence of the records return; 
+ @param limit: page size for pagination;  
+ @param start: query index for pagination;   
+ @param address: trc10 token address;
+ @return: a single trc10 token's detail;
+ @TestOwner:姜红;
+ @AutomationCase:true; 
+ 
+# 67 获取系统tps信息
+**/api/system/tps**  
+ Desc: List data synchronization tps  
+ Demo: curl -X Get  https://apilist.tronscan.org/api/system/tps  
+ @param: null;  
+ @return: data synchronization state;    
+ @TestOwner:姜红;   
+ @AutomationCase:true; 
+ 
+# 68 获取homepage相关信息
+ **/api/system/tps**  
+  Desc: List data synchronization homepage  
+  Demo: curl -X Get  http://apilist.tronscan.org/api/system/homepage-bundle  
+  @param: null;  
+  @return: data synchronization state;    
+  @TestOwner:姜红;   
+  @AutomationCase:true; 
