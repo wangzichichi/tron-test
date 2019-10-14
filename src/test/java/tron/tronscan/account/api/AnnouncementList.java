@@ -22,8 +22,7 @@ public class AnnouncementList {
   private final String foundationKey = Configuration.getByPath("testng.conf")
       .getString("foundationAccount.key1");
   private JSONObject responseContent;
-  private JSONObject targetContent;
-  private JSONObject sonContent;
+  private JSONArray responseArrayContent;
   private HttpResponse response;
   private String tronScanNode = Configuration.getByPath("testng.conf")
       .getStringList("tronscan.ip.list").get(0);
@@ -50,20 +49,22 @@ public class AnnouncementList {
 
     Assert.assertTrue(Long.valueOf(responseContent.get("total").toString()) > 1);
     //Address list
-    JSONArray exchangeArray = responseContent.getJSONArray("data");
-    Assert.assertTrue(exchangeArray.size() > 0);
-    for (int i = 0; i < exchangeArray.size(); i++) {
+    responseArrayContent = responseContent.getJSONArray("data");
+    Assert.assertTrue(responseArrayContent.size() > 0);
+    for (int i = 0; i < responseArrayContent.size(); i++) {
       Assert.assertTrue(
-          Long.valueOf(exchangeArray.getJSONObject(i).get("id").toString()) > 1);
-      Assert.assertTrue(!exchangeArray.getJSONObject(i).get("titleEN").toString().isEmpty());
-      Assert.assertTrue(!exchangeArray.getJSONObject(i).get("titleCN").toString().isEmpty());
-      Assert.assertTrue(!exchangeArray.getJSONObject(i).get("contextEN").toString().isEmpty());
-      Assert.assertTrue(!exchangeArray.getJSONObject(i).get("contextCN").toString().isEmpty());
-      Assert.assertTrue(!exchangeArray.getJSONObject(i).get("type").toString().isEmpty());
-      Assert.assertTrue(!exchangeArray.getJSONObject(i).get("status").toString().isEmpty());
-      Assert.assertTrue(exchangeArray.getJSONObject(i).containsKey("createTime"));
-      Assert.assertTrue(exchangeArray.getJSONObject(i).containsKey("updateTime"));
-      Assert.assertTrue(exchangeArray.getJSONObject(i).containsKey("extInfo"));
+          Long.valueOf(responseArrayContent.getJSONObject(i).get("id").toString()) > 1);
+      Assert.assertTrue(!responseArrayContent.getJSONObject(i).get("titleEN").toString().isEmpty());
+      Assert.assertTrue(!responseArrayContent.getJSONObject(i).get("titleCN").toString().isEmpty());
+      Assert
+          .assertTrue(!responseArrayContent.getJSONObject(i).get("contextEN").toString().isEmpty());
+      Assert
+          .assertTrue(!responseArrayContent.getJSONObject(i).get("contextCN").toString().isEmpty());
+      Assert.assertTrue(!responseArrayContent.getJSONObject(i).get("type").toString().isEmpty());
+      Assert.assertTrue(!responseArrayContent.getJSONObject(i).get("status").toString().isEmpty());
+      Assert.assertTrue(responseArrayContent.getJSONObject(i).containsKey("createTime"));
+      Assert.assertTrue(responseArrayContent.getJSONObject(i).containsKey("updateTime"));
+      Assert.assertTrue(responseArrayContent.getJSONObject(i).containsKey("extInfo"));
     }
 
   }

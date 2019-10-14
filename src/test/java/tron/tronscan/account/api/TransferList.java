@@ -87,26 +87,35 @@ public class TransferList {
     Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
     Assert.assertTrue(rangeTotal >= total);
     //data
-    JSONArray exchangeArray = responseContent.getJSONArray("data");
-    targetContent = exchangeArray.getJSONObject(0);
-    for (int i = 0; i <= targetContent.size(); i++) {
+    responseArrayContent = responseContent.getJSONArray("data");
+
+    Assert.assertTrue(responseArrayContent.size() > 0);
+    for (int i = 0; i < responseArrayContent.size(); i++) {
       //amount
-      Assert.assertTrue(Double.valueOf(targetContent.get("amount").toString()) >= 0);
+      Assert.assertTrue(
+          Double.valueOf(responseArrayContent.getJSONObject(i).get("amount").toString()) >= 0);
       //tokenName
-      Assert.assertTrue(!targetContent.get("tokenName").toString().isEmpty());
+      Assert
+          .assertTrue(!responseArrayContent.getJSONObject(i).get("tokenName").toString().isEmpty());
       //timestamp
-      Assert.assertTrue(Long.valueOf(targetContent.get("timestamp").toString()) >= 0);
+      Assert.assertTrue(
+          Long.valueOf(responseArrayContent.getJSONObject(i).get("timestamp").toString()) >= 0);
       //transferFromAddress
       Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
       Assert.assertTrue(
-          patternAddress.matcher(targetContent.getString("transferFromAddress")).matches());
+          patternAddress
+              .matcher(responseArrayContent.getJSONObject(i).getString("transferFromAddress"))
+              .matches());
       Assert.assertTrue(
-          patternAddress.matcher(targetContent.getString("transferToAddress")).matches());
+          patternAddress
+              .matcher(responseArrayContent.getJSONObject(i).getString("transferToAddress"))
+              .matches());
       //id
-      Assert.assertTrue(targetContent.containsKey("id"));
-      Assert.assertTrue(targetContent.containsKey("transactionHash"));
+      Assert.assertTrue(responseArrayContent.getJSONObject(i).containsKey("id"));
+      Assert.assertTrue(responseArrayContent.getJSONObject(i).containsKey("transactionHash"));
       //confirmed
-      Assert.assertTrue(Boolean.valueOf(targetContent.getString("confirmed")));
+      Assert.assertTrue(
+          Boolean.valueOf(responseArrayContent.getJSONObject(i).getString("confirmed")));
     }
   }
 

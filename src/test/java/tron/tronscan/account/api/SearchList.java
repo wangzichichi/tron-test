@@ -21,6 +21,7 @@ import tron.common.utils.Configuration;
 @Slf4j
 public class SearchList {
 
+  private JSONArray responseArrayContent;
   private JSONObject targetContent;
   private HttpResponse response;
   private String tronScanNode = Configuration.getByPath("testng.conf")
@@ -35,12 +36,11 @@ public class SearchList {
     Params.put("term", "1");
     response = TronscanApiList.getSearch(tronScanNode, Params);
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    JSONArray exchangeArray = TronscanApiList.parseArrayResponseContent(response);
-    targetContent = exchangeArray.getJSONObject(0);
-    Assert.assertTrue(exchangeArray.size() > 0);
-    for (int i = 0; i <= targetContent.size(); i++) {
-      Assert.assertTrue(targetContent.containsKey("value"));
-      Assert.assertTrue(targetContent.containsKey("desc"));
+    responseArrayContent = TronscanApiList.parseArrayResponseContent(response);
+    Assert.assertTrue(responseArrayContent.size() > 0);
+    for (int i = 0; i < responseArrayContent.size(); i++) {
+      Assert.assertTrue(responseArrayContent.getJSONObject(i).containsKey("value"));
+      Assert.assertTrue(responseArrayContent.getJSONObject(i).containsKey("desc"));
     }
   }
 

@@ -465,78 +465,78 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/token_trc20/transfers?limit=
 @param start_timestamp: query date range;   
 @param end_timestamp: query date range;   
 @return: TRC20 token transfers list;   
-@TestOwner:朱凯;
+@TestOwner:朱凯;  
 @AutomationCase:true;
 
 # 43 提供CNY货币转换价格
 **/api/system/proxy**   
-Desc: add CNY price 
+Desc: add CNY price   
 Demo: curl -X Get  https://apilist.tronscan.org/api/system/proxy?url=https://api.coinmarketcap.com/v1/ticker/tronix/?convert=CNY   
 @param url: Plug-in address;      
 @return: proxy token transfers list;   
-@TestOwner:姜红;
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 44 查询通证列表
-**/api/tokens/overview**
-Desc: List all the tokens in the blockchain (including trc10 and trc20 tokens)  
-Demo: curl -X Get  https://apilist.tronscan.org/api/tokens/overview?start=0&limit=20&order=desc&filter=all&sort=volume24hInTrx&order_current=descend
+**/api/tokens/overview**  
+Desc: List all the tokens in the blockchain (including trc10 and trc20 tokens)    
+Demo: curl -X Get  https://apilist.tronscan.org/api/tokens/overview?start=0&limit=20&order=desc&filter=all&sort=volume24hInTrx&order_current=descend  
 @param limit: page size for pagination;  
 @param start: query index for pagination;  
-@param order: define the sequence order of the records return; 
+@param order: define the sequence order of the records return;   
 @param start_timestamp: query date range;  
 @param end_timestamp: query date range;  
-@param sort: define the sorting rule;
+@param sort: define the sorting rule;  
 @param filter: define the tokens return. "trc10" for trc10 tokens, "trc20" for trc20 tokens; "all" for all trc10 and trc20 tokens
 @return: tokens list;  
-@TestOwner:姜红;
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 45 查询区块上交易列表
-**/api/transaction**
-Desc: 查询区块上交易列表
-Demo: curl -X Get  https://apilist.tronscan.org/api/transaction?sort=-timestamp&count=true&limit=20&start=0&total=0&block=12448572
+**/api/transaction**  
+Desc: 查询区块上交易列表  
+Demo: curl -X Get  https://apilist.tronscan.org/api/transaction?sort=-timestamp&count=true&limit=20&start=0&total=0&block=12448572  
 @param sort: define the sequence of the records return;  
 @param limit: page size for pagination;  
 @param count: total number of records;  
 @param start: query date range;  
-@param total: total number; 
-@param block: block number;
-@return: proxy token transfers list;   
-@TestOwner:姜红;
+@param total: total number;   
+@param block: block number;  
+@return: proxy token transfers list;     
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 46 查询账户交易统计信息
-**/api/account/stats**
-Desc: 查询账户交易统计信息
+**/api/account/stats**  
+Desc: 查询账户交易统计信息  
 Demo: curl -X Get  https://apilist.tronscan.org/api/account/stats?address=TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9
-@param address: token creation address; 
-@return: proxy token transfers list;   
-@TestOwner:姜红;
+@param address: token creation address;   
+@return: proxy token transfers list;     
+@TestOwner:姜红;    
 @AutomationCase:true;
 
 # 47 地址的witness查询
-**/api/vote/witness**
-Desc: 地址的witness查询
-Demo: curl -X Get  https://apilist.tronscan.org/api/vote/witness?address=TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9
-@param address: token creation address; 
-@return: proxy token transfers list;   
-@TestOwner:姜红;
+**/api/vote/witness**  
+Desc: 地址的witness查询  
+Demo: curl -X Get  https://apilist.tronscan.org/api/vote/witness?address=TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9  
+@param address: token creation address;   
+@return: proxy token transfers list;     
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 48 地址下的转账查询
-**/api/trc10trc20-transfer**
+**/api/trc10trc20-transfer**  
 Desc: List the transfers related to specified account(only display the latest 2,000 data records in the query time range)
-Demo: curl -X Get  https://apilist.tronscan.org/api/trc10trc20-transfer?sort=-timestamp&limit=20&start=0&total=0&start_timestamp=1568972315916&end_timestamp=1569577115916&direction=all&address=TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9
+Demo: curl -X Get  https://apilist.tronscan.org/api/trc10trc20-transfer?sort=-timestamp&limit=20&start=0&total=0&start_timestamp=1568972315916&end_timestamp=1569577115916&direction=all&address=TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9  
 @param sort: define the sequence of the records return;  
 @param limit: page size for pagination;  
 @param start: query index for pagination;  
 @param asset_name: transfer asset name;  
 @param start_timestamp: query date range;  
 @param end_timestamp: query date range;  
-@param direction: all for all transfers; in for transfer-in; out for transfer-out
+@param direction: all for all transfers; in for transfer-in; out for transfer-out  
 @return: all the transfers list;  
-@TestOwner:姜红;
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 49 查询合约内部合约内交易
@@ -553,142 +553,142 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/internal-transaction?limit=2
 @AutomationCase:true;
 
 # 50 查询trc20通证持有者
-**/api/token_trc20/holders**
-Desc: Get token holders of a trc20 token;
-Demo: curl -X Get  https://apilist.tronscan.org/api/token_trc20/holders?sort=-balance&start=0&limit=20&contract_address=TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t
-@param sort: define the sequence of the records return; 
-@param limit: page size for pagination;  
-@param start: query index for pagination;   
-@param contract_address: trc20 token address;
-@return: token holders of a trc20 token;
-@TestOwner:姜红;
+**/api/token_trc20/holders**  
+Desc: Get token holders of a trc20 token;    
+Demo: curl -X Get  https://apilist.tronscan.org/api/token_trc20/holders?sort=-balance&start=0&limit=20&contract_address=TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t  
+@param sort: define the sequence of the records return;   
+@param limit: page size for pagination;    
+@param start: query index for pagination;     
+@param contract_address: trc20 token address;  
+@return: token holders of a trc20 token;  
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 51 声明接口
 **/api/announcement**  
-Desc: get all announcements of tronscan and trxmarket 
-Demo: curl -X Get  https://apilist.tronscan.org/api/announcement?start=10&limit=10&type=1&status=0&sort=-timestamp
-@param limit: page size for pagination;  
-@param start: query index for pagination;
-@param type: announcement type, now all equal 1;
-@param status: announcement status, 0 or 1.
-@param sort: define the sequence of the records return; 
-@return: list of the detailed announcement; 
-@TestOwner:姜红;
+Desc: get all announcements of tronscan and trxmarket   
+Demo: curl -X Get  https://apilist.tronscan.org/api/announcement?start=10&limit=10&type=1&status=0&sort=-timestamp  
+@param limit: page size for pagination;    
+@param start: query index for pagination;  
+@param type: announcement type, now all equal 1;  
+@param status: announcement status, 0 or 1;  
+@param sort: define the sequence of the records return;   
+@return: list of the detailed announcement;   
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 52 上传节点信息
 **/api/v2/node/info_upload**  
-Desc: download the transaction info of a address (recent 10,000 transactions)
-Demo: curl -X Get  https://apilist.tronscan.org/api/v2/node/info_upload?address=TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9
-@param address: the address
-@return: csv file of the address' transaction; 
-@TestOwner:姜红;
+Desc: download the transaction info of a address (recent 10,000 transactions)  
+Demo: curl -X Get  https://apilist.tronscan.org/api/v2/node/info_upload?address=TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9  
+@param address: the address  
+@return: csv file of the address' transaction;   
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 53
 **/api/v2/node/overview_upload**   
-Desc: download daily new address number and transaction number info
-Demo: curl -X Get  https://apilist.tronscan.org/api/v2/node/overview_upload
-@param: null
-@return: csv file of daily new address number and transaction number info;
-@TestOwner:姜红;
+Desc: download daily new address number and transaction number info  
+Demo: curl -X Get  https://apilist.tronscan.org/api/v2/node/overview_upload  
+@param: null  
+@return: csv file of daily new address number and transaction number info;  
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 54 获取Bittorrent的流通量和市值
 **/api/bittorrent/fund**  
-Desc: 获取Bittorrent的流通量和市值
-Demo: curl -X Get  https://apilist.tronscan.org/api/bittorrent/fund 
-@param: null;  
-@return: bittorrent的流通量和市值;
-@TestOwner:姜红;
+Desc: 获取Bittorrent的流通量和市值  
+Demo: curl -X Get  https://apilist.tronscan.org/api/bittorrent/fund   
+@param: null;    
+@return: bittorrent的流通量和市值;  
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 55 获取bittorrent代笔解锁时间表图
 **/api/bittorrent/graphic**  
-Desc: 获取bittorrent代笔解锁时间表图
-Demo: curl -X Get  https://apilist.tronscan.org/api/bittorrent/graphic
-@param: null;  
-@return: bittorrent代笔解锁时间表图; 
-@TestOwner:姜红;
+Desc: 获取bittorrent代笔解锁时间表图      
+Demo: curl -X Get  https://apilist.tronscan.org/api/bittorrent/graphic    
+@param: null;    
+@return: bittorrent代笔解锁时间表图;   
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 56 获取wink的流通量和市值
 **/api/wink/fund**  
-Desc: 获取wink的流通量和市值
-Demo: curl -X Get  https://apilist.tronscan.org/api/wink/fund 
-@param: null;  
-@return: wink的流通量和市值; 
-@TestOwner:姜红;
+Desc: 获取wink的流通量和市值  
+Demo: curl -X Get  https://apilist.tronscan.org/api/wink/fund    
+@param: null;    
+@return: wink的流通量和市值;   
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 57 搜索框查询接口--
 **/api/search**  
-Desc: 搜索框查询接口
-Demo: curl -X Get  https://apilist.tronscan.org/api/search?term=888 
-@param: null;  
-@return: 搜索框查询接口; 
-@TestOwner:姜红;
+Desc: 搜索框查询接口   
+Demo: curl -X Get  https://apilist.tronscan.org/api/search?term=888       
+@param: null;    
+@return: 搜索框查询接口;   
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 58 查询投票接口
 **/api/account/votes**  
-Desc: Get specific account's vote list; 
-Demo: curl -X Get  https://apilist.tronscan.org/api/account/votes?address=TAUVtaa3wX2omBP683qtPLjRHVQBsDXYS3
-@param address: an account;  
-@return: specific account's vote list;
-@TestOwner:姜红;
+Desc: Get specific account's vote list;     
+Demo: curl -X Get  https://apilist.tronscan.org/api/account/votes?address=TAUVtaa3wX2omBP683qtPLjRHVQBsDXYS3  
+@param address: an account;    
+@return: specific account's vote list;  
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 59 查看SR信息
 **/api/account/sr**  
-Desc: Get a super representative's github link; 
-Demo: curl -X Get  https://apilist.tronscan.org/api/account/sr?address=TGzz8gjYiYRqpfmDwnLxfgPuLVNmpCswVp
-@param address: super representative address;  
-@return: super representative's github link;
-@TestOwner:姜红;
+Desc: Get a super representative's github link;   
+Demo: curl -X Get  https://apilist.tronscan.org/api/account/sr?address=TGzz8gjYiYRqpfmDwnLxfgPuLVNmpCswVp  
+@param address: super representative address;     
+@return: super representative's github link;         
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 60 查询总数接口
 **/api/count**  
-Desc: Get a super totalCount's github link; 
-Demo: curl -X Get  http://apilist.tronscan.org/api/count?type=trc10trc20&address=TAahLbGTZk6YuCycii72datPQEtyC5x231
-@param address: super representative address;
-@param type:  announcement type, now all equal 1;
-@return: super representative's github link;
-@TestOwner:姜红;
+Desc: Get a super totalCount's github link;   
+Demo: curl -X Get  http://apilist.tronscan.org/api/count?type=trc10trc20&address=TAahLbGTZk6YuCycii72datPQEtyC5x231  
+@param address: super representative address;    
+@param type:  announcement type, now all equal 1;    
+@return: super representative's github link;  
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 61 获取当前投票信息
-**/api/vote/current-cycle**
-Desc: 获取当前投票信息  
-Demo: curl -X Get https://apilist.tronscan.org/api/vote/current-cycle
-@param: null;  
-@return: 当前投票信息; 
-@TestOwner:姜红;
+**/api/vote/current-cycle**  
+Desc: 获取当前投票信息     
+Demo: curl -X Get https://apilist.tronscan.org/api/vote/current-cycle  
+@param: null;    
+@return: 当前投票信息;   
+@TestOwner:姜红;  
 @AutomationCase:true;
 
 # 62 获取下一轮投票情况
-**/api/vote/next-cycle**
+**/api/vote/next-cycle**  
 Desc: Get next round vote time;  
-Demo: curl -X Get https://apilist.tronscan.org/api/vote/next-cycle
-@param: null;  
-@return: next round vote time;
-@TestOwner:姜红;
+Demo: curl -X Get https://apilist.tronscan.org/api/vote/next-cycle    
+@param: null;    
+@return: next round vote time;  
+@TestOwner:姜红;  
 @AutomationCase:true; 
 
 # 63 获取maintenance的witness方法
 **/api/witness/maintenance-statistic**  
-Desc: 获取本轮出块算力分布图
-Demo: curl -X Get  https://apilist.tronscan.org/api/witness/maintenance-statistic 
+Desc: 获取本轮出块算力分布图  
+Demo: curl -X Get  https://apilist.tronscan.org/api/witness/maintenance-statistic  
 @param: null;  
-@return: 本轮算力分布图;
-@TestOwner:姜红;
+@return: 本轮算力分布图;  
+@TestOwner:姜红;  
 @AutomationCase:true; 
 
 # 64 根据tokenName获取token的信息
 **/api/token/address**
- Desc: Get token holders balance by token name (Deprecated)
+ Desc: Get token holders balance by token name (Deprecated)    
  Demo: curl -X Get  https://apilist.tronscan.org/api/token/address?tokenName=USDT&sort=-balance&start=0@limit=20
  @param tokenName: token name;   
  @param sort: define the sequence of the records return;  
@@ -700,8 +700,8 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/witness/maintenance-statisti
 
 # 65 获取simple-transfer方法
 **/api/simple-transfer**  
- Desc: List the transfers under specified condition
- Demo: curl -X Get  https://apilist.tronscan.org/api/simple-transfer?start_timestamp=1548000000000&end_timestamp=1548056638507&from=TXYeahu7J6Hr7X33XFRaHgyznvun578jPm&to=THzuXNFiDe4jBGiVRpRLxCf4u3WWxgrUZE&asset_name=trx&sort=-timestamp 
+ Desc: List the transfers under specified condition  
+ Demo: curl -X Get  https://apilist.tronscan.org/api/simple-transfer?start_timestamp=1548000000000&end_timestamp=1548056638507&from=TXYeahu7J6Hr7X33XFRaHgyznvun578jPm&to=THzuXNFiDe4jBGiVRpRLxCf4u3WWxgrUZE&asset_name=trx&sort=-timestamp   
  @param sort: define the sequence of the records return;  
  @param to: to address;  
  @param from: from address;  
@@ -713,16 +713,16 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/witness/maintenance-statisti
  @AutomationCase:true; 
  
 # 66 获取trc10 token持有者
-**/api/tokenholders**
- Desc: Get token holders of a trc10 token;
+**/api/tokenholders**  
+ Desc: Get token holders of a trc10 token;   
  Demo: curl -X Get  https://apilist.tronscan.org/api/tokenholders?sort=-balance&limit=20&start=0&address=TF5Bn4cJCT6GVeUgyCN4rBhDg42KBrpAjg  
  @param id: token id;  
- @param sort: define the sequence of the records return; 
+ @param sort: define the sequence of the records return;   
  @param limit: page size for pagination;  
  @param start: query index for pagination;   
- @param address: trc10 token address;
- @return: a single trc10 token's detail;
- @TestOwner:姜红;
+ @param address: trc10 token address;  
+ @return: a single trc10 token's detail;  
+ @TestOwner:姜红;  
  @AutomationCase:true; 
  
 # 67 获取系统tps信息
@@ -735,10 +735,19 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/witness/maintenance-statisti
  @AutomationCase:true; 
  
 # 68 获取homepage相关信息
- **/api/system/tps**  
-  Desc: List data synchronization homepage  
-  Demo: curl -X Get  http://apilist.tronscan.org/api/system/homepage-bundle  
+**/api/system/homepage-bundle**  
+ Desc: List data synchronization homepage  
+ Demo: curl -X Get  http://apilist.tronscan.org/api/system/homepage-bundle  
+ @param: null;  
+ @return: data synchronization state;    
+ @TestOwner:姜红;   
+ @AutomationCase:true; 
+ 
+ # 69 能量统计接口
+ **/api/energystatistic**  
+  Desc: List data synchronization energystatistic  
+  Demo: curl -X Get  http://apilist.tronscan.org/api/energystatistic  
   @param: null;  
-  @return: data synchronization state;    
+  @return: data synchronization energystatistic;    
   @TestOwner:姜红;   
   @AutomationCase:true; 

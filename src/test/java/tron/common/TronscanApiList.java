@@ -857,6 +857,21 @@ public class TronscanApiList {
   }
 
   /**
+   * constructor.能量统计接口
+   */
+  public static HttpResponse getEnergyStatistic(String tronscanNode) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "api/energystatistic";
+      response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
    * constructor.获取simple-transfer方法
    */
   public static HttpResponse getSimple_transfer(String tronscanNode, Map<String, String> params) {

@@ -105,13 +105,12 @@ public class FundsInfo {
   public void getBitt_graphic() {
     response = TronscanApiList.getBitt_graphic(tronScanNode);
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    JSONArray exchangeArray = TronscanApiList.parseArrayResponseContent(response);
-    //JSONArray exchangeArray = responseArrayContent;
-    targetContent = exchangeArray.getJSONObject(0);
-    Assert.assertTrue(exchangeArray.size() > 0);
-    for (int i = 0; i <= targetContent.size(); i++) {
-      Assert.assertTrue(targetContent.containsKey("data"));
-      Assert.assertTrue(targetContent.containsKey("name"));
+    responseArrayContent = TronscanApiList.parseArrayResponseContent(response);
+    //list
+    Assert.assertTrue(responseArrayContent.size() > 0);
+    for (int i = 0; i < responseArrayContent.size(); i++) {
+      Assert.assertTrue(responseArrayContent.getJSONObject(i).containsKey("data"));
+      Assert.assertTrue(responseArrayContent.getJSONObject(i).containsKey("name"));
     }
   }
 
@@ -137,13 +136,12 @@ public class FundsInfo {
   public void getWink_graphic() {
     response = TronscanApiList.getWink_graphic(tronScanNode);
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    JSONArray exchangeArray = TronscanApiList.parseArrayResponseContent(response);
-    //JSONArray exchangeArray = responseArrayContent;
-    targetContent = exchangeArray.getJSONObject(0);
-    Assert.assertTrue(exchangeArray.size() > 0);
-    for (int i = 0; i <= targetContent.size(); i++) {
-      Assert.assertTrue(targetContent.containsKey("data"));
-      Assert.assertTrue(targetContent.containsKey("name"));
+    responseArrayContent = TronscanApiList.parseArrayResponseContent(response);
+    //list
+    Assert.assertTrue(responseArrayContent.size() > 0);
+    for (int i = 0; i < responseArrayContent.size(); i++) {
+      Assert.assertTrue(responseArrayContent.getJSONObject(i).containsKey("data"));
+      Assert.assertTrue(responseArrayContent.getJSONObject(i).containsKey("name"));
     }
   }
 

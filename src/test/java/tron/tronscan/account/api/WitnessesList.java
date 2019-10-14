@@ -57,21 +57,26 @@ public class WitnessesList {
   public void getMaintenance_Statistic() {
     response = TronscanApiList.getMaintenance_Statistic(tronScanNode);
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    JSONArray exchangeArray = TronscanApiList.parseArrayResponseContent(response);
-    targetContent = exchangeArray.getJSONObject(0);
-    Assert.assertTrue(exchangeArray.size() > 0);
-    for (int i = 0; i <= targetContent.size(); i++) {
+    responseArrayContent = TronscanApiList.parseArrayResponseContent(response);
+    //list
+    Assert.assertTrue(responseArrayContent.size() > 0);
+    for (int i = 0; i < responseArrayContent.size(); i++) {
       Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
-      Assert.assertTrue(patternAddress.matcher(targetContent.getString("address")).matches());
+      Assert.assertTrue(
+          patternAddress.matcher(responseArrayContent.getJSONObject(i).getString("address"))
+              .matches());
       //name
-      Assert.assertTrue(!targetContent.get("name").toString().isEmpty());
+      Assert.assertTrue(!responseArrayContent.getJSONObject(i).get("name").toString().isEmpty());
       //url
-      Assert.assertTrue(targetContent.containsKey("url"));
+      Assert.assertTrue(responseArrayContent.getJSONObject(i).containsKey("url"));
       //blockProduced
-      Assert.assertTrue(Long.valueOf(targetContent.get("blockProduced").toString()) >= 0);
-      Assert.assertTrue(Long.valueOf(targetContent.get("total").toString()) >= 0);
+      Assert.assertTrue(
+          Long.valueOf(responseArrayContent.getJSONObject(i).get("blockProduced").toString()) >= 0);
+      Assert.assertTrue(
+          Long.valueOf(responseArrayContent.getJSONObject(i).get("total").toString()) >= 0);
       //percentage
-      Assert.assertTrue(Double.valueOf(targetContent.get("percentage").toString()) >= 0);
+      Assert.assertTrue(
+          Double.valueOf(responseArrayContent.getJSONObject(i).get("percentage").toString()) >= 0);
     }
   }
 

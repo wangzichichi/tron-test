@@ -273,30 +273,37 @@ public class TransactionList {
     Long total = Long.valueOf(responseContent.get("total").toString());
     Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
     Assert.assertTrue(rangeTotal >= total);
-    //candidates
-    JSONArray exchangeArray = responseContent.getJSONArray("data");
-    targetContent = exchangeArray.getJSONObject(0);
-    for (int i = 0; i <= targetContent.size(); i++) {
+
+    //data list
+    responseArrayContent = responseContent.getJSONArray("data");
+
+    Assert.assertTrue(responseArrayContent.size() > 0);
+    for (int i = 0; i < responseArrayContent.size(); i++) {
+
       //hash
-      Assert.assertTrue(!targetContent.get("hash").toString().isEmpty());
+      Assert.assertTrue(!responseArrayContent.getJSONObject(i).get("hash").toString().isEmpty());
       //timestamp
-      Assert.assertTrue(Long.valueOf(targetContent.get("timestamp").toString()) >= 0);
+      Assert.assertTrue(
+          Long.valueOf(responseArrayContent.getJSONObject(i).get("timestamp").toString()) >= 0);
       //ownerAddress
       Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
-      Assert.assertTrue(patternAddress.matcher(targetContent.getString("ownerAddress")).matches());
-      Assert.assertTrue(patternAddress.matcher(targetContent.getString("toAddress")).matches());
+      Assert.assertTrue(
+          patternAddress.matcher(responseArrayContent.getJSONObject(i).getString("ownerAddress"))
+              .matches());
+      Assert.assertTrue(
+          patternAddress.matcher(responseArrayContent.getJSONObject(i).getString("toAddress"))
+              .matches());
       //contractType
-      Assert.assertTrue(!targetContent.get("contractType").toString().isEmpty());
+      Assert.assertTrue(
+          !responseArrayContent.getJSONObject(i).get("contractType").toString().isEmpty());
       //confirmed
-      Assert.assertTrue(Boolean.valueOf(targetContent.getString("confirmed")));
-      //
-      sonContent = targetContent.getJSONObject("contractData");
-      //data
-      Assert.assertTrue(!sonContent.get("data").toString().isEmpty());
-      //owner_address
-      Assert.assertTrue(patternAddress.matcher(sonContent.getString("owner_address")).matches());
-      Assert.assertTrue(patternAddress.matcher(sonContent.getString("contract_address")).matches());
+      Assert.assertTrue(
+          Boolean.valueOf(responseArrayContent.getJSONObject(i).getString("confirmed")));
+      //contractData
+      Assert.assertTrue(responseArrayContent.getJSONObject(i).containsKey("contractData"));
+
     }
+
   }
 
   /**

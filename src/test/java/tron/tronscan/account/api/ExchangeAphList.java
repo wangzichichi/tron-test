@@ -1,6 +1,6 @@
 package tron.tronscan.account.api;
 
-import com.alibaba.fastjson.JSONArray;
+
 import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,12 +35,12 @@ public class ExchangeAphList {
   public void getExchangAphTest() {
     //
     Map<String, String> Params = new HashMap<>();
-    Params.put("exchange_id","9");
-    Params.put("granularity","1h");
-    Params.put("time_start","1547510400");
-    Params.put("time_end","1548062933");
+    Params.put("exchange_id", "9");
+    Params.put("granularity", "1h");
+    Params.put("time_start", "1547510400");
+    Params.put("time_end", "1548062933");
     //Five object
-    response = TronscanApiList.getExchangAphTest(tronScanNode,Params);
+    response = TronscanApiList.getExchangAphTest(tronScanNode, Params);
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
@@ -52,6 +52,7 @@ public class ExchangeAphList {
     Assert.assertTrue(responseContent.containsKey("granularity"));
     Assert.assertTrue(responseContent.containsKey("time_end"));
   }
+
   /**
    * constructor.
    */

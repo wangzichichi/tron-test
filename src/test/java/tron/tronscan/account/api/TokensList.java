@@ -140,17 +140,21 @@ public class TokensList {
     Long total = Long.valueOf(responseContent.get("total").toString());
     Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
     Assert.assertTrue(rangeTotal >= total);
-    //data
-    JSONArray exchangeArray = responseContent.getJSONArray("data");
-    targetContent = exchangeArray.getJSONObject(0);
-    for (int i = 0; i <= targetContent.size(); i++) {
+    //data list
+    responseArrayContent = responseContent.getJSONArray("data");
+
+    Assert.assertTrue(responseArrayContent.size() > 0);
+    for (int i = 0; i < responseArrayContent.size(); i++) {
       //name
-      Assert.assertTrue(!targetContent.get("name").toString().isEmpty());
+      Assert.assertTrue(!responseArrayContent.getJSONObject(i).get("name").toString().isEmpty());
       //balance
-      Assert.assertTrue(Long.valueOf(targetContent.get("balance").toString()) >= 0);
+      Assert.assertTrue(
+          Long.valueOf(responseArrayContent.getJSONObject(i).get("balance").toString()) >= 0);
       //address
       Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
-      Assert.assertTrue(patternAddress.matcher(targetContent.getString("address")).matches());
+      Assert.assertTrue(
+          patternAddress.matcher(responseArrayContent.getJSONObject(i).getString("address"))
+              .matches());
 
     }
   }
