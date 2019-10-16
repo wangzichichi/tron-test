@@ -60,7 +60,7 @@ public class TransactionList {
 
     responseObject = responseObject.getJSONObject("contractData");
     Assert.assertTrue(responseObject.containsKey("amount"));
-    Assert.assertTrue(responseObject.containsKey("asset_name"));
+//    Assert.assertTrue(responseObject.containsKey("asset_name"));
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("owner_address")).matches());
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("to_address")).matches());
   }
@@ -92,8 +92,8 @@ public class TransactionList {
     Assert.assertTrue(Integer.valueOf(targetContent.get("exchangeID").toString()) >= 1);
     //blockID
     Assert.assertTrue(Long.valueOf(targetContent.get("blockID").toString()) >= 1);
-    //blockID
-    Assert.assertTrue(Long.valueOf(targetContent.get("tokenID").toString()) >= 10000);
+    //tokenID
+    Assert.assertTrue(targetContent.containsKey("tokenID"));
     //createTime
     Assert.assertTrue(targetContent.containsKey("createTime"));
     //hash

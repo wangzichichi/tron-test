@@ -24,8 +24,6 @@ public class TransferListBetweenTimeRange {
   private HttpResponse response;
   private String tronScanNode = Configuration.getByPath("testng.conf")
       .getStringList("tronscan.ip.list").get(0);
-  private String accountAddress = Configuration.getByPath("testng.conf")
-      .getString("defaultParameter.accountAddress");
 
   /**
    * constructor.
@@ -35,23 +33,23 @@ public class TransferListBetweenTimeRange {
     //Get response
     int limit = 20;
     Map<String, String> params = new HashMap<>();
-    params.put("sort","-timestamp");
-    params.put("count","true");
-    params.put("limit",String.valueOf(limit));
-    params.put("start","0");
-    params.put("start_timestamp","1548000000000");
-    params.put("end_timestamp","1548057645667");
+    params.put("sort", "-timestamp");
+    params.put("count", "true");
+    params.put("limit", String.valueOf(limit));
+    params.put("start", "0");
+    params.put("start_timestamp", "1548000000000");
+    params.put("end_timestamp", "1548057645667");
 
-    response = TronscanApiList.getTransferList(tronScanNode,params);
+    response = TronscanApiList.getTransferList(tronScanNode, params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
-    
+
     //3 key
     Assert.assertTrue(responseContent.containsKey("total"));
     responseArrayContent = responseContent.getJSONArray("data");
-    Assert.assertEquals(responseArrayContent.size(),limit);
+    Assert.assertEquals(responseArrayContent.size(), limit);
     Assert.assertTrue(responseContent.getLong("rangeTotal") > 0);
 
     //data

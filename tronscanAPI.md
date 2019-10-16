@@ -105,8 +105,9 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/transaction?sort=-timestamp&
 @AutomationCase:false;
 
 # 10 查询合约下交易
-**/api/contracts/transaction**(only display the latest 10,000 data records in the query time range)
-Desc:  List the transactions related to an smart contract(only display the latest 10,000 data records in the query time range)  Demo: curl -X Get  https://apilist.tronscan.org/api/contracts/transaction?sort=-timestamp&count=true&limit=20&start=0&contract=TWfbypo79cDaXidFBdkDNuVJNAXzPdTmcx  
+**/api/contracts/transaction**(only display the latest 10,000 data records in the query time range)  
+Desc:  List the transactions related to an smart contract(only display the latest 10,000 data records in the query time range)     
+Demo: curl -X Get  https://apilist.tronscan.org/api/contracts/transaction?sort=-timestamp&count=true&limit=20&start=0&contract=TWfbypo79cDaXidFBdkDNuVJNAXzPdTmcx  
 @param sort: define the sequence of the records return;  
 @param limit: page size for pagination;  
 @param start: query index for pagination;  
@@ -743,7 +744,7 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/witness/maintenance-statisti
  @TestOwner:姜红;   
  @AutomationCase:true; 
  
- # 69 能量统计接口
+# 69 能量统计接口
  **/api/energystatistic**  
   Desc: List data synchronization energystatistic  
   Demo: curl -X Get  http://apilist.tronscan.org/api/energystatistic  
@@ -751,3 +752,93 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/witness/maintenance-statisti
   @return: data synchronization energystatistic;    
   @TestOwner:姜红;   
   @AutomationCase:true; 
+  
+# 70 获取能量每日统计信息
+ **/api/energydailystatistic**  
+  Desc: List data synchronization energydailystatistic  
+  Demo: curl -X Get  http://apilist.tronscan.org/api/energydailystatistic  
+  @param: null;  
+  @return: data synchronization energydailystatistic;    
+  @TestOwner:姜红;   
+  @AutomationCase:true; 
+  
+# 71 trigger统计
+ **/api/triggerstatistic**  
+  Desc: List data synchronization triggerstatistic  
+  Demo: curl -X Get  http://apilist.tronscan.org/api/triggerstatistic   
+  @param: null;  
+  @return: data synchronization triggerstatistic;    
+  @TestOwner:姜红;   
+  @AutomationCase:true;
+  
+# 72 trigger总数统计
+ **/api/triggeramountstatistic**  
+  Desc: List data synchronization triggeramountstatistic  
+  Demo: curl -X Get  http://apilist.tronscan.org/api/triggeramountstatistic   
+  @param: null;  
+  @return: data synchronization triggeramountstatistic;    
+  @TestOwner:姜红;   
+  @AutomationCase:true;
+  
+# 73 合约调用者信息统计   
+ **/api/calleraddressstatistic**  
+  Desc: List data synchronization calleraddressstatistic  
+  Demo: curl -X Get  http://apilist.tronscan.org/api/calleraddressstatistic   
+  @param: null;  
+  @return: data synchronization calleraddressstatistic;    
+  @TestOwner:姜红;   
+  @AutomationCase:true;
+  
+# 74 合约调用者数量统计信息   
+ **/api/calleraddressamountstatistic**  
+  Desc: List data synchronization calleraddressamountstatistic  
+  Demo: curl -X Get  http://apilist.tronscan.org/api/calleraddressamountstatistic   
+  @param: null;  
+  @return: data synchronization calleraddressamountstatistic;    
+  @TestOwner:姜红;   
+  @AutomationCase:true;
+  
+# 75 合约能量统计信息   
+ **/api/onecontractenergystatistic**  
+  Desc: List data synchronization onecontractenergystatistic  
+  Demo: curl -X Get  http://apilist.tronscan.org/api/onecontractenergystatistic?address=TEEXEWrkMFKapSMJ6mErg39ELFKDqEs6w3   
+  @param: null;  
+  @return: data synchronization onecontractenergystatistic;    
+  @TestOwner:姜红;   
+  @AutomationCase:true;
+    
+# 76 单个合约调用统计信息   
+ **/api/onecontracttriggerstatistic**  
+  Desc: List data synchronization onecontracttriggerstatistic  
+  Demo: curl -X Get  http://apilist.tronscan.org/api/onecontracttriggerstatistic?address=TEEXEWrkMFKapSMJ6mErg39ELFKDqEs6w3   
+  @param: null;  
+  @return: data synchronization onecontracttriggerstatistic;    
+  @TestOwner:姜红;   
+  @AutomationCase:true;
+      
+# 77 单个合约调用者统计信息   
+ **/api/onecontractcallerstatistic**  
+  Desc: List data synchronization onecontractcallerstatistic  
+  Demo: curl -X Get  http://apilist.tronscan.org/api/onecontractcallerstatistic?address=TEEXEWrkMFKapSMJ6mErg39ELFKDqEs6w3   
+  @param: null;  
+  @return: data synchronization onecontractcallerstatistic;    
+  @TestOwner:姜红;   
+  @AutomationCase:true;
+  
+# 78 一个合约的caller信息   
+ **/api/onecontractcallers**  
+  Desc: List data synchronization onecontractcallers  
+  Demo: curl -X Get  http://apilist.tronscan.org/api/onecontractcallers?address=TEEXEWrkMFKapSMJ6mErg39ELFKDqEs6w3   
+  @param: null;  
+  @return: data synchronization onecontractcallers;    
+  @TestOwner:姜红;   
+  @AutomationCase:true;
+    
+# 79 一个合约的callvalue统计信息   
+ **/api/onecontract-callvalue**  
+  Desc: List data synchronization onecontract-callvalue  
+  Demo: curl -X Get  http://apilist.tronscan.org/api/onecontract-callvalue?address=TEEXEWrkMFKapSMJ6mErg39ELFKDqEs6w3   
+  @param: null;  
+  @return: data synchronization onecontract-callvalue;    
+  @TestOwner:姜红;   
+  @AutomationCase:true;

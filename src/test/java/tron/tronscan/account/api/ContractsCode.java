@@ -11,7 +11,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
-import tron.common.utils.Utils;
 
 @Slf4j
 public class ContractsCode {
@@ -64,8 +63,8 @@ public class ContractsCode {
     //Get response
     String address = "TEEXEWrkMFKapSMJ6mErg39ELFKDqEs6w3";
     Map<String, String> Params = new HashMap<>();
-    Params.put("contract",address);
-    response = TronscanApiList.getContractTest(tronScanNode,Params);
+    Params.put("contract", address);
+    response = TronscanApiList.getContractTest(tronScanNode, Params);
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
@@ -74,12 +73,13 @@ public class ContractsCode {
     Assert.assertTrue(responseObject.containsKey("code"));
     Assert.assertTrue(responseObject.containsKey("message"));
 
-    responseObject = responseContent.getJSONObject("data");
-    Assert.assertTrue(responseObject.containsKey("address"));
-    Assert.assertTrue(responseObject.containsKey("creator"));
-    Assert.assertTrue(responseObject.containsKey("balance"));
-    Assert.assertTrue(responseObject.containsKey("balanceInUsd"));
-    Assert.assertTrue(responseObject.containsKey("trxCount"));
+    responseArrayContent = responseContent.getJSONArray("data");
+    targetContent = responseArrayContent.getJSONObject(0);
+    Assert.assertTrue(targetContent.containsKey("address"));
+    Assert.assertTrue(targetContent.containsKey("creator"));
+    Assert.assertTrue(targetContent.containsKey("balance"));
+    Assert.assertTrue(targetContent.containsKey("balanceInUsd"));
+    Assert.assertTrue(targetContent.containsKey("trxCount"));
 
   }
 
@@ -88,7 +88,7 @@ public class ContractsCode {
    */
   @AfterClass
   public void shutdown() throws InterruptedException {
-    TronscanApiList.disConnect();
+    TronscanApiList.disGetConnect();
   }
 
 }
