@@ -22,7 +22,6 @@ public class baseTest {
 //	driver = useBrowser.startIE(URL);
 //	driver = useBrowser.startFirefox(URL);
     } catch (Exception e) {
-
       System.out.println(e);
     }
   }
