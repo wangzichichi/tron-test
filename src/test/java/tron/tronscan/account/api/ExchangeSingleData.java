@@ -86,7 +86,7 @@ public class ExchangeSingleData {
 
     //Price
     Double price = Double.valueOf(targetContent.get("price").toString());
-    Assert.assertTrue(price > 0);
+    Assert.assertTrue(price >= 0);
 
     //first_owner_address
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");

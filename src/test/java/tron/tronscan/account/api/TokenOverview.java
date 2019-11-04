@@ -52,7 +52,7 @@ public class TokenOverview {
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
     //data object
-    Assert.assertTrue(responseContent.size() == 3);
+    Assert.assertTrue(responseContent.size() == 4);
     Long total = Long.valueOf(responseContent.get("total").toString());
     Long totalAll = Long.valueOf(responseContent.get("totalAll").toString());
     Assert.assertTrue(totalAll >= total);
