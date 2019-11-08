@@ -88,7 +88,7 @@ public class BlockDetail {
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("witnessAddress")).matches());
   }
 
-  @Test(enabled = true, description = "List all the blocks produced by the specified SR in the blockchain")
+  @Test(enabled = false, description = "List all the blocks produced by the specified SR in the blockchain")
   public void getBlocksList() {
     //Get response
     int limit = 20;
