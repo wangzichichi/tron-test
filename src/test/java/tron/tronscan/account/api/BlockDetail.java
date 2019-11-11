@@ -40,8 +40,7 @@ public class BlockDetail {
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
-    Assert.assertTrue(responseContent.containsKey("total"));
-    Assert.assertTrue(responseContent.containsKey("rangeTotal"));
+    Assert.assertTrue(responseContent.containsKey("service_type"));
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
     Assert.assertTrue(responseObject.containsKey("hash"));
@@ -57,6 +56,9 @@ public class BlockDetail {
     Assert.assertEquals(blockNumber, responseObject.getString("number"));
   }
 
+  /**
+   * constructor limit不为零
+   */
   @Test(enabled = true, description = "List the blocks in the blockchain")
   public void test02getBlocksList() {
     //Get response
@@ -73,8 +75,8 @@ public class BlockDetail {
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
-    Assert.assertTrue(responseContent.containsKey("total"));
-    Assert.assertTrue(responseContent.containsKey("rangeTotal"));
+    //Assert.assertTrue(responseContent.containsKey("total"));
+    Assert.assertTrue(responseContent.containsKey("service_type"));
 
     //data object
     responseArrayContent = responseContent.getJSONArray("data");
@@ -92,6 +94,36 @@ public class BlockDetail {
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("witnessAddress")).matches());
   }
 
+  /**
+   * constructor limit为零
+   */
+  @Test(enabled = true, description = "List the blocks in the blockchain")
+  public void test03getBlocksList() {
+    //Get response
+    int limit = 0;
+    Map<String, String> params = new HashMap<>();
+    params.put("sort", "-number");
+    params.put("limit", String.valueOf(limit));
+    params.put("count", "true");
+    params.put("start", "20");
+    params.put("start_timestamp", "1551715200000");
+    params.put("end_timestamp", "1551772172616");
+    response = TronscanApiList.getBlockDetail(tronScanNode, params);
+    log.info("code is " + response.getStatusLine().getStatusCode());
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    Assert.assertTrue(responseContent.size() == 3);
+    Assert.assertTrue(responseContent.containsKey("service_type"));
+    Long total = Long.valueOf(responseContent.get("total").toString());
+    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
+    Assert.assertTrue(rangeTotal >= total);
+
+  }
+
+  /**
+   * constructor. limit不为零
+   */
   @Test(enabled = true, description = "List all the blocks produced by the specified SR in the blockchain")
   public void getBlocksList() {
     //Get response
@@ -108,10 +140,8 @@ public class BlockDetail {
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
-    Assert.assertTrue(responseContent.size() >= 3);
-    Long total = Long.valueOf(responseContent.get("total").toString());
-    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
-    Assert.assertTrue(total >= rangeTotal);
+    Assert.assertTrue(responseContent.size() == 2);
+    Assert.assertTrue(responseContent.containsKey("service_type"));
     Assert.assertTrue(responseContent.containsKey("data"));
   }
 

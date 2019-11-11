@@ -29,7 +29,7 @@ public class TransactionList {
       .get(0);
 
   /**
-   * constructor.
+   * constructor. limit不为零
    */
   @Test(enabled = true, description = "List the transactions related to a specified account")
   public void test01getBlockDetail() {
@@ -45,8 +45,7 @@ public class TransactionList {
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
-    Assert.assertTrue(responseContent.containsKey("total"));
-    Assert.assertTrue(responseContent.containsKey("rangeTotal"));
+    Assert.assertTrue(responseContent.containsKey("service_type"));
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
     Assert.assertTrue(responseObject.containsKey("hash"));
@@ -63,6 +62,30 @@ public class TransactionList {
 //    Assert.assertTrue(responseObject.containsKey("asset_name"));
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("owner_address")).matches());
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("to_address")).matches());
+  }
+
+  /**
+   * constructor. limit为零
+   */
+  @Test(enabled = true, description = "List the transactions related to a specified account")
+  public void test02getBlockDetail() {
+    //Get response
+    Map<String, String> Params = new HashMap<>();
+    Params.put("sort", "-number");
+    Params.put("limit", "0");
+    Params.put("count", "true");
+    Params.put("start", "0");
+    Params.put("address", "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9");
+    response = TronscanApiList.getTransactionList(tronScanNode, Params);
+    log.info("code is " + response.getStatusLine().getStatusCode());
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    Assert.assertTrue(responseContent.size() == 4);
+    Assert.assertTrue(responseContent.containsKey("total"));
+    Assert.assertTrue(responseContent.containsKey("rangeTotal"));
+    Assert.assertTrue(responseContent.containsKey("service_type"));
+    Assert.assertTrue(responseContent.containsKey("wholeChainTxCount"));
   }
 
   /**
@@ -110,7 +133,7 @@ public class TransactionList {
   }
 
   /**
-   * constructor.
+   * constructor. limit不为零
    */
   @Test(enabled = true, description = "List the transactions in the blockchain(only display the latest 10,000 data records in the query time range)")
   public void getTransactionTestRang() {
@@ -127,31 +150,16 @@ public class TransactionList {
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
     //three object, "total" and "Data","rangeTotal"
-    Assert.assertTrue(responseContent.size() == 4);
-    //wholeChainTxCount
-    Assert.assertTrue(Long.valueOf(responseContent.get("wholeChainTxCount").toString()) >= 0);
-    Long total = Long.valueOf(responseContent.get("total").toString());
-    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
+    Assert.assertTrue(responseContent.size() == 2);
+    //service_type
+    Assert.assertTrue(responseContent.containsKey("service_type"));
     JSONArray exchangeArray = responseContent.getJSONArray("data");
-    Assert.assertTrue(rangeTotal >= total);
 
     targetContent = exchangeArray.getJSONObject(0);
     //contractRet
     Assert.assertTrue(targetContent.containsKey("contractRet"));
     //cost json
-    proposalContent = targetContent.getJSONObject("cost");
-    //net_fee
-    Assert.assertTrue(Long.valueOf(proposalContent.get("net_fee").toString()) >= 0);
-    //energy_usage
-    Assert.assertTrue(Long.valueOf(proposalContent.get("energy_usage").toString()) >= 0);
-    //energy_fee
-    Assert.assertTrue(Long.valueOf(proposalContent.get("energy_fee").toString()) >= 0);
-    //energy_usage_total
-    Assert.assertTrue(Long.valueOf(proposalContent.get("energy_usage_total").toString()) >= 0);
-    //origin_energy_usage
-    Assert.assertTrue(Long.valueOf(proposalContent.get("origin_energy_usage").toString()) >= 0);
-    //net_usage
-    Assert.assertTrue(Long.valueOf(proposalContent.get("net_usage").toString()) >= 0);
+    Assert.assertTrue(targetContent.containsKey("cost"));
     //data
     Assert.assertTrue(targetContent.containsKey("data"));
     //contractRet
@@ -173,13 +181,12 @@ public class TransactionList {
     Assert.assertTrue(targetContent.containsKey("id"));
     //contractData json
     proposalContent = targetContent.getJSONObject("contractData");
-    Assert.assertTrue(proposalContent.containsKey("data"));
     //contractData Contain owner_address，contract_address
     Assert.assertTrue(patternAddress.matcher(proposalContent.getString("owner_address")).matches());
     Assert.assertTrue(
-        patternAddress.matcher(proposalContent.getString("contract_address")).matches());
+        patternAddress.matcher(proposalContent.getString("to_address")).matches());
     //call_value
-    Assert.assertTrue(Long.valueOf(proposalContent.get("call_value").toString()) >= 0);
+    Assert.assertTrue(Long.valueOf(proposalContent.get("amount").toString()) >= 0);
     //timestamp
     Assert.assertTrue(targetContent.containsKey("timestamp"));
 
@@ -187,7 +194,7 @@ public class TransactionList {
   }
 
   /**
-   * constructor.查询区块上交易列表
+   * constructor.查询区块上交易列表 limit不为零
    */
   @Test(enabled = true, description = "查询区块上交易列表")
   public void getTransactionTestBlock() {
@@ -204,13 +211,8 @@ public class TransactionList {
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
     //three object, "total" and "Data","rangeTotal"
-    Assert.assertTrue(responseContent.size() == 4);
-    //wholeChainTxCount
-    Assert.assertTrue(Long.valueOf(responseContent.get("wholeChainTxCount").toString()) >= 0);
-    Long total = Long.valueOf(responseContent.get("total").toString());
-    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
+    Assert.assertTrue(responseContent.size() == 2);
     JSONArray exchangeArray = responseContent.getJSONArray("data");
-    Assert.assertTrue(rangeTotal >= total);
 
     targetContent = exchangeArray.getJSONObject(0);
     //contractRet
@@ -259,6 +261,7 @@ public class TransactionList {
     Assert.assertTrue(targetContent.containsKey("timestamp"));
 
   }
+
 
   /**
    * constructor.simple-transaction接口
