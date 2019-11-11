@@ -14,7 +14,7 @@ public class WebBrowser {
 
     try {
 
-      System.setProperty("webdriver.chrome.driver", "/Users/wangzihe/Downloads/webDriver/chromedriver");
+    System.setProperty("webdriver.chrome.driver", "./src/test/resources/chromedriver");
 
       driver = new ChromeDriver();
 
