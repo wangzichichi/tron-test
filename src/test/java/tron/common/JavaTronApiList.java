@@ -202,4 +202,30 @@ public class JavaTronApiList {
     return response;
   }
 
+  public static HttpResponse getblockbynum(Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + javatronNode + "walletsolidity/getblockbynum";
+      params.put("visible","true");
+      response = createGetConnect(requestUrl,params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  public static HttpResponse getTransactionId(Map<String, String> params) {
+    try{
+      String requestUrl = "http://" + javatronNode + "walletsolidity/gettransactionbyid";
+      params.put("visible","true");
+      response = createGetConnect(requestUrl, params);
+    }catch (Exception e) {
+      e.printStackTrace();
+      httppost.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
 }

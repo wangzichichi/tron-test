@@ -29,6 +29,7 @@ public class BlockDetail {
   private String tronScanNode = Configuration.getByPath("testng.conf")
       .getStringList("tronscan.ip.list")
       .get(0);
+  String number = "0";
 
   /**
    * constructor
@@ -44,7 +45,7 @@ public class BlockDetail {
     JSONObject javatronObject = javatronResponseContent.getJSONObject("block_header");
     JSONObject raw_data = javatronObject.getJSONObject("raw_data");
     String blockID = javatronResponseContent.getString("blockID");
-    String number = raw_data.getString("number");
+    number = raw_data.getString("number");
     String txTrieRoot = raw_data.getString("txTrieRoot");
     String witness_address = raw_data.getString("witness_address");
     String parentHash = raw_data.getString("parentHash");
@@ -105,27 +106,88 @@ public class BlockDetail {
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("witnessAddress")).matches());
   }
 
-  @Test(enabled = false, description = "List all the blocks produced by the specified SR in the blockchain")
-  public void getBlocksList() {
-    //Get response
-    int limit = 20;
-    String address = "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9";
-    Map<String, String> params = new HashMap<>();
-    params.put("sort", "-number");
-    params.put("limit", String.valueOf(limit));
-    params.put("count", "true");
-    params.put("start", "0");
-    params.put("producer", address);
+  @Test
+  public void test03getblocknum0() throws Exception{
+//Get block from walletsolidity
+    Map<String,String> params = new HashMap<>();
+    params.put("num","0");
+    javatronResponse = JavaTronApiList.getblockbynum(params);
+    log.info("code is " + javatronResponse.getStatusLine().getStatusCode());
+    Assert.assertEquals(javatronResponse.getStatusLine().getStatusCode(), 200);
+    javatronResponseContent = JavaTronApiList.parseResponseContent(javatronResponse);
+    JavaTronApiList.printJsonContent(javatronResponseContent);
+    JSONObject javatronObject = javatronResponseContent.getJSONObject("block_header");
+    JSONObject raw_data = javatronObject.getJSONObject("raw_data");
+    String blockID = javatronResponseContent.getString("blockID");
+    String number = raw_data.getString("number");
+    String txTrieRoot = raw_data.getString("txTrieRoot");
+    String witness_address = raw_data.getString("witness_address");
+    String parentHash = raw_data.getString("parentHash");
+    String timestamp = raw_data.getString("timestamp");
 
-    response = TronscanApiList.getBlockDetail(tronScanNode, params);
+    //Get response
+    Map<String, String> params2 = new HashMap<>();
+    String blockNumber = "0";
+    params2.put("number", blockNumber);
+    response = TronscanApiList.getBlockDetail(tronScanNode, params2);
+    log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
-    Assert.assertTrue(responseContent.size() >= 3);
-    Long total = Long.valueOf(responseContent.get("total").toString());
-    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
-    Assert.assertTrue(total >= rangeTotal);
-    Assert.assertTrue(responseContent.containsKey("data"));
+    responseArrayContent = responseContent.getJSONArray("data");
+    JSONObject responseObject = responseArrayContent.getJSONObject(0);
+    Assert.assertEquals(responseObject.getString("hash"),blockID);
+    Assert.assertEquals(responseObject.getString("timestamp"),timestamp);
+    Assert.assertEquals(responseObject.getString("parentHash"),parentHash);
+    Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+    Assert.assertTrue(patternAddress.matcher(responseObject.getString("witnessAddress")).matches());
+    Assert.assertEquals(blockNumber, responseObject.getString("number"));
+    Assert.assertEquals(responseObject.getString("witnessAddress"),witness_address);
+  }
+
+  @Test(invocationCount = 10)
+  public void test03getblockbyrandomNum() throws Exception{
+    int min = 1;
+    int max = 999999;
+    int num = min + (int)(Math.random() * (max-min+1));
+    String randomNumber = String.valueOf(num);
+    log.info("Block number is: " + randomNumber);
+
+
+//Get block from walletsolidity
+    Map<String,String> params = new HashMap<>();
+    params.put("num",randomNumber);
+    javatronResponse = JavaTronApiList.getblockbynum(params);
+    log.info("code is " + javatronResponse.getStatusLine().getStatusCode());
+    Assert.assertEquals(javatronResponse.getStatusLine().getStatusCode(), 200);
+    javatronResponseContent = JavaTronApiList.parseResponseContent(javatronResponse);
+    JavaTronApiList.printJsonContent(javatronResponseContent);
+    JSONObject javatronObject = javatronResponseContent.getJSONObject("block_header");
+    JSONObject raw_data = javatronObject.getJSONObject("raw_data");
+    String blockID = javatronResponseContent.getString("blockID");
+    String number = raw_data.getString("number");
+    String txTrieRoot = raw_data.getString("txTrieRoot");
+    String witness_address = raw_data.getString("witness_address");
+    String parentHash = raw_data.getString("parentHash");
+    String timestamp = raw_data.getString("timestamp");
+
+    //Get response
+    Map<String, String> params2 = new HashMap<>();
+    params2.put("number", randomNumber);
+    response = TronscanApiList.getBlockDetail(tronScanNode, params2);
+    log.info("code is " + response.getStatusLine().getStatusCode());
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    responseArrayContent = responseContent.getJSONArray("data");
+    JSONObject responseObject = responseArrayContent.getJSONObject(0);
+    Assert.assertEquals(responseObject.getString("hash"),blockID);
+    Assert.assertEquals(responseObject.getString("timestamp"),timestamp);
+    Assert.assertEquals(responseObject.getString("parentHash"),parentHash);
+    Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+    Assert.assertTrue(patternAddress.matcher(responseObject.getString("witnessAddress")).matches());
+    Assert.assertEquals(randomNumber, responseObject.getString("number"));
+    Assert.assertEquals(responseObject.getString("witnessAddress"),witness_address);
   }
 
 
