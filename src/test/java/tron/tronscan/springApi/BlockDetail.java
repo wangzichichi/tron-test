@@ -106,7 +106,7 @@ public class BlockDetail {
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("witnessAddress")).matches());
   }
 
-  @Test
+  @Test(enabled = false)
   public void test03getblocknum0() throws Exception{
 //Get block from walletsolidity
     Map<String,String> params = new HashMap<>();
