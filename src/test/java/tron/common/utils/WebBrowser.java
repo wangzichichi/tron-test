@@ -10,6 +10,13 @@ public class WebBrowser {
 
   public static WebDriver driver;
 
+  public WebBrowser(){
+
+    System.setProperty("webdriver.chrome.driver", "./src/test/resources/chromedriver");
+    driver = new ChromeDriver();
+
+  }
+
   public WebDriver startChrome(String url) throws Exception {
 
     try {
