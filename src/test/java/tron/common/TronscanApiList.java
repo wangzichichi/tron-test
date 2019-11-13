@@ -41,6 +41,7 @@ public class TronscanApiList {
   static JSONObject responseContent;
   static JSONObject signResponseContent;
   static JSONObject transactionApprovedListContent;
+  static Long requestTime = 0L;
 
   static {
     PoolingClientConnectionManager pccm = new PoolingClientConnectionManager();
@@ -1287,6 +1288,7 @@ public class TronscanApiList {
       Instant startTime = Instant.now();
       response = httpClient.execute(httpget);
       Instant endTime = Instant.now();
+      requestTime = Duration.between(startTime, endTime).toMillis();
       System.out.println(url+" 请求总耗时："+ Duration.between(startTime, endTime).toMillis()+" 毫秒" );
 //      System.out.println("请求结束时间： "+formatter.format(new Date()));
     } catch (Exception e) {
@@ -1320,7 +1322,8 @@ public class TronscanApiList {
   public static JSONObject parseResponseContent(HttpResponse response) {
     try {
       String result = EntityUtils.toString(response.getEntity());
-      System.out.println(result);
+      result = result.substring(0,result.lastIndexOf("}"));
+      result = result +",\"requestTime\":"+requestTime+"}";
       StringEntity entity = new StringEntity(result, Charset.forName("UTF-8"));
       response.setEntity(entity);
       JSONObject obj = JSONObject.parseObject(result);

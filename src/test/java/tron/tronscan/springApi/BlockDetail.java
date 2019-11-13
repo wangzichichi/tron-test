@@ -32,6 +32,9 @@ public class BlockDetail {
   private String onlineNode = Configuration.getByPath("testng.conf")
       .getStringList("tronscan.ip.list")
       .get(0);
+  private String oldNode = Configuration.getByPath("testng.conf")
+      .getStringList("tronscanOld.ip.list")
+      .get(0);
   String number = "0";
 
   /**
@@ -66,6 +69,7 @@ public class BlockDetail {
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
     responseArrayContent = responseContent.getJSONArray("data");
+    System.out.println(responseContent.getString("requestTime"));
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
     Assert.assertEquals(responseObject.getString("hash"),blockID);
     Assert.assertEquals(responseObject.getString("timestamp"),timestamp);
@@ -193,12 +197,36 @@ public class BlockDetail {
     Assert.assertEquals(responseObject.getString("witnessAddress"),witness_address);
   }
 
-  @Test(invocationCount = 10)
+//  @Test(invocationCount = 100,threadPoolSize = 1)
+  @Test
   public void test04requestTime(){
-    Map<String,String> params = new HashMap<>();
-    params.put("visible","true");
-    TronscanApiList.getBlockDetail(tronScanNode,params);
-    TronscanApiList.getBlockDetail(onlineNode,params);
+    int tmp = 1;
+    int min = 1;
+    int max = 999999;
+    int timeNew = 0;
+    int timeOld = 0;
+    Long oldTime = 0L;
+    Long onlineTime = 0L;
+    for (;tmp<100;tmp++){
+      int num = min + (int) (Math.random() * (max - min + 1));
+      String randomNumber = String.valueOf(num);
+      log.info("Block number is: " + randomNumber);
+      Map<String, String> params = new HashMap<>();
+      params.put("visible", "true");
+      params.put("num", randomNumber);
+      response = TronscanApiList.getBlockDetail(oldNode, params);
+      responseContent = TronscanApiList.parseResponseContent(response);
+      oldTime += responseContent.getLong("requestTime");
+      log.info("旧接口共请求："+tmp+"次，"+"总耗时："+oldTime+"ms，"+"平均耗时："+oldTime/tmp+"ms");
+
+      response = TronscanApiList.getBlockDetail(onlineNode, params);
+      responseContent = TronscanApiList.parseResponseContent(response);
+      onlineTime += responseContent.getLong("requestTime");
+      log.info("新接口共请求："+tmp+"次，"+"总耗时："+onlineTime+"ms，"+"平均耗时："+onlineTime/tmp+"ms");
+
+    }
+    System.out.println(oldTime);
+    System.out.println(onlineTime);
   }
 
 
