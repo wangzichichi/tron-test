@@ -27,6 +27,9 @@ public class BlockDetail {
   private HttpResponse response;
   private HttpResponse javatronResponse;
   private String tronScanNode = Configuration.getByPath("testng.conf")
+      .getStringList("tronscanSpring.ip.list")
+      .get(0);
+  private String onlineNode = Configuration.getByPath("testng.conf")
       .getStringList("tronscan.ip.list")
       .get(0);
   String number = "0";
@@ -129,7 +132,7 @@ public class BlockDetail {
     Map<String, String> params2 = new HashMap<>();
     String blockNumber = "0";
     params2.put("number", blockNumber);
-    response = TronscanApiList.getBlockDetail(tronScanNode, params2);
+    response = TronscanApiList.getBlockDetail(onlineNode, params2);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
@@ -174,7 +177,7 @@ public class BlockDetail {
     //Get response
     Map<String, String> params2 = new HashMap<>();
     params2.put("number", randomNumber);
-    response = TronscanApiList.getBlockDetail(tronScanNode, params2);
+    response = TronscanApiList.getBlockDetail(onlineNode, params2);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
@@ -189,6 +192,15 @@ public class BlockDetail {
     Assert.assertEquals(randomNumber, responseObject.getString("number"));
     Assert.assertEquals(responseObject.getString("witnessAddress"),witness_address);
   }
+
+  @Test(invocationCount = 10)
+  public void test04requestTime(){
+    Map<String,String> params = new HashMap<>();
+    params.put("visible","true");
+    TronscanApiList.getBlockDetail(tronScanNode,params);
+    TronscanApiList.getBlockDetail(onlineNode,params);
+  }
+
 
 
 

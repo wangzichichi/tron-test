@@ -4,6 +4,10 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonObject;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -1239,7 +1243,10 @@ public class TronscanApiList {
         entity.setContentType("application/json");
         httppost.setEntity(entity);
       }
+      SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
+      System.out.println("请求开始时间： "+formatter.format(new Date()));
       response = httpClient.execute(httppost);
+      System.out.println("请求结束时间： "+formatter.format(new Date()));
     } catch (Exception e) {
       e.printStackTrace();
       httppost.releaseConnection();
@@ -1272,11 +1279,16 @@ public class TronscanApiList {
         stringBuffer.deleteCharAt(stringBuffer.length() - 1);
         url = stringBuffer.toString();
       }
-      System.out.println(url);
       httpget = new HttpGet(url);
       httpget.setHeader("Content-type", "application/json; charset=utf-8");
       httpget.setHeader("Connection", "Close");
+//      SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
+//      System.out.println("请求开始时间： "+formatter.format(new Date()));
+      Instant startTime = Instant.now();
       response = httpClient.execute(httpget);
+      Instant endTime = Instant.now();
+      System.out.println(url+" 请求总耗时："+ Duration.between(startTime, endTime).toMillis()+" 毫秒" );
+//      System.out.println("请求结束时间： "+formatter.format(new Date()));
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();

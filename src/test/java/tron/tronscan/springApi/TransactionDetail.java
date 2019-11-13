@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.testng.Assert;
@@ -21,50 +22,255 @@ public class TransactionDetail {
   private JSONObject responseContent;
   private JSONObject javatronResponseContent;
   private JSONArray responseArrayContent;
+  private JSONObject proposalContent;
 
   private JSONArray javatronResponseArrayContent;
   private JSONObject targetContent;
   private HttpResponse response;
   private HttpResponse javatronResponse;
   private String tronScanNode = Configuration.getByPath("testng.conf")
+      .getStringList("tronscanSpring.ip.list")
+      .get(0);
+
+  private String onlineNode = Configuration.getByPath("testng.conf")
       .getStringList("tronscan.ip.list")
       .get(0);
 
+  /**
+   * constructor. limit不为零
+   */
+  @Test(enabled = true, description = "List the transactions related to a specified account")
+  public void test01getBlockDetail() {
+    //Get response
+    Map<String, String> Params = new HashMap<>();
+    Params.put("sort", "-number");
+    Params.put("limit", "20");
+    Params.put("count", "true");
+    Params.put("start", "0");
+    Params.put("address", "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9");
+    response = TronscanApiList.getTransactionList(onlineNode, Params);
+    log.info("code is " + response.getStatusLine().getStatusCode());
+    org.junit.Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    org.junit.Assert.assertTrue(responseContent.containsKey("service_type"));
+    responseArrayContent = responseContent.getJSONArray("data");
+    JSONObject responseObject = responseArrayContent.getJSONObject(0);
+    org.junit.Assert.assertTrue(responseObject.containsKey("hash"));
+    org.junit.Assert.assertTrue(responseObject.containsKey("block"));
+    org.junit.Assert.assertTrue(responseObject.containsKey("timestamp"));
+    org.junit.Assert.assertTrue(responseObject.containsKey("contractType"));
+    org.junit.Assert.assertTrue(responseObject.containsKey("confirmed"));
+    Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+    org.junit.Assert.assertTrue(patternAddress.matcher(responseObject.getString("ownerAddress")).matches());
+    org.junit.Assert.assertTrue(patternAddress.matcher(responseObject.getString("toAddress")).matches());
+
+    responseObject = responseObject.getJSONObject("contractData");
+    org.junit.Assert.assertTrue(responseObject.containsKey("amount"));
+//    Assert.assertTrue(responseObject.containsKey("asset_name"));
+    org.junit.Assert.assertTrue(patternAddress.matcher(responseObject.getString("owner_address")).matches());
+    org.junit.Assert.assertTrue(patternAddress.matcher(responseObject.getString("to_address")).matches());
+  }
+
+  /**
+   * constructor. limit为零
+   */
+  @Test(enabled = true, description = "List the transactions related to a specified account")
+  public void test02getBlockDetail() {
+    //Get response
+    Map<String, String> Params = new HashMap<>();
+    Params.put("sort", "-number");
+    Params.put("limit", "0");
+    Params.put("count", "true");
+    Params.put("start", "0");
+    Params.put("address", "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9");
+    response = TronscanApiList.getTransactionList(onlineNode, Params);
+    log.info("code is " + response.getStatusLine().getStatusCode());
+    org.junit.Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    org.junit.Assert.assertTrue(responseContent.size() == 4);
+    org.junit.Assert.assertTrue(responseContent.containsKey("total"));
+    org.junit.Assert.assertTrue(responseContent.containsKey("rangeTotal"));
+    org.junit.Assert.assertTrue(responseContent.containsKey("service_type"));
+    org.junit.Assert.assertTrue(responseContent.containsKey("wholeChainTxCount"));
+  }
+
+
+  /**
+   * constructor. limit不为零
+   */
+  @Test(enabled = true, description = "List the transactions in the blockchain(only display the latest 10,000 data records in the query time range)")
+  public void getTransactionTestRang() {
+    Map<String, String> Params = new HashMap<>();
+    Params.put("sort", "-timestamp");
+    Params.put("limit", "20");
+    Params.put("count", "true");
+    Params.put("start", "0");
+    Params.put("start_timestamp", "1548000000000");
+    Params.put("end_timestamp", "1548056638507");
+    response = TronscanApiList.getTransactionList(onlineNode, Params);
+
+    org.junit.Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    //three object, "total" and "Data","rangeTotal"
+    org.junit.Assert.assertTrue(responseContent.size() == 2);
+    //service_type
+    org.junit.Assert.assertTrue(responseContent.containsKey("service_type"));
+    JSONArray exchangeArray = responseContent.getJSONArray("data");
+
+    targetContent = exchangeArray.getJSONObject(0);
+    //contractRet
+    org.junit.Assert.assertTrue(targetContent.containsKey("contractRet"));
+    //cost json
+    org.junit.Assert.assertTrue(targetContent.containsKey("cost"));
+    //data
+    org.junit.Assert.assertTrue(targetContent.containsKey("data"));
+    //contractRet
+    org.junit.Assert.assertTrue(!targetContent.get("contractType").toString().isEmpty());
+    //fee
+    org.junit.Assert.assertTrue(targetContent.containsKey("fee"));
+    //toAddress
+    Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+    org.junit.Assert.assertTrue(patternAddress.matcher(targetContent.getString("toAddress")).matches());
+    org.junit.Assert.assertTrue(patternAddress.matcher(targetContent.getString("ownerAddress")).matches());
+    //confirmed
+    org.junit.Assert.assertTrue(Boolean.valueOf(targetContent.getString("confirmed")));
+    org.junit.Assert.assertTrue(targetContent.containsKey("Events"));
+    org.junit.Assert.assertTrue(targetContent.containsKey("SmartCalls"));
+    org.junit.Assert.assertTrue(targetContent.containsKey("block"));
+    //hash
+    Pattern patternHash = Pattern.compile("^[a-z0-9]{64}");
+    org.junit.Assert.assertTrue(patternHash.matcher(targetContent.getString("hash")).matches());
+    org.junit.Assert.assertTrue(targetContent.containsKey("id"));
+    //contractData json
+    proposalContent = targetContent.getJSONObject("contractData");
+    //contractData Contain owner_address，contract_address
+    org.junit.Assert.assertTrue(patternAddress.matcher(proposalContent.getString("owner_address")).matches());
+    org.junit.Assert.assertTrue(
+        patternAddress.matcher(proposalContent.getString("to_address")).matches());
+    //call_value
+    org.junit.Assert.assertTrue(Long.valueOf(proposalContent.get("amount").toString()) >= 0);
+    //timestamp
+    org.junit.Assert.assertTrue(targetContent.containsKey("timestamp"));
+
+
+  }
+
+  /**
+   * constructor.查询区块上交易列表 limit不为零
+   */
+  @Test(enabled = true, description = "查询区块上交易列表")
+  public void getTransactionTestBlock() {
+    Map<String, String> Params = new HashMap<>();
+    Params.put("sort", "-timestamp");
+    Params.put("limit", "20");
+    Params.put("count", "true");
+    Params.put("start", "0");
+    Params.put("total", "0");
+    Params.put("block", "14456772");
+    response = TronscanApiList.getTransactionList(onlineNode, Params);
+
+    org.junit.Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    //three object, "total" and "Data","rangeTotal"
+    org.junit.Assert.assertTrue(responseContent.size() == 2);
+    JSONArray exchangeArray = responseContent.getJSONArray("data");
+
+    targetContent = exchangeArray.getJSONObject(0);
+    //contractRet
+    org.junit.Assert.assertTrue(targetContent.containsKey("contractRet"));
+    //cost json
+    proposalContent = targetContent.getJSONObject("cost");
+    //net_fee
+    org.junit.Assert.assertTrue(Long.valueOf(proposalContent.get("net_fee").toString()) >= 0);
+    //energy_usage
+    org.junit.Assert.assertTrue(Long.valueOf(proposalContent.get("energy_usage").toString()) >= 0);
+    //energy_fee
+    org.junit.Assert.assertTrue(Long.valueOf(proposalContent.get("energy_fee").toString()) >= 0);
+    //energy_usage_total
+    org.junit.Assert
+        .assertTrue(Long.valueOf(proposalContent.get("energy_usage_total").toString()) >= 0);
+    //origin_energy_usage
+    org.junit.Assert
+        .assertTrue(Long.valueOf(proposalContent.get("origin_energy_usage").toString()) >= 0);
+    //net_usage
+    org.junit.Assert.assertTrue(Long.valueOf(proposalContent.get("net_usage").toString()) >= 0);
+    //data
+    org.junit.Assert.assertTrue(targetContent.containsKey("data"));
+    //contractRet
+    org.junit.Assert.assertTrue(!targetContent.get("contractType").toString().isEmpty());
+    //fee
+    org.junit.Assert.assertTrue(targetContent.containsKey("fee"));
+    //toAddress
+    Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
+    org.junit.Assert.assertTrue(patternAddress.matcher(targetContent.getString("toAddress")).matches());
+    org.junit.Assert.assertTrue(patternAddress.matcher(targetContent.getString("ownerAddress")).matches());
+    //confirmed
+    org.junit.Assert.assertTrue(Boolean.valueOf(targetContent.getString("confirmed")));
+    org.junit.Assert.assertTrue(targetContent.containsKey("Events"));
+    org.junit.Assert.assertTrue(targetContent.containsKey("SmartCalls"));
+    org.junit.Assert.assertTrue(targetContent.containsKey("block"));
+    //hash
+    Pattern patternHash = Pattern.compile("^[a-z0-9]{64}");
+    org.junit.Assert.assertTrue(patternHash.matcher(targetContent.getString("hash")).matches());
+    org.junit.Assert.assertTrue(targetContent.containsKey("id"));
+    //contractData json
+    proposalContent = targetContent.getJSONObject("contractData");
+    org.junit.Assert.assertTrue(proposalContent.containsKey("data"));
+    //contractData Contain owner_address，contract_address
+    org.junit.Assert.assertTrue(patternAddress.matcher(proposalContent.getString("owner_address")).matches());
+    org.junit.Assert.assertTrue(
+        patternAddress.matcher(proposalContent.getString("contract_address")).matches());
+    //timestamp
+    org.junit.Assert.assertTrue(targetContent.containsKey("timestamp"));
+
+  }
+
+
+//todo add
   @Test(enabled = true)
-  public void test01GetTransactionDetail() throws Exception{
-    //old interface
-    Map<String,String> params = new HashMap<>();
-    params.put("value", "a9ca689f1ab97c1efd596b00d57a089af5071a9ef87e6f443c930ea674afa513");
-    javatronResponse = JavaTronApiList.getTransactionId(params);
-    log.info("code is" + javatronResponse.getStatusLine().getStatusCode());
+  public void test03GetTransactionDetail() throws Exception{
+    //Get block Transaction from walletsolidity
+    javatronResponse = JavaTronApiList.getNowBlock();
+    log.info("code is " + javatronResponse.getStatusLine().getStatusCode());
     Assert.assertEquals(javatronResponse.getStatusLine().getStatusCode(), 200);
     javatronResponseContent = JavaTronApiList.parseResponseContent(javatronResponse);
     JavaTronApiList.printJsonContent(javatronResponseContent);
-    responseArrayContent = javatronResponseContent.getJSONArray("signature");
-    JSONObject raw_data = javatronResponseContent.getJSONObject("raw_data");
-    JSONArray contract = raw_data.getJSONArray("contract");
-    JSONObject parameter = contract.getJSONObject(0);
-    JSONObject value = parameter.getJSONObject("parameter");
-    JSONObject valueInfo = value.getJSONObject("value");
-    String owner_address = valueInfo.getString("owner_address");
-    String contract_address = valueInfo.getString("contract_address");
-    String type = parameter.getString("type");
-    String ref_block_hash = raw_data.getString("ref_block_hash");
+    JSONObject javatronObject = javatronResponseContent.getJSONObject("block_header");
+    JSONObject raw_data = javatronObject.getJSONObject("raw_data");
+    String blockID = javatronResponseContent.getString("blockID");
+    JSONArray transactions = javatronResponseContent.getJSONArray("transactions");
+    int total = transactions.size();
+    String number = raw_data.getString("number");
+    String txTrieRoot = raw_data.getString("txTrieRoot");
+    String witness_address = raw_data.getString("witness_address");
+    String parentHash = raw_data.getString("parentHash");
     String timestamp = raw_data.getString("timestamp");
-    Thread.sleep(3000);
+    Thread.sleep(5000);
 
     //data object（new interface）
-    Map<String,String> newParams = new HashMap<>();
-//        newParams.put("txID","a9ca689f1ab97c1efd596b00d57a089af5071a9ef87e6f443c930ea674afa513");
-//        newParams.put("fee_limit","10000000");
-//        newParams.put("ref_block_hash", "1929193cea2451c2");
-//        newParams.put("timestamp","1573464210274");
-//        response = TronscanApiList.getTransactionList(tronScanNode,newParams);
-//        log.info("code is " + response.getStatusLine().getStatusCode());
-//        Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-//        responseContent = TronscanApiList.parseResponseContent(response);
-//        TronscanApiList.printJsonContent(responseContent);
-//        System.out.println("<><><><><><><>   " + responseContent);
+    Map<String, String> Params = new HashMap<>();
+    Params.put("sort", "-timestamp");
+    Params.put("limit", "200");
+    Params.put("count", "true");
+    Params.put("start", "0");
+    Params.put("total", "0");
+    Params.put("block", number);
+    response = TronscanApiList.getTransactionList(onlineNode, Params);
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    //three object, "total" and "Data","rangeTotal"
+    JSONArray exchangeArray = responseContent.getJSONArray("data");
+    Assert.assertEquals(exchangeArray.size(),total);
+    targetContent = exchangeArray.getJSONObject(0);
+    //contractRet
+    Assert.assertTrue(targetContent.containsKey("contractRet"));
+    //cost json
+    proposalContent = targetContent.getJSONObject("cost");
 
   }
 }
