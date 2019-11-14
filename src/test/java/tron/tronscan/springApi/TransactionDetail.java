@@ -53,7 +53,6 @@ public class TransactionDetail {
     org.junit.Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
-    org.junit.Assert.assertTrue(responseContent.containsKey("service_type"));
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
     org.junit.Assert.assertTrue(responseObject.containsKey("hash"));
@@ -89,10 +88,7 @@ public class TransactionDetail {
     org.junit.Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
-    org.junit.Assert.assertTrue(responseContent.size() == 4);
-    org.junit.Assert.assertTrue(responseContent.containsKey("total"));
     org.junit.Assert.assertTrue(responseContent.containsKey("rangeTotal"));
-    org.junit.Assert.assertTrue(responseContent.containsKey("service_type"));
     org.junit.Assert.assertTrue(responseContent.containsKey("wholeChainTxCount"));
   }
 
@@ -115,9 +111,7 @@ public class TransactionDetail {
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
     //three object, "total" and "Data","rangeTotal"
-    org.junit.Assert.assertTrue(responseContent.size() == 2);
     //service_type
-    org.junit.Assert.assertTrue(responseContent.containsKey("service_type"));
     JSONArray exchangeArray = responseContent.getJSONArray("data");
 
     targetContent = exchangeArray.getJSONObject(0);
@@ -148,10 +142,6 @@ public class TransactionDetail {
     proposalContent = targetContent.getJSONObject("contractData");
     //contractData Contain owner_address，contract_address
     org.junit.Assert.assertTrue(patternAddress.matcher(proposalContent.getString("owner_address")).matches());
-    org.junit.Assert.assertTrue(
-        patternAddress.matcher(proposalContent.getString("to_address")).matches());
-    //call_value
-    org.junit.Assert.assertTrue(Long.valueOf(proposalContent.get("amount").toString()) >= 0);
     //timestamp
     org.junit.Assert.assertTrue(targetContent.containsKey("timestamp"));
 
@@ -176,7 +166,6 @@ public class TransactionDetail {
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
     //three object, "total" and "Data","rangeTotal"
-    org.junit.Assert.assertTrue(responseContent.size() == 2);
     JSONArray exchangeArray = responseContent.getJSONArray("data");
 
     targetContent = exchangeArray.getJSONObject(0);
@@ -241,15 +230,22 @@ public class TransactionDetail {
     JavaTronApiList.printJsonContent(javatronResponseContent);
     JSONObject javatronObject = javatronResponseContent.getJSONObject("block_header");
     JSONObject raw_data = javatronObject.getJSONObject("raw_data");
-    String blockID = javatronResponseContent.getString("blockID");
     JSONArray transactions = javatronResponseContent.getJSONArray("transactions");
-    int total = transactions.size();
     String number = raw_data.getString("number");
-    String txTrieRoot = raw_data.getString("txTrieRoot");
-    String witness_address = raw_data.getString("witness_address");
-    String parentHash = raw_data.getString("parentHash");
-    String timestamp = raw_data.getString("timestamp");
-    Thread.sleep(5000);
+
+
+    Map<String,String> params = new HashMap<>();
+    params.put("num",String.valueOf(Integer.valueOf(number)-5));
+    javatronResponse = JavaTronApiList.getblockbynum(params);
+    log.info("code is " + javatronResponse.getStatusLine().getStatusCode());
+    Assert.assertEquals(javatronResponse.getStatusLine().getStatusCode(), 200);
+    javatronResponseContent = JavaTronApiList.parseResponseContent(javatronResponse);
+    JavaTronApiList.printJsonContent(javatronResponseContent);
+    javatronObject = javatronResponseContent.getJSONObject("block_header");
+    raw_data = javatronObject.getJSONObject("raw_data");
+    transactions = javatronResponseContent.getJSONArray("transactions");
+    int total = transactions.size();
+    number = raw_data.getString("number");
 
     //data object（new interface）
     Map<String, String> Params = new HashMap<>();
@@ -265,7 +261,7 @@ public class TransactionDetail {
     TronscanApiList.printJsonContent(responseContent);
     //three object, "total" and "Data","rangeTotal"
     JSONArray exchangeArray = responseContent.getJSONArray("data");
-    Assert.assertEquals(exchangeArray.size(),total);
+    Assert.assertEquals(responseContent.getString("total"),String.valueOf(total));
     targetContent = exchangeArray.getJSONObject(0);
     //contractRet
     Assert.assertTrue(targetContent.containsKey("contractRet"));
