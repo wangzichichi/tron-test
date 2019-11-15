@@ -56,7 +56,7 @@ public class BlockDetail {
     String witness_address = raw_data.getString("witness_address");
     String parentHash = raw_data.getString("parentHash");
     String timestamp = raw_data.getString("timestamp");
-    Thread.sleep(3000);
+    Thread.sleep(15000);
 
 
     //Get response
@@ -219,7 +219,7 @@ public class BlockDetail {
       oldTime += responseContent.getLong("requestTime");
       log.info("旧接口共请求："+tmp+"次，"+"总耗时："+oldTime+"ms，"+"平均耗时："+oldTime/tmp+"ms");
 
-      response = TronscanApiList.getBlockDetail(onlineNode, params);
+      response = TronscanApiList.getBlockDetail(tronScanNode, params);
       responseContent = TronscanApiList.parseResponseContent(response);
       onlineTime += responseContent.getLong("requestTime");
       log.info("新接口共请求："+tmp+"次，"+"总耗时："+onlineTime+"ms，"+"平均耗时："+onlineTime/tmp+"ms");

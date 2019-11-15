@@ -36,6 +36,10 @@ public class TransactionDetail {
       .getStringList("tronscan.ip.list")
       .get(0);
 
+  private String oldNode = Configuration.getByPath("testng.conf")
+      .getStringList("tronscanOld.ip.list")
+      .get(0);
+
   /**
    * constructor. limit不为零
    */
@@ -267,6 +271,38 @@ public class TransactionDetail {
     Assert.assertTrue(targetContent.containsKey("contractRet"));
     //cost json
     proposalContent = targetContent.getJSONObject("cost");
+
+  }
+
+  @Test
+  public void test04transcationTime(){
+    int tmp = 1;
+    int min = 1;
+    int max = 999999;
+    int timeNew = 0;
+    int timeOld = 0;
+    Long oldTime = 0L;
+    Long onlineTime = 0L;
+    for (;tmp<500;tmp++){
+      int num = min + (int) (Math.random() * (max - min + 1));
+      String randomNumber = String.valueOf(num);
+      log.info("Block number is: " + randomNumber);
+      Map<String, String> params = new HashMap<>();
+      params.put("visible", "true");
+      params.put("num", randomNumber);
+      response = TronscanApiList.getTransactionList(oldNode,params);
+      responseContent = TronscanApiList.parseResponseContent(response);
+      oldTime += responseContent.getLong("requestTime");
+      log.info("旧接口共请求："+tmp+"次，"+"总耗时："+oldTime+"ms，"+"平均耗时："+oldTime/tmp+"ms");
+
+      response = TronscanApiList.getTransactionList(tronScanNode,params);
+      responseContent = TronscanApiList.parseResponseContent(response);
+      onlineTime += responseContent.getLong("requestTime");
+      log.info("新接口共请求："+tmp+"次，"+"总耗时："+onlineTime+"ms，"+"平均耗时："+onlineTime/tmp+"ms");
+
+    }
+    System.out.println(oldTime);
+    System.out.println(onlineTime);
 
   }
 }
