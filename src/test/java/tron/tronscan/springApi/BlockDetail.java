@@ -3,6 +3,8 @@ package tron.tronscan.springApi;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
@@ -197,8 +199,7 @@ public class BlockDetail {
     Assert.assertEquals(responseObject.getString("witnessAddress"),witness_address);
   }
 
-//  @Test(invocationCount = 100,threadPoolSize = 1)
-  @Test
+  @Test()
   public void test04requestTime(){
     int tmp = 1;
     int min = 1;
@@ -207,7 +208,9 @@ public class BlockDetail {
     int timeOld = 0;
     Long oldTime = 0L;
     Long onlineTime = 0L;
-    for (;tmp<100;tmp++){
+    List<Long> oldRequestTime = new LinkedList<>();
+    List<Long> newRequestTime = new LinkedList<>();
+    for (;tmp<1000;tmp++){
       int num = min + (int) (Math.random() * (max - min + 1));
       String randomNumber = String.valueOf(num);
       log.info("Block number is: " + randomNumber);
@@ -217,16 +220,18 @@ public class BlockDetail {
       response = TronscanApiList.getBlockDetail(oldNode, params);
       responseContent = TronscanApiList.parseResponseContent(response);
       oldTime += responseContent.getLong("requestTime");
+      oldRequestTime.add(responseContent.getLong("requestTime"));
       log.info("旧接口共请求："+tmp+"次，"+"总耗时："+oldTime+"ms，"+"平均耗时："+oldTime/tmp+"ms");
 
       response = TronscanApiList.getBlockDetail(tronScanNode, params);
       responseContent = TronscanApiList.parseResponseContent(response);
+      newRequestTime.add(responseContent.getLong("requestTime"));
       onlineTime += responseContent.getLong("requestTime");
       log.info("新接口共请求："+tmp+"次，"+"总耗时："+onlineTime+"ms，"+"平均耗时："+onlineTime/tmp+"ms");
 
     }
-    System.out.println(oldTime);
-    System.out.println(onlineTime);
+    System.out.println(oldRequestTime);
+    System.out.println(newRequestTime);
   }
 
 
