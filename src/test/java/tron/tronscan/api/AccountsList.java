@@ -125,6 +125,11 @@ public class AccountsList {
     Assert.assertTrue(Long.valueOf(targetContent.get("balance").toString()) >= 0);
     Assert.assertTrue(targetContent.containsKey("name"));
 
+    //新增enabled
+    Assert.assertTrue(Boolean.valueOf(responseContent.getString("enabled")));
+    //新增url
+    Assert.assertTrue(responseContent.containsKey("url"));
+
     //balances json
     JSONArray balancesArray = responseContent.getJSONArray("balances");
     targetContent = balancesArray.getJSONObject(0);
