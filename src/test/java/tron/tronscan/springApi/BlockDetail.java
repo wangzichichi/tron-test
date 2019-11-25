@@ -210,7 +210,7 @@ public class BlockDetail {
     Long onlineTime = 0L;
     List<Long> oldRequestTime = new LinkedList<>();
     List<Long> newRequestTime = new LinkedList<>();
-    for (;tmp<1000;tmp++){
+    for (;tmp<100;tmp++){
       int num = min + (int) (Math.random() * (max - min + 1));
       String randomNumber = String.valueOf(num);
       log.info("Block number is: " + randomNumber);
