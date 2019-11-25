@@ -42,7 +42,7 @@ public class BlockDetail {
   /**
    * constructor
    */
-  @Test(enabled = true, description = "Get a single block's detail")
+  @Test(enabled = false, description = "Get a single block's detail")
   public void test01getBlockDetail() throws Exception{
     //Get block from walletsolidity
     javatronResponse = JavaTronApiList.getNowBlock();
