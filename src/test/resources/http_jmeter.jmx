@@ -7336,7 +7336,7 @@
             </elementProp>
             <elementProp name="oldServer" elementType="Argument">
               <stringProp name="Argument.name">oldServer</stringProp>
-              <stringProp name="Argument.value">apilist.tronscan.org</stringProp>
+              <stringProp name="Argument.value">18.224.176.199</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="newServerPort" elementType="Argument">
@@ -7346,7 +7346,7 @@
             </elementProp>
             <elementProp name="oldServerPort" elementType="Argument">
               <stringProp name="Argument.name">oldServerPort</stringProp>
-              <stringProp name="Argument.value"></stringProp>
+              <stringProp name="Argument.value">8899</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
           </collectionProp>
