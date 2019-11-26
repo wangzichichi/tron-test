@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
@@ -18,6 +19,7 @@ import tron.common.utils.Configuration;
  * @Author:tron
  * @Date:2019-08-29 13:41
  */
+@Slf4j
 public class Token_Trx20 {
 
   private final String foundationKey = Configuration.getByPath("testng.conf")
