@@ -27,7 +27,7 @@ public class WitnessesList {
   private JSONObject targetContent;
   private HttpResponse response;
   private String tronScanNode = Configuration.getByPath("testng.conf")
-      .getStringList("tronscan.ip.list")
+      .getStringList("tronscanSpring.ip.list")
       .get(0);
 
   /**

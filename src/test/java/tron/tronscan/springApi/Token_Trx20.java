@@ -30,7 +30,8 @@ public class Token_Trx20 {
   private JSONObject sonContent;
   private HttpResponse response;
   private String tronScanNode = Configuration.getByPath("testng.conf")
-      .getStringList("tronscan.ip.list").get(0);
+      .getStringList("tronscanSpring.ip.list")
+      .get(0);
 
   /**
    * constructor.查询trc20通证持有者 增加service_type字段 Limit不为零
