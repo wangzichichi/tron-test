@@ -33,12 +33,12 @@ public class AccountsList {
       .get(0);
 
   /**
-   * constructor.
+   * constructor.limit不为零
    */
   @Test(enabled = true, description = "List account")
   public void test01getAccount() {
     //Get response
-    int limit = 3;
+    int limit = 0;
     Map<String, String> params = new HashMap<>();
     params.put("sort", "-balance");
     params.put("limit", String.valueOf(limit));
@@ -48,6 +48,9 @@ public class AccountsList {
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
+    Long total = Long.valueOf(responseContent.get("total").toString());
+    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
+    Assert.assertTrue(rangeTotal >= total);
     //data object
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
@@ -58,6 +61,27 @@ public class AccountsList {
     Assert.assertTrue(responseObject.containsKey("power"));
     Assert.assertTrue(responseContent.containsKey("total"));
     Assert.assertTrue(responseContent.containsKey("rangeTotal"));
+  }
+
+  /**
+   * constructor.limit为零
+   */
+  @Test(enabled = true, description = "List account")
+  public void test01getAccountLimit() {
+    //Get response
+    int limit = 0;
+    Map<String, String> params = new HashMap<>();
+    params.put("sort", "-balance");
+    params.put("limit", String.valueOf(limit));
+    params.put("start", "0");
+    response = TronscanApiList.getAccount(tronScanNode, params);
+    log.info("code is " + response.getStatusLine().getStatusCode());
+    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+    responseContent = TronscanApiList.parseResponseContent(response);
+    TronscanApiList.printJsonContent(responseContent);
+    Long total = Long.valueOf(responseContent.get("total").toString());
+    Long rangeTotal = Long.valueOf(responseContent.get("rangeTotal").toString());
+    Assert.assertTrue(rangeTotal >= total);
   }
 
   /**

@@ -283,7 +283,7 @@ public class TronscanApiList {
    */
   public static HttpResponse getTokentrc20(String tronscanNode, Map<String, String> params) {
     try {
-      String requestUrl = "http://" + tronscanNode + "api/token_trc20?limit=20&start=0";
+      String requestUrl = "http://" + tronscanNode + "api/token_trc20";
       System.out.println(requestUrl);
       response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
@@ -679,6 +679,22 @@ public class TronscanApiList {
       String requestUrl = "http://" + tronscanNode + "/api/token?id=1001761&showAll=1";
       System.out.println(requestUrl);
       response = createGetConnect(requestUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      httpget.releaseConnection();
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * constructor.查询列表参与页
+   */
+  public static HttpResponse getTokenList(String tronscanNode, Map<String, String> params) {
+    try {
+      String requestUrl = "http://" + tronscanNode + "/api/token/list";
+      System.out.println(requestUrl);
+      response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
       e.printStackTrace();
       httpget.releaseConnection();
@@ -1245,9 +1261,9 @@ public class TronscanApiList {
         httppost.setEntity(entity);
       }
       SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
-      System.out.println("请求开始时间： "+formatter.format(new Date()));
+      System.out.println("请求开始时间： " + formatter.format(new Date()));
       response = httpClient.execute(httppost);
-      System.out.println("请求结束时间： "+formatter.format(new Date()));
+      System.out.println("请求结束时间： " + formatter.format(new Date()));
     } catch (Exception e) {
       e.printStackTrace();
       httppost.releaseConnection();
@@ -1289,7 +1305,7 @@ public class TronscanApiList {
       response = httpClient.execute(httpget);
       Instant endTime = Instant.now();
       requestTime = Duration.between(startTime, endTime).toMillis();
-      System.out.println(url+" 请求总耗时："+ Duration.between(startTime, endTime).toMillis()+" 毫秒" );
+      System.out.println(url + " 请求总耗时：" + Duration.between(startTime, endTime).toMillis() + " 毫秒");
 //      System.out.println("请求结束时间： "+formatter.format(new Date()));
     } catch (Exception e) {
       e.printStackTrace();
@@ -1322,8 +1338,8 @@ public class TronscanApiList {
   public static JSONObject parseResponseContent(HttpResponse response) {
     try {
       String result = EntityUtils.toString(response.getEntity());
-      result = result.substring(0,result.lastIndexOf("}"));
-      result = result +",\"requestTime\":"+requestTime+"}";
+      result = result.substring(0, result.lastIndexOf("}"));
+      result = result + ",\"requestTime\":" + requestTime + "}";
       StringEntity entity = new StringEntity(result, Charset.forName("UTF-8"));
       response.setEntity(entity);
       JSONObject obj = JSONObject.parseObject(result);

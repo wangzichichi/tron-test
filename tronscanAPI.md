@@ -842,3 +842,16 @@ Demo: curl -X Get  https://apilist.tronscan.org/api/witness/maintenance-statisti
   @return: data synchronization onecontract-callvalue;    
   @TestOwner:姜红;   
   @AutomationCase:true;
+  
+# 80 获取token/list参与列表信息页
+  **/api/token/list**  
+  Desc: List all the trc10 tokens in the blockchain  
+  Demo: curl -X Get  https://apilist.tronscan.org/api/token/list?sort=-name&limit=20&start=0&totalAll=1&status=ico  
+  @param sort: define the sequence of the records return;  
+  @param limit: page size for pagination;  
+  @param start: query index for pagination;  
+  @param totalAll: the total number of the trc10 tokens(audited and Unaudited tokens both included);  
+  @param status: if equals 'ico', only returns the tokens that can be participated;  
+  @return: trc10 tokens list(only audited tokens);  
+  @TestOwner:姜红;
+  @AutomationCase:true;
