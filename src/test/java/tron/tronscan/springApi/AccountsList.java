@@ -1,4 +1,4 @@
-package tron.tronscan.api;
+package tron.tronscan.springApi;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -13,6 +13,12 @@ import org.testng.annotations.Test;
 import tron.common.TronscanApiList;
 import tron.common.utils.Configuration;
 
+/**
+ * ${params}
+ *
+ * @Author:tron
+ * @Date:2019-11-25 16:22
+ */
 @Slf4j
 public class AccountsList {
 
@@ -45,7 +51,7 @@ public class AccountsList {
     //data object
     responseArrayContent = responseContent.getJSONArray("data");
     JSONObject responseObject = responseArrayContent.getJSONObject(0);
-    Assert.assertEquals(limit, responseObject.size());
+    Assert.assertEquals(limit + 1, responseObject.size());
     Pattern patternAddress = Pattern.compile("^T[a-zA-Z1-9]{33}");
     Assert.assertTrue(patternAddress.matcher(responseObject.getString("address")).matches());
     Assert.assertTrue(responseObject.containsKey("balance"));
@@ -75,7 +81,7 @@ public class AccountsList {
     Assert.assertTrue(patternAddress.matcher(responseContent.getString("address")).matches());
     Assert.assertTrue(responseContent.containsKey("frozen_supply"));
     Assert.assertTrue(responseContent.containsKey("accountType"));
-    Assert.assertTrue(responseContent.containsKey("exchanges"));
+    Assert.assertTrue(responseContent.containsKey("addressTag"));
     Assert.assertTrue(responseContent.containsKey("name"));
     Assert.assertTrue(responseContent.containsKey("voteTotal"));
     Assert.assertTrue(Long.valueOf(responseContent.get("totalTransactionCount").toString()) >= 0);
@@ -125,9 +131,9 @@ public class AccountsList {
     Assert.assertTrue(Long.valueOf(targetContent.get("balance").toString()) >= 0);
     Assert.assertTrue(targetContent.containsKey("name"));
 
-    //新增enabled
-    Assert.assertTrue(Boolean.valueOf(responseContent.getString("enabled")));
-    //新增url
+    //enabled
+    Assert.assertTrue(responseContent.containsKey("enabled"));
+    //url
     Assert.assertTrue(responseContent.containsKey("url"));
 
     //balances json
@@ -153,77 +159,6 @@ public class AccountsList {
     targetContent = responseContent.getJSONObject("representative");
     Assert.assertTrue(Integer.valueOf(targetContent.get("lastWithDrawTime").toString()) >= 0);
     Assert.assertTrue(Integer.valueOf(targetContent.get("allowance").toString()) >= 0);
-    //enabled
-    Assert.assertTrue(targetContent.containsKey("enabled"));
-    Assert.assertTrue(targetContent.containsKey("url"));
-
-  }
-
-  /**
-   * constructor.查询账户交易统计信息
-   */
-  @Test(enabled = true, description = "查询账户交易统计信息")
-  public void getAccountStats() {
-    //Get response
-    String address = "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9";
-    Map<String, String> params = new HashMap<>();
-    params.put("address", address);
-    response = TronscanApiList.getAccountStats(tronScanNode, params);
-    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = TronscanApiList.parseResponseContent(response);
-    TronscanApiList.printJsonContent(responseContent);
-    //data object
-    Assert.assertTrue(responseContent.size() == 3);
-    //wholeChainTxCount
-    Assert.assertTrue(Long.valueOf(responseContent.get("transactions").toString()) >= 0);
-    Long transactions = Long.valueOf(responseContent.get("transactions").toString());
-    Long transactions_out = Long.valueOf(responseContent.get("transactions_out").toString());
-    Long transactions_in = Long.valueOf(responseContent.get("transactions_in").toString());
-    Long total = transactions_in + transactions_out;
-    Assert.assertTrue((transactions_in + transactions_out) == transactions);
-  }
-
-  /**
-   * constructor.查询投票接口
-   */
-  @Test(enabled = true, description = "Get specific account's vote list")
-  public void getAccountVote() {
-    //Get response
-    String address = "TGzz8gjYiYRqpfmDwnLxfgPuLVNmpCswVp";
-    Map<String, String> params = new HashMap<>();
-    params.put("address", address);
-    response = TronscanApiList.getAccountVote(tronScanNode, params);
-    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = TronscanApiList.parseResponseContent(response);
-    TronscanApiList.printJsonContent(responseContent);
-    //data object
-    Assert.assertTrue(responseContent.size() == 1);
-    //votes
-    Assert.assertTrue(responseContent.containsKey("votes"));
-
-  }
-
-  /**
-   * constructor.查看SR信息
-   */
-  @Test(enabled = true, description = "Get a super representative's github link")
-  public void getAccountSr() {
-    //Get response
-    String address = "TGzz8gjYiYRqpfmDwnLxfgPuLVNmpCswVp";
-    Map<String, String> params = new HashMap<>();
-    params.put("address", address);
-    response = TronscanApiList.getAccountSr(tronScanNode, params);
-    Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-    responseContent = TronscanApiList.parseResponseContent(response);
-    TronscanApiList.printJsonContent(responseContent);
-    //data object
-    Assert.assertTrue(responseContent.size() == 1);
-    targetContent = responseContent.getJSONObject("data");
-    //address
-    Assert.assertTrue(targetContent.containsKey("address"));
-    //githubLink
-    Assert.assertTrue(targetContent.containsKey("githubLink"));
-
   }
 
   /**
@@ -233,5 +168,4 @@ public class AccountsList {
   public void shutdown() throws InterruptedException {
     TronscanApiList.disGetConnect();
   }
-
 }
