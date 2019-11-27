@@ -28,7 +28,8 @@ public class TokenList {
   private JSONObject targetContent;
   private HttpResponse response;
   private String tronScanNode = Configuration.getByPath("testng.conf")
-      .getStringList("tronscan.ip.list").get(0);
+      .getStringList("tronscanSpring.ip.list")
+      .get(0);
 
   /**
    * constructor.limit不为零

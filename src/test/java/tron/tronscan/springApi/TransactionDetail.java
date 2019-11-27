@@ -109,7 +109,7 @@ public class TransactionDetail {
     Params.put("start", "0");
     Params.put("start_timestamp", "1548000000000");
     Params.put("end_timestamp", "1548056638507");
-    response = TronscanApiList.getTransactionList(onlineNode, Params);
+    response = TronscanApiList.getTransactionList(tronScanNode, Params);
 
     org.junit.Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
@@ -164,7 +164,7 @@ public class TransactionDetail {
     Params.put("start", "0");
     Params.put("total", "0");
     Params.put("block", "14456772");
-    response = TronscanApiList.getTransactionList(onlineNode, Params);
+    response = TronscanApiList.getTransactionList(tronScanNode, Params);
 
     org.junit.Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
@@ -259,7 +259,7 @@ public class TransactionDetail {
     Params.put("start", "0");
     Params.put("total", "0");
     Params.put("block", number);
-    response = TronscanApiList.getTransactionList(onlineNode, Params);
+    response = TronscanApiList.getTransactionList(tronScanNode, Params);
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
 //    TronscanApiList.printJsonContent(responseContent);

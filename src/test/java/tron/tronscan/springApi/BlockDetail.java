@@ -183,7 +183,7 @@ public class BlockDetail {
     //Get response
     Map<String, String> params2 = new HashMap<>();
     params2.put("number", randomNumber);
-    response = TronscanApiList.getBlockDetail(onlineNode, params2);
+    response = TronscanApiList.getBlockDetail(tronScanNode, params2);
     log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
