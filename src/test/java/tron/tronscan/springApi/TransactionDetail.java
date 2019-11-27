@@ -224,7 +224,7 @@ public class TransactionDetail {
 
 
 //todo add
-  @Test(enabled = true)
+  @Test(enabled = false)
   public void test03GetTransactionDetail() throws Exception{
     //Get block Transaction from walletsolidity
     javatronResponse = JavaTronApiList.getNowBlock();
@@ -262,7 +262,7 @@ public class TransactionDetail {
     response = TronscanApiList.getTransactionList(onlineNode, Params);
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
-    TronscanApiList.printJsonContent(responseContent);
+//    TronscanApiList.printJsonContent(responseContent);
     //three object, "total" and "Data","rangeTotal"
     JSONArray exchangeArray = responseContent.getJSONArray("data");
     Assert.assertEquals(responseContent.getString("total"),String.valueOf(total));
@@ -274,7 +274,7 @@ public class TransactionDetail {
 
   }
 
-  @Test
+  @Test(enabled = false)
   public void test04transcationTime(){
     int tmp = 1;
     int min = 1;
