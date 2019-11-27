@@ -676,7 +676,7 @@ public class TronscanApiList {
    */
   public static HttpResponse getSingleTokenList(String tronscanNode) {
     try {
-      String requestUrl = "http://" + tronscanNode + "/api/token?id=1001761&showAll=1";
+      String requestUrl = "http://" + tronscanNode + "api/token?id=1001761&showAll=1";
       System.out.println(requestUrl);
       response = createGetConnect(requestUrl);
     } catch (Exception e) {
@@ -692,7 +692,7 @@ public class TronscanApiList {
    */
   public static HttpResponse getTokenList(String tronscanNode, Map<String, String> params) {
     try {
-      String requestUrl = "http://" + tronscanNode + "/api/token/list";
+      String requestUrl = "http://" + tronscanNode + "api/token/list";
       System.out.println(requestUrl);
       response = createGetConnect(requestUrl, params);
     } catch (Exception e) {
@@ -1338,8 +1338,8 @@ public class TronscanApiList {
   public static JSONObject parseResponseContent(HttpResponse response) {
     try {
       String result = EntityUtils.toString(response.getEntity());
-      result = result.substring(0, result.lastIndexOf("}"));
-      result = result + ",\"requestTime\":" + requestTime + "}";
+//      result = result.substring(0, result.lastIndexOf("}"));
+//      result = result + ",\"requestTime\":" + requestTime + "}";
       StringEntity entity = new StringEntity(result, Charset.forName("UTF-8"));
       response.setEntity(entity);
       JSONObject obj = JSONObject.parseObject(result);
