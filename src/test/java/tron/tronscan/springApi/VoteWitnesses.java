@@ -97,8 +97,6 @@ public class VoteWitnesses {
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
 
-    //data object
-    Assert.assertTrue(responseContent.size() == 3);
     //success
     //Assert.assertTrue(Boolean.valueOf(responseContent.getString("success")));
     targetContent = responseContent.getJSONObject("data");
