@@ -135,7 +135,7 @@ public class TokenList {
     params.put("status", status);
     params.put("showAll", "2");
     response = TronscanApiList.getTokenList(tronScanNode, params);
-    log.info("code is " + response.getStatusLine().getStatusCode());
+//    log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
@@ -201,7 +201,7 @@ public class TokenList {
     params.put("status", status);
     params.put("showAll", "2");
     response = TronscanApiList.getTokenList(tronScanNode, params);
-    log.info("code is " + response.getStatusLine().getStatusCode());
+//    log.info("code is " + response.getStatusLine().getStatusCode());
     Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
