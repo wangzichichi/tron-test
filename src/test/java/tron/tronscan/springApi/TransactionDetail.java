@@ -52,7 +52,7 @@ public class TransactionDetail {
     Params.put("count", "true");
     Params.put("start", "0");
     Params.put("address", "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9");
-    response = TronscanApiList.getTransactionList(onlineNode, Params);
+    response = TronscanApiList.getTransactionList(tronScanNode, Params);
     log.info("code is " + response.getStatusLine().getStatusCode());
     org.junit.Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
     responseContent = TronscanApiList.parseResponseContent(response);
