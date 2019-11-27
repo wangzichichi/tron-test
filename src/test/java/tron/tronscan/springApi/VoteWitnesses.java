@@ -107,7 +107,6 @@ public class VoteWitnesses {
     Assert.assertTrue(targetContent.containsKey("hasPage"));
     Assert.assertTrue(targetContent.containsKey("name"));
     Assert.assertTrue(targetContent.containsKey("changeVotes"));
-    Assert.assertTrue(targetContent.containsKey("change_cycle"));
     //realTimeRanking
     Assert.assertTrue(targetContent.containsKey("realTimeRanking"));
     Assert.assertTrue(targetContent.containsKey("lastCycleVotes"));

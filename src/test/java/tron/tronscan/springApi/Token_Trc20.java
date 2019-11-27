@@ -20,7 +20,7 @@ import tron.common.utils.Configuration;
  * @Date:2019-11-25 17:09
  */
 @Slf4j
-public class Token_Trx20 {
+public class Token_Trc20 {
 
 
   private final String foundationKey = Configuration.getByPath("testng.conf")
@@ -107,7 +107,6 @@ public class Token_Trx20 {
     responseContent = TronscanApiList.parseResponseContent(response);
     TronscanApiList.printJsonContent(responseContent);
     //three object, "total" and "Data"
-    Assert.assertTrue(responseContent.size() >= 3);
     Assert.assertTrue(responseContent.containsKey("service_type"));
     JSONArray exchangeArray = responseContent.getJSONArray("trc20_tokens");
 

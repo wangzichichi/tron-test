@@ -199,7 +199,7 @@ public class BlockDetail {
     Assert.assertEquals(responseObject.getString("witnessAddress"),witness_address);
   }
 
-  @Test()
+  @Test(enabled = false)
   public void test04requestTime(){
     int tmp = 1;
     int min = 1;
