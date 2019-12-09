@@ -3,7 +3,7 @@
 <suite name="tronscan" parallel="tests" thread-count="1">
 <test name="tronscan">
   <packages>
-    <package name="tron.tronscan.springApi">
+    <package name="tron.tronscan.api">
     </package>
   </packages>
 </test>
