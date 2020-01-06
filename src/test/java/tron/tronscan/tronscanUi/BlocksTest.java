@@ -4,12 +4,12 @@ import org.testng.annotations.Test;
 import tron.common.pages.BlockChainPage;
 
 public class BlocksTest {
-  private BlockChainPage nodesPage = null;
+  private BlockChainPage blocksPage = null;
 
   @Test
-  public void test0001block() throws Exception{
-    nodesPage = new BlockChainPage();
-    nodesPage.openNodes();
+  public void test0001blocks() throws Exception{
+    blocksPage = new BlockChainPage();
+    blocksPage.openBlocks();
   }
 
 }
